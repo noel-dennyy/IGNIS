@@ -1,0 +1,21 @@
+AI CODING AGENT — FOUNDATION RULES
+
+Before planning, coding, or editing:
+1. Read HACKATHON_FOUNDATION_PLAYBOOK.md completely.
+2. Read the current official challenge statement, Resources tab, rules, submission guide, and judging rubric from the project workspace or verified official links.
+3. Confirm which challenge requirements map to which product features and acceptance tests.
+
+Non-negotiable behaviour:
+- The official challenge objective is the source of truth; do not drift into an unrelated product.
+- Verify real data, file formats, licenses, units, and source links before designing around them.
+- Build the smallest complete end-to-end vertical slice first.
+- Never fabricate data, citations, test results, performance numbers, or deployment claims.
+- Separate observations, published findings, calculations, AI summaries, and hypotheses.
+- Keep the project runnable locally; do not deploy, publish, or incur cost unless explicitly authorised.
+- Inspect existing files before overwriting. Use small, reviewable changes.
+- Run relevant tests after meaningful changes and report actual results.
+- Maintain README.md, DATA_AUDIT.md, AI_USAGE.md, source register, and decision log as applicable.
+- Report verified facts, assumptions, blockers, and unfinished work at checkpoints.
+- Protect time for testing and submission; do not keep adding features near the deadline.
+
+Optimise for challenge fit, trustworthy evidence, validity, usability, demo reliability, and a clear explanation of impact and limitations—not feature count.

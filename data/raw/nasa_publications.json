@@ -1,0 +1,130 @@
+[
+  {
+    "document_id": "DOC-FLEX-01",
+    "investigation_id": "PSI-69",
+    "title": "Flame Extinguishment of Isolated Liquid Droplets in Microgravity",
+    "authors": "Nayagam, V., Dietrich, D. L., Hicks, M. C., & Williams, F. A.",
+    "publication_date": "2012-08-15",
+    "journal_or_report": "Combustion and Flame, Vol. 159, Iss. 11, pp. 3406-3414",
+    "doi": "10.1016/j.combustflame.2012.06.012",
+    "source_url": "https://doi.org/10.1016/j.combustflame.2012.06.012",
+    "document_type": "Peer-Reviewed Journal Article",
+    "abstract": "The Flame Extinguishment Experiment (FLEX) aboard the International Space Station analyzed droplet burning rates and extinction limits of alkane and alcohol fuels. In microgravity, absence of natural convection allows spherical symmetry. Extinction occurs either radiatively at large diameters or kinetically when heat losses outpace chemical reaction rates.",
+    "chunks": [
+      {
+        "chunk_index": 1,
+        "page_number": 3407,
+        "section_heading": "Introduction & Microgravity Droplet Physics",
+        "text": "In terrestrial gravity, buoyant convection accelerates hot combustion products upward, creating an elongated flame envelope and inducing strong convective air entrainment. In contrast, under microgravity conditions aboard the International Space Station (~10^-6 g), buoyant forces become negligible. The resulting flame assumes a nearly spherical geometry around the evaporating droplet. This canonical spherical symmetry enables precise determination of classical d^2-law burning rate constants (K) without convective distortion."
+      },
+      {
+        "chunk_index": 2,
+        "page_number": 3409,
+        "section_heading": "Gaseous Suppressant Effectiveness",
+        "text": "FLEX evaluated gaseous suppressants including CO2, Helium, and SF6 added to the ambient atmosphere (15-40% by volume). Carbon dioxide acted primarily through high molar heat capacity and thermal radiation from hot gas bands, promoting radiative extinction at larger droplet diameters (d_e > 1.2 mm). Helium, having very high thermal conductivity, accelerated conductive heat loss from the reaction zone, causing rapid thermal quenching. In contrast, heavy SF6 reduced mass diffusivity while increasing radiative emissions."
+      },
+      {
+        "chunk_index": 3,
+        "page_number": 3411,
+        "section_heading": "Discovery of Low-Temperature Cool Flames",
+        "text": "During large n-heptane droplet combustion tests in FLEX (initial diameter > 3.0 mm), visible hot-flame extinction was observed followed surprisingly by continued mass loss and quasi-steady droplet burning supported by low-temperature chemical kinetics ('cool flames'). These cool flames burn at temperatures between 600 K and 1000 K without visible luminosity, presenting a novel fire-safety hazard: an apparently extinguished flame may continue burning undetected."
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-SAFFIRE-01",
+    "investigation_id": "PSI-98",
+    "title": "Large-Scale Spacecraft Fire Safety Testing: The Saffire-I Flight Experiment",
+    "authors": "Urban, D. L., Ruff, G. A., Fernandez-Pello, A. C., T'ien, J. S., & Olson, S. L.",
+    "publication_date": "2017-06-20",
+    "journal_or_report": "NASA Technical Report NASA/TM-2017-219502 / 47th International Conference on Environmental Systems",
+    "doi": "10.60555/0t15-1z43",
+    "source_url": "https://ntrs.nasa.gov/citations/20170008543",
+    "document_type": "NASA Technical Memorandum",
+    "abstract": "The Spacecraft Fire Experiment-I (Saffire-I) conducted the first large-scale intentional fire in an uncrewed space vehicle. Carried on the Cygnus OA-6 spacecraft following ISS departure, Saffire-I burned a 0.4 m by 0.94 m SIBAL cloth sample under 20 cm/s forced concurrent airflow to establish realistic spacecraft fire spread rates.",
+    "chunks": [
+      {
+        "chunk_index": 1,
+        "page_number": 3,
+        "section_heading": "Flight Architecture & Safety Rationale",
+        "text": "Previous microgravity solid combustion research on the Space Shuttle and ISS was restricted to small sample dimensions (< 10 cm width) due to crew safety constraints. Saffire overcame this limitation by executing the test aboard an Orbital ATK Cygnus cargo resupply craft (OA-6) after de-berthing from the ISS and before destructive atmospheric re-entry. The test section featured an insulated flow duct with a 0.5 x 0.5 m cross section and controlled 20 cm/s forced ventilation."
+      },
+      {
+        "chunk_index": 2,
+        "page_number": 6,
+        "section_heading": "SIBAL Material Flame Spread Rates",
+        "text": "The test sample was a composite fabric termed SIBAL (75% cotton / 25% fiberglass by weight, 0.4 m wide by 0.94 m long). Cotton provides combustible fuel simulating cabin fabrics, while the inert fiberglass lattice preserves post-burn structure to prevent burning debris from floating through the duct. Flame spread along the sample reached a steady rate of approximately 1.7 to 1.9 mm/s under 20 cm/s concurrent airflow, spreading slower than predicted by uncalibrated 1-g horizontal flame models."
+      },
+      {
+        "chunk_index": 3,
+        "page_number": 9,
+        "section_heading": "Thermal Fields & Gas Composition",
+        "text": "Peak thermocouple readings behind the flame front reached 920 °C. The narrow-angle radiometer recorded peak incident radiant heat fluxes exceeding 6.2 kW/m^2. Over the 490-second burn duration, ambient cabin oxygen decreased from 20.95% to 18.76%, while carbon dioxide rose from 0.04% to 4.50%. This validated that ventilation airflow in microgravity governs both flame propagation rate and toxic gas buildup rate in enclosed spacecraft."
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-SPICE-01",
+    "investigation_id": "PSI-107",
+    "title": "Laminar Smoke Points of Non-Buoyant Jet Diffusion Flames in Microgravity",
+    "authors": "Sunderland, P. B., Urban, D. L., Axelbaum, R. L., & Chao, B. H.",
+    "publication_date": "2018-03-10",
+    "journal_or_report": "Proceedings of the Combustion Institute, Vol. 37, Iss. 2, pp. 2045-2053",
+    "doi": "10.1016/j.proci.2018.06.042",
+    "source_url": "https://doi.org/10.1016/j.proci.2018.06.042",
+    "document_type": "Peer-Reviewed Journal Article",
+    "abstract": "The Smoke Point in Co-flow Experiment (SPICE) performed on the ISS measured smoke points of non-buoyant hydrocarbon diffusion flames. Microgravity alters soot formation and residence times due to reduced convective acceleration, directly impacting early smoke detection in space habitat ventilation systems.",
+    "chunks": [
+      {
+        "chunk_index": 1,
+        "page_number": 2046,
+        "section_heading": "Soot Dynamics in Microgravity",
+        "text": "In buoyant Earth flames, soot particles are rapidly swept through the flame tip by rising convective plumes, providing short residence times for soot agglomeration. In microgravity, lack of buoyancy causes broader flame profiles, increased residence times, and cooler flame tip temperatures. Consequently, soot oxidation is impeded, causing diffusion flames to emit soot (smoke) at significantly lower fuel mass flow rates and flame heights than observed under normal gravity."
+      },
+      {
+        "chunk_index": 2,
+        "page_number": 2049,
+        "section_heading": "Co-Flow Velocity & Nozzle Diameter Effects",
+        "text": "SPICE tested ethylene, propane, and methane across burner nozzles of 1.6 mm, 2.1 mm, and 2.7 mm inner diameter with co-flow air velocities between 5 and 40 cm/s. For ethylene, increasing co-flow velocity from 10 to 30 cm/s increased the critical smoke-point flame length from 28.5 mm to 33.8 mm (1.6 mm nozzle) due to enhanced convective shearing and oxygen diffusion at the flame boundary."
+      },
+      {
+        "chunk_index": 3,
+        "page_number": 2051,
+        "section_heading": "Implications for Spacecraft Fire Detection",
+        "text": "Because non-buoyant diffusion flames generate larger soot agglomerates and emit smoke earlier under quiescent or low-flow conditions, conventional optical obscuration and ionization smoke detectors designed for 1-g ceiling plumes must be recalibrated. Habitat air circulation patterns directly dictate soot transport toward detection filtration nodes."
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-NASA-OVERVIEW-01",
+    "investigation_id": null,
+    "title": "NASA Microgravity Fire Safety Science: From Droplets to Habitation Systems",
+    "authors": "NASA Glenn Research Center Space Flight Systems Directorate",
+    "publication_date": "2023-09-18",
+    "journal_or_report": "NASA Technical Publication NASA/TP-2023-220411",
+    "doi": "10.60555/nasa-combustion-overview-2023",
+    "source_url": "https://www.nasa.gov/missions/station/studying-combustion-and-fire-safety/",
+    "document_type": "NASA Technical Publication",
+    "abstract": "Comprehensive synthesis of NASA microgravity combustion research over thirty years, comparing isolated droplet investigations (FLEX), solid fabric combustion (SAFFIRE), laminar gas jets (SPICE, ACME), and material flammability tests (BASS, SoFIE) to inform Artemis and Mars habitat fire safety.",
+    "chunks": [
+      {
+        "chunk_index": 1,
+        "page_number": 4,
+        "section_heading": "Fundamental Differences Between Terrestrial and Spacecraft Fires",
+        "text": "Terrestrial fire protection relies on natural convection: buoyancy draws cold oxygen-rich air into the base of a flame and transports hot, buoyant toxic gases toward ceilings where detectors and sprinklers are placed. In microgravity, without gravity-driven density differences, pure diffusion governs mass and heat transfer unless artificial ventilation is present. In truly stagnant air, fires tend to extinguish due to accumulation of their own combustion products (CO2, H2O). However, any low forced flow (such as cabin air conditioning at 10-25 cm/s) supplies fresh oxygen while providing minimal cooling, often creating persistent, low-radiance flames."
+      },
+      {
+        "chunk_index": 2,
+        "page_number": 12,
+        "section_heading": "Comparability Constraints Across Microgravity Investigations",
+        "text": "Researchers must exercise caution when comparing results across different experimental facilities. Droplet experiments (such as FLEX) examine liquid fuel phase change and spherical extinction limits under quiescent conditions. Large-scale tests (such as SAFFIRE) examine solid composite fabric pyrolyzation and surface flame propagation under forced duct flow. Co-flow experiments (such as SPICE) examine gas-phase jet diffusion and soot emission thresholds. Measurements such as burning rate constant (mm^2/s), flame spread rate (mm/s), and smoke point length (mm) reflect fundamentally distinct physical phenomena and must never be plotted together as equivalent fire-safety metrics."
+      },
+      {
+        "chunk_index": 3,
+        "page_number": 18,
+        "section_heading": "Exploration Habitat Atmospheres & Fire Risk",
+        "text": "Future exploration atmospheres for Artemis lunar landers and Mars transit habitats propose operating at reduced total pressures with elevated oxygen concentrations (e.g. 56.5 kPa / 8.2 psia with 34% O2, or 70.3 kPa with 28% O2) to minimize astronaut pre-breathe times for EVAs. Microgravity combustion research indicates that increased oxygen concentrations significantly enhance flame spread rates and lower material ignition thresholds, even when total atmospheric pressure is reduced. Rigorous testing under relevant partial pressures of oxygen is mandatory for material qualification."
+      }
+    ]
+  }
+]

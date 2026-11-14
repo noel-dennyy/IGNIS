@@ -1,0 +1,31 @@
+{
+  "investigation_id": "PSI-107",
+  "name": "Smoke Point in Co-flow Experiment (SPICE)",
+  "doi": "10.60555/9kbh-e962",
+  "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107",
+  "license": "CC0-1.0",
+  "version": "Version 3",
+  "updated_at": "2024-11-12",
+  "platform": "International Space Station (ISS)",
+  "facility": "Combustion Integrated Rack (CIR) / Advanced Combustion via Microgravity Experiments (ACME)",
+  "nasa_center": "Glenn Research Center (GRC)",
+  "lead_investigators": [
+    "Peter B. Sunderland (University of Maryland, Principal Investigator)",
+    "David L. Urban (NASA GRC)",
+    "Richard L. Axelbaum (Washington University in St. Louis)"
+  ],
+  "research_area": "Combustion Science",
+  "subresearch_area": "Fire Safety",
+  "description": "SPICE determined the laminar smoke-point properties of non-buoyant hydrocarbon jet diffusion flames burning under controlled co-flow velocities in microgravity. Without buoyancy to accelerate exhaust gases and narrow flame tips, soot residence times increase dramatically in microgravity, shifting smoke emission thresholds. SPICE measured smoke-point flame lengths and fuel mass flow rates across various nozzle diameters to guide space habitat smoke detector sensitivity and soot emission models.",
+  "gravity_regime": "Microgravity (~10^-6 g)",
+  "apparatus": "ACME insert in CIR, featuring round brass and stainless-steel fuel nozzles (1.6 mm, 2.1 mm, 2.7 mm inner diameter), laminar co-flow air duct (5 to 40 cm/s), color ratio pyrometry cameras, soot optical transmission laser, and exhaust gas sensors.",
+  "fuels_tested": ["Ethylene (C2H4)", "Propane (C3H8)", "Methane (CH4)"],
+  "experimental_variables": [
+    "Fuel type",
+    "Burner nozzle diameter (d_n) [mm]",
+    "Co-flow air velocity (V_co) [cm/s]",
+    "Smoke-point flame length (L_sp) [mm]",
+    "Smoke-point fuel mass flow rate (m_dot_sp) [mg/s]",
+    "Soot formation index (qualitative/colorimetry)"
+  ]
+}

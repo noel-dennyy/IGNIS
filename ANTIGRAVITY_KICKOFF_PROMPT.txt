@@ -1,0 +1,40 @@
+You are the senior engineering agent responsible for building IGNIS, a solo NASA Space Apps Challenge 2026 hackathon prototype.
+
+READ THE ENTIRE FILE `IGNIS_ANTIGRAVITY_MASTER_SPEC.md` FIRST. Treat it as the product, scientific-integrity, architecture, implementation, testing, and submission source of truth.
+
+The selected official challenge is “Flame in Freefall: SI-Powered Fire Safety Insights from Microgravity Combustion Data”:
+https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/
+
+Build an interactive, source-grounded research intelligence dashboard that helps users discover, summarize, rank, compare, and interpret NASA microgravity-combustion research. Use NASA PSI records as primary sources, beginning with FLEX (PSI-69), SAFFIRE-I (PSI-98), and SPICE (PSI-107). Inspect the actual downloadable file lists and contents before selecting data. Do not assume formats, file sizes, common schemas, or direct download URLs. Start with a small, verifiable dataset.
+
+CRITICAL GLOBAL-AWARDS DATA REQUIREMENT: Before choosing datasets, open the exact challenge Resources tab:
+https://www.spaceappschallenge.org/2026/challenges/flame-in-freefall/?tab=resources
+The NASA Space Apps Global Organizing Team has clarified in its official 2026 forum that Global Awards eligibility requires using at least one NASA data source listed in the selected challenge's Resources. Inspect the exact list, select at least one listed NASA source, actually use it, and record its title/URL/license and usage in DATA_AUDIT.md. Do not assume FLEX/SAFFIRE/SPICE automatically qualify unless the challenge Resources tab confirms them. If the tab cannot be accessed, ask me to inspect it and do not claim eligibility until verified.
+
+AI DISCLOSURE REQUIREMENT: AI tools are allowed, but disclose where/how AI was used. The official GO Team says AI-generated images/videos need a visible AI-generated watermark; audio needs disclosure in descriptive text/metadata; AI-generated code/data must be acknowledged; generated content must not use NASA logos/flags/branding. Create AI_USAGE.md and record Antigravity and every other AI tool actually used. Avoid AI-generated NASA-style logos or mission insignia.
+
+The first priority is a working vertical slice: verified NASA source metadata/data -> normalized database -> FastAPI endpoints -> React investigation page -> traceable source links. Then implement document search, citation-grounded AI assistant with a no-API-key fallback, transparent evidence-relevance ranking, and cautious comparison/evidence-gap features.
+
+Use a practical React + Vite frontend and FastAPI + Python backend. SQLite is adequate for the hackathon. Use Pandas/NumPy, PyMuPDF, and scikit-learn lexical retrieval first. Make an LLM provider optional and backend-only; never commit secrets. Use Recharts/Plotly only where real compatible numeric data exists.
+
+NON-NEGOTIABLE SCIENTIFIC RULES:
+- Never invent NASA measurements, source citations, DOIs, units, findings, dataset fields, or API endpoints.
+- Preserve source URLs, investigation IDs, DOI, file names, page/row locators, licenses, versions, retrieval date, and checksums where practical.
+- Keep raw measured observations separate from published findings, AI summaries, and IGNIS inferences.
+- Missing data stays null/unknown, never zero.
+- Do not treat FLEX, SAFFIRE-I, and SPICE as directly comparable experiments without validating apparatus, fuel/material, gravity regime, pressure, oxygen, flow, geometry, and measurement definitions.
+- Ranking means relevance of source evidence to a question/scenario, NOT fire danger, safety probability, or validated mission risk. Explain the factors.
+- State “not found in the indexed corpus,” not “NASA has never studied this.”
+- Do not make operational spacecraft fire-safety claims or claim that IGNIS is NASA-approved.
+- Do not fabricate charts or dashboard counts. If data is unavailable, show a useful empty state and source discovery links.
+
+START NOW:
+1. Inspect workspace and runtime versions.
+2. Inspect official challenge and PSI source pages.
+3. Audit PSI-69, PSI-98, PSI-107 files, then create `DATA_AUDIT.md` recording what is actually accessible and usable.
+4. Scaffold the app and implement the working vertical slice.
+5. Run tests and the production frontend build.
+6. Continue in priority order from the master spec.
+7. Keep `README.md`, `DATA_AUDIT.md`, `.env.example`, source manifest, and a concise demo script updated.
+
+Do not just give me a plan. Make the working project in the workspace. Ask a question only when a required credential or user decision truly blocks progress; otherwise make conservative, reversible decisions and document them. At each checkpoint, state what works, what remains, and what was actually verified.
