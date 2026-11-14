@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ductWall" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="sibalClean" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="url(#ductWall)" />
+
+  <!-- Flow Duct Boundaries -->
+  <rect x="80" y="120" width="1120" height="480" fill="#090d16" stroke="#334155" stroke-width="2" />
+
+  <!-- Unburnt SIBAL Fabric Panel (0.4m x 0.94m) -->
+  <rect x="240" y="200" width="880" height="320" fill="url(#sibalClean)" rx="2" stroke="#64748b" stroke-width="1.5" />
+  <!-- Fabric Weave Texture -->
+  <path d="M 240 240 L 1120 240 M 240 280 L 1120 280 M 240 320 L 1120 320 M 240 360 L 1120 360 M 240 400 L 1120 400 M 240 440 L 1120 440 M 240 480 L 1120 480" stroke="#94a3b8" stroke-width="0.5" opacity="0.4" />
+
+  <!-- Concurrent Flow Vectors (Left to Right) -->
+  <g stroke="#38bdf8" stroke-width="2" fill="none">
+    <path d="M 110 320 L 190 320 M 180 315 L 190 320 L 180 325" />
+    <path d="M 110 360 L 190 360 M 180 355 L 190 360 L 180 365" />
+    <path d="M 110 400 L 190 400 M 180 395 L 190 400 L 180 405" />
+  </g>
+  <text x="110" y="295" fill="#38bdf8" font-family="monospace" font-size="12">Airflow: 20 cm/s</text>
+
+  <!-- Hot Wire Igniter Line (t=15s Ignition Transient) -->
+  <line x1="255" y1="205" x2="255" y2="515" stroke="#ef4444" stroke-width="6" stroke-linecap="round" />
+  <circle cx="255" cy="360" r="45" fill="rgba(245, 158, 11, 0.4)" />
+  <circle cx="255" cy="360" r="22" fill="#f59e0b" />
+
+  <!-- Scale Bar (10 cm) -->
+  <rect x="960" y="560" width="160" height="4" fill="#38bdf8" />
+  <line x1="960" y1="552" x2="960" y2="568" stroke="#38bdf8" stroke-width="2" />
+  <line x1="1120" y1="552" x2="1120" y2="568" stroke="#38bdf8" stroke-width="2" />
+  <text x="1040" y="550" fill="#38bdf8" font-family="monospace" font-size="12" text-anchor="middle">10.0 cm Scale</text>
+
+  <!-- Telemetry Header Overlay -->
+  <rect x="25" y="25" width="560" height="52" rx="4" fill="rgba(15, 23, 42, 0.85)" stroke="#334155" />
+  <text x="38" y="46" fill="#38bdf8" font-family="monospace" font-weight="bold" font-size="13">NASA PSI-98 · SAFFIRE-I ON CYGNUS OA-6</text>
+  <text x="38" y="66" fill="#94a3b8" font-family="monospace" font-size="11">SIBAL Cloth (0.4x0.94m) · t=15s · Hot-Wire Ignition Line</text>
+</svg>

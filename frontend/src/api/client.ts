@@ -9,7 +9,14 @@ import type {
   ObservationItem,
   CompareResponse,
   RankResponse,
-  AssistantAskResponse
+  AssistantAskResponse,
+  ExperimentImage,
+  ImageCompareResponse,
+  TimeSeriesResponse,
+  ScatterResponse,
+  DistributionResponse,
+  HeatmapResponse,
+  ScientificInsight
 } from "../types";
 
 const API_BASE = "http://127.0.0.1:8000";
@@ -74,5 +81,26 @@ export const api = {
     request<AssistantAskResponse>("/api/assistant/ask", {
       method: "POST",
       body: JSON.stringify({ question, investigation_ids, top_k })
-    })
+    }),
+
+  // ── Images ────────────────────────────────────────────────────────────────
+  getImages: (investigation_id?: string) => {
+    const q = investigation_id ? `?investigation_id=${investigation_id}` : "";
+    return request<ExperimentImage[]>(`/api/images${q}`);
+  },
+  getImage: (id: string) => request<ExperimentImage>(`/api/images/${id}`),
+  compareImages: (id: string, compareId: string) =>
+    request<ImageCompareResponse>(`/api/images/${id}/compare/${compareId}`),
+
+  // ── Visualization ─────────────────────────────────────────────────────────
+  getTimeSeries: (investigation_id = "PSI-98") =>
+    request<TimeSeriesResponse>(`/api/viz/time-series?investigation_id=${investigation_id}`),
+  getScatterData: (dataset_type = "flex_droplet") =>
+    request<ScatterResponse>(`/api/viz/scatter?dataset_type=${dataset_type}`),
+  getDistribution: (variable = "burning_rate_k") =>
+    request<DistributionResponse>(`/api/viz/distribution?variable=${variable}`),
+  getHeatmap: (heatmap_type = "duct_temperature_grid") =>
+    request<HeatmapResponse>(`/api/viz/heatmap?heatmap_type=${heatmap_type}`),
+  getInsights: (view_id: string) =>
+    request<ScientificInsight>(`/api/viz/insights/${view_id}`),
 };

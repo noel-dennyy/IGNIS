@@ -15,6 +15,8 @@ from app.routers.findings import list_findings
 from app.routers.compare import compare_investigations
 from app.routers.ranking import rank_evidence
 from app.routers.assistant import ask_assistant
+from app.routers.images import list_images, get_image, compare_images
+from app.services.visualization import ScientificVisualizationService
 from app.schemas import CompareRequest, RankRequest, AssistantAskRequest
 
 class TestIgnisBackendDirect(unittest.TestCase):
@@ -123,6 +125,92 @@ class TestIgnisBackendDirect(unittest.TestCase):
         fnds = list_findings(investigation_id="PSI-98", limit=5)
         self.assertGreater(len(fnds), 0)
         self.assertEqual(fnds[0].evidence_class, "Published finding")
+
+    # ── New tests: Images & Visualization ────────────────────────────────────
+
+    def test_11_images_list_all(self):
+        """All 8 synthetic illustration records should be present."""
+        imgs = list_images()
+        self.assertEqual(len(imgs), 8, "Expected 8 image records from ingest")
+        # Every record must carry the synthetic label
+        for img in imgs:
+            self.assertIn("Synthetic", img.image_type_label)
+            self.assertTrue(img.file_path.startswith("/images/experiments/"))
+
+    def test_12_images_list_by_investigation(self):
+        """Filter by investigation_id returns correct subset."""
+        flex_imgs = list_images(investigation_id="PSI-69")
+        self.assertEqual(len(flex_imgs), 3, "FLEX should have 3 illustrations")
+        for img in flex_imgs:
+            self.assertEqual(img.investigation_id, "PSI-69")
+
+        saffire_imgs = list_images(investigation_id="PSI-98")
+        self.assertEqual(len(saffire_imgs), 3, "SAFFIRE-I should have 3 illustrations")
+
+        spice_imgs = list_images(investigation_id="PSI-107")
+        self.assertEqual(len(spice_imgs), 2, "SPICE should have 2 illustrations")
+
+    def test_13_image_detail_and_annotations(self):
+        """Single image detail should include annotations."""
+        imgs = list_images(investigation_id="PSI-69")
+        first_id = imgs[0].id
+        detail = get_image(first_id)
+        self.assertEqual(detail.id, first_id)
+        self.assertIsInstance(detail.annotations, list)
+        self.assertGreater(len(detail.annotations), 0, "Illustrations should have annotations")
+        ann = detail.annotations[0]
+        self.assertTrue(ann.label)
+        self.assertTrue(0 <= ann.x_pct <= 100)
+        self.assertTrue(0 <= ann.y_pct <= 100)
+
+    def test_14_image_cross_investigation_compare(self):
+        """Cross-investigation compare should warn about incompatibility."""
+        flex_imgs = list_images(investigation_id="PSI-69")
+        saffire_imgs = list_images(investigation_id="PSI-98")
+        resp = compare_images(flex_imgs[0].id, saffire_imgs[0].id)
+        self.assertFalse(resp.compatible_for_visual_comparison)
+        self.assertFalse(resp.shared_investigation)
+        self.assertIn("DIFFERENT investigations", resp.comparison_note)
+
+    def test_15_time_series_data(self):
+        """SAFFIRE-I time series must return non-empty data with required channels."""
+        svc = ScientificVisualizationService()
+        result = svc.get_time_series("PSI-98")
+        self.assertEqual(result["investigation_id"], "PSI-98")
+        self.assertGreater(len(result["data"]), 0)
+        self.assertIn("flame_spread_rate_mm_s", result["data"][0])
+        self.assertIn("peak_temperature_c", result["data"][0])
+
+    def test_16_scatter_data_flex(self):
+        """FLEX scatter data must return points with d0 and K axes."""
+        svc = ScientificVisualizationService()
+        result = svc.get_scatter_data("flex_droplet")
+        self.assertEqual(result["dataset_type"], "flex_droplet")
+        self.assertGreater(len(result["points"]), 0)
+        pt = result["points"][0]
+        self.assertIn("initial_diameter_mm", pt)
+        self.assertIn("burning_rate_k_mm2_s", pt)
+
+    def test_17_distribution_burning_rate(self):
+        """Distribution bins must cover actual data with correct statistics."""
+        svc = ScientificVisualizationService()
+        result = svc.get_distribution("burning_rate_k")
+        self.assertIn("bins", result)
+        self.assertGreater(len(result["bins"]), 0)
+        stats = result["statistics"]
+        self.assertGreater(stats["count"], 0)
+        self.assertIn("mean", stats)
+        self.assertIn("std_dev", stats)
+
+    def test_18_insights_structure(self):
+        """Scientific insights response must include all required keys."""
+        svc = ScientificVisualizationService()
+        for view_id in ["time_series", "scatter", "distribution", "heatmap"]:
+            result = svc.get_scientific_insights(view_id)
+            self.assertEqual(result["view_id"], view_id)
+            self.assertTrue(result.get("what_graph_displays"), f"Missing 'what_graph_displays' for {view_id}")
+            self.assertIsInstance(result.get("key_trends"), list, f"'key_trends' should be a list for {view_id}")
+            self.assertGreater(len(result["key_trends"]), 0, f"No trends for {view_id}")
 
 if __name__ == "__main__":
     unittest.main()

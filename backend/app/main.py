@@ -15,7 +15,9 @@ from app.routers import (
     compare,
     ranking,
     assistant,
-    sources
+    sources,
+    images,
+    visualization
 )
 
 app = FastAPI(
@@ -45,6 +47,8 @@ app.include_router(compare.router)
 app.include_router(ranking.router)
 app.include_router(assistant.router)
 app.include_router(sources.router)
+app.include_router(images.router)
+app.include_router(visualization.router)
 
 from starlette.staticfiles import StaticFiles
 from pathlib import Path

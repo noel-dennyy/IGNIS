@@ -170,3 +170,116 @@ class AssistantAskResponse(BaseModel):
     limitations: List[str]
     retrieval_method: str
     is_offline_fallback: bool
+
+
+# ── Experiment Images ────────────────────────────────────────────────────────
+
+class ImageAnnotation(BaseModel):
+    id: str
+    label: str
+    description: str
+    x_pct: float
+    y_pct: float
+    color: Optional[str] = "#38BDF8"
+
+class ExperimentImageRecord(BaseModel):
+    id: str
+    investigation_id: str
+    title: str
+    description: str
+    file_path: str
+    thumbnail_path: Optional[str] = None
+    observation_time_s: Optional[float] = None
+    gravity_regime: str
+    fuel_or_material: str
+    apparatus: str
+    camera_modality: str
+    resolution: Optional[str] = None
+    source_citation: str
+    doi: Optional[str] = None
+    source_url: str
+    annotations: List[ImageAnnotation] = []
+    paired_comparison_id: Optional[str] = None
+    image_type_label: str = "Scientific Illustration (Synthetic) — Not a NASA photograph"
+
+class ImageCompareResponse(BaseModel):
+    image_a: ExperimentImageRecord
+    image_b: ExperimentImageRecord
+    comparison_note: str
+    compatible_for_visual_comparison: bool
+    shared_investigation: bool
+
+
+# ── Visualization ────────────────────────────────────────────────────────────
+
+class VizChannel(BaseModel):
+    key: str
+    name: str
+    unit: str
+    color: str
+
+class TimeSeriesResponse(BaseModel):
+    investigation_id: str
+    title: str
+    x_axis: Dict[str, str]
+    channels: List[VizChannel]
+    data: List[Dict[str, Any]]
+    source_note: str = ""
+
+class ScatterPoint(BaseModel):
+    id: str
+    fuel_or_material: str
+    x: Optional[float] = None
+    y: Optional[float] = None
+    color_key: Optional[str] = None
+    outcome_label: Optional[str] = None
+    suppressant: Optional[str] = None
+    o2_pct: Optional[float] = None
+
+class ScatterResponse(BaseModel):
+    dataset_type: str
+    title: str
+    x_axis: Dict[str, str]
+    y_axis: Dict[str, str]
+    color_dimension: Optional[str] = None
+    points: List[Dict[str, Any]]
+    source_note: str = ""
+
+class DistributionBin(BaseModel):
+    bin_min: float
+    bin_max: float
+    count: int
+    label: str
+
+class DistributionResponse(BaseModel):
+    variable_name: str
+    title: str
+    unit: str
+    bins: List[Dict[str, Any]]
+    statistics: Dict[str, Any]
+    source_note: str = ""
+
+class HeatmapCell(BaseModel):
+    row: str
+    col: str
+    value: Optional[float] = None
+
+class HeatmapResponse(BaseModel):
+    heatmap_type: str
+    title: str
+    row_label: str
+    col_label: str
+    value_label: str
+    unit: str
+    cells: List[Dict[str, Any]]
+    source_note: str = ""
+
+class ScientificInsightsResponse(BaseModel):
+    view_id: str
+    what_graph_displays: str
+    important_trends: List[str]
+    differences_between_experiments: List[str]
+    potential_correlations: List[str]
+    limitations: List[str]
+    conclusions_not_drawable: List[str]
+    source_references: List[str]

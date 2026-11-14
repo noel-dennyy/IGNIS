@@ -1,0 +1,332 @@
+[
+  {
+    "id": "IMG-FLEX-01",
+    "investigation_id": "PSI-69",
+    "title": "FLEX Spherical Droplet Flame in Microgravity",
+    "description": "True color high-speed video frame of an isolated n-heptane droplet burning in microgravity aboard the ISS. In the absence of buoyancy-driven natural convection, the flame assumes near-perfect spherical symmetry around the evaporating droplet.",
+    "file_path": "/images/experiments/flex_microgravity_droplet.svg",
+    "thumbnail_path": "/images/experiments/flex_microgravity_droplet.svg",
+    "observation_time_s": 2.4,
+    "gravity_regime": "Microgravity (~10^-6 g)",
+    "fuel_or_material": "n-Heptane (Initial d0 = 2.12 mm)",
+    "apparatus": "MDCA / CIR on ISS (Quiescent Stagnant Chamber, 21% O2, 1.0 atm)",
+    "camera_modality": "High-Speed Color Pyrometry (400 fps, Broadband)",
+    "resolution": "1024x1024",
+    "source_citation": "Nayagam, V., Dietrich, D. L., Hicks, M. C., & Williams, F. A. (2012). Combustion and Flame, 159(11), 3406-3414.",
+    "doi": "10.60555/mbq8-0451",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+    "paired_comparison_id": "IMG-FLEX-02",
+    "comparison_axis_note": "Comparison of zero-g spherical symmetry vs terrestrial 1-g buoyant plume elongation under identical fuel and droplet diameter.",
+    "annotations": [
+      {
+        "id": "ant-flex-1",
+        "label": "Liquid Droplet Core",
+        "description": "Evaporating liquid heptane droplet supported on a 14-micron SiC filament.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 5.0,
+        "color": "#38BDF8"
+      },
+      {
+        "id": "ant-flex-2",
+        "label": "Inner Reaction Zone",
+        "description": "Spherical high-temperature blue chemiluminescence zone where vaporized fuel and diffused oxygen react stoichiometrically.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 24.0,
+        "color": "#818CF8"
+      },
+      {
+        "id": "ant-flex-3",
+        "label": "Soot Annulus / Radiative Shell",
+        "description": "Concentric yellow-orange soot shell where unoxidized carbon agglomerates accumulate due to lack of buoyant escape.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 36.0,
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "IMG-FLEX-02",
+    "investigation_id": "PSI-69",
+    "title": "Terrestrial 1-g Baseline Droplet Flame (Buoyant Updraft)",
+    "description": "Ground-based calibration frame of an n-heptane droplet burning in Earth gravity (1-g). Strong buoyant convection draws air upward, elongating the flame into an upright teardrop geometry with an unsteady flickering tip.",
+    "file_path": "/images/experiments/flex_terrestrial_droplet.svg",
+    "thumbnail_path": "/images/experiments/flex_terrestrial_droplet.svg",
+    "observation_time_s": 2.4,
+    "gravity_regime": "Normal Terrestrial Gravity (1.0 g)",
+    "fuel_or_material": "n-Heptane (Initial d0 = 2.12 mm)",
+    "apparatus": "NASA Glenn 1-g Droplet Combustion Rig (Quiescent, 21% O2, 1.0 atm)",
+    "camera_modality": "Standard Color Imaging (30 fps)",
+    "resolution": "1024x1024",
+    "source_citation": "Nayagam, V., et al. (2012). Droplet Extinction in Normal and Reduced Gravity. Combustion and Flame.",
+    "doi": "10.1016/j.combustflame.2012.06.012",
+    "source_url": "https://doi.org/10.1016/j.combustflame.2012.06.012",
+    "paired_comparison_id": "IMG-FLEX-01",
+    "comparison_axis_note": "Direct terrestrial contrast to microgravity droplet flame.",
+    "annotations": [
+      {
+        "id": "ant-flex-4",
+        "label": "Droplet Base",
+        "description": "Liquid fuel droplet tethered at bottom of buoyant convective envelope.",
+        "x_pct": 50.0,
+        "y_pct": 72.0,
+        "radius_pct": 5.0,
+        "color": "#38BDF8"
+      },
+      {
+        "id": "ant-flex-5",
+        "label": "Elongated Buoyant Plume",
+        "description": "Teardrop flame envelope narrowed and pulled upward by gravity-driven density difference.",
+        "x_pct": 50.0,
+        "y_pct": 42.0,
+        "radius_pct": 20.0,
+        "color": "#F59E0B"
+      },
+      {
+        "id": "ant-flex-6",
+        "label": "Flickering Soot Tail",
+        "description": "Rapid convective exhaust carrying soot particles upward through open flame tip.",
+        "x_pct": 50.0,
+        "y_pct": 18.0,
+        "radius_pct": 8.0,
+        "color": "#EF4444"
+      }
+    ]
+  },
+  {
+    "id": "IMG-FLEX-03",
+    "investigation_id": "PSI-69",
+    "title": "FLEX Low-Temperature 'Cool Flame' Radiative Transition",
+    "description": "Infrared and radiometric false-color composite of an n-heptane droplet following hot-flame extinction at t = 4.1 s. A non-luminous low-temperature chemical reaction zone (600–1000 K) sustains quasi-steady evaporation without visible emissions.",
+    "file_path": "/images/experiments/flex_cool_flame.svg",
+    "thumbnail_path": "/images/experiments/flex_cool_flame.svg",
+    "observation_time_s": 4.1,
+    "gravity_regime": "Microgravity (~10^-6 g)",
+    "fuel_or_material": "n-Heptane (Initial d0 = 3.10 mm)",
+    "apparatus": "MDCA / CIR on ISS (Chamber at 21% O2, 10% CO2, 1.0 atm)",
+    "camera_modality": "Narrowband UV & IR Radiometric Pyrometry",
+    "resolution": "1024x1024",
+    "source_citation": "Williams, F. A., & Nayagam, V. (2013). Cool flame burning of alkanes in microgravity. Microgravity Science and Technology.",
+    "doi": "10.60555/mbq8-0451",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69",
+    "paired_comparison_id": "IMG-FLEX-01",
+    "comparison_axis_note": "Comparison between high-temperature visible combustion (t=2.4s) and low-temperature invisible cool-flame combustion (t=4.1s).",
+    "annotations": [
+      {
+        "id": "ant-flex-7",
+        "label": "Droplet Core (Cool Phase)",
+        "description": "Droplet continues losing mass despite absence of visible flame.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 4.0,
+        "color": "#A78BFA"
+      },
+      {
+        "id": "ant-flex-8",
+        "label": "Low-Temperature Reaction Shell",
+        "description": "Peroxide-driven low-temperature kinetic zone (~750 K) producing zero visual light.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 28.0,
+        "color": "#38BDF8"
+      }
+    ]
+  },
+  {
+    "id": "IMG-SAFFIRE-01",
+    "investigation_id": "PSI-98",
+    "title": "SAFFIRE-I Ignition Transient on Cygnus OA-6 (t = 15 s)",
+    "description": "High-definition flow duct camera frame capturing ignition of a 0.4 m x 0.94 m SIBAL composite fabric sheet aboard the uncrewed Cygnus OA-6 spacecraft. A hot-wire igniter initiates flame propagation under 20 cm/s concurrent airflow.",
+    "file_path": "/images/experiments/saffire_i_ignition_15s.svg",
+    "thumbnail_path": "/images/experiments/saffire_i_ignition_15s.svg",
+    "observation_time_s": 15.0,
+    "gravity_regime": "Microgravity (~10^-5 g)",
+    "fuel_or_material": "SIBAL fabric (75% cotton / 25% fiberglass, 0.4 x 0.94 m)",
+    "apparatus": "Saffire Flow Duct (20 cm/s forced airflow, cabin air, 101.3 kPa)",
+    "camera_modality": "On-board Flight Camera 1 (1080p Visible)",
+    "resolution": "1280x720",
+    "source_citation": "Urban, D. L., Ruff, G. A., et al. (2017). Large-scale Spacecraft Fire Safety Testing: The Saffire-I Flight Experiment. NASA/TM-2017-219502.",
+    "doi": "10.60555/0t15-1z43",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+    "paired_comparison_id": "IMG-SAFFIRE-02",
+    "comparison_axis_note": "Direct time-series comparison: Ignition transient at t=15s versus quasi-steady concurrent spread at t=180s.",
+    "annotations": [
+      {
+        "id": "ant-saf-1",
+        "label": "Hot-Wire Igniter Line",
+        "description": "Electric resistance wire igniter positioned at upstream edge of fabric sample.",
+        "x_pct": 20.0,
+        "y_pct": 50.0,
+        "radius_pct": 8.0,
+        "color": "#EF4444"
+      },
+      {
+        "id": "ant-saf-2",
+        "label": "Forced Airflow Vector",
+        "description": "20 cm/s forced ventilation entering from left duct flow straightener.",
+        "x_pct": 8.0,
+        "y_pct": 50.0,
+        "radius_pct": 6.0,
+        "color": "#38BDF8"
+      }
+    ]
+  },
+  {
+    "id": "IMG-SAFFIRE-02",
+    "investigation_id": "PSI-98",
+    "title": "SAFFIRE-I Quasi-Steady Concurrent Flame Spread (t = 180 s)",
+    "description": "Flow duct camera frame at peak combustion (t = 180 s). Flame front propagates steadily at 1.8 mm/s along the SIBAL fabric. Thermocouple readings behind the flame front reached 910 °C with radiant heat flux exceeding 6.1 kW/m².",
+    "file_path": "/images/experiments/saffire_i_steady_180s.svg",
+    "thumbnail_path": "/images/experiments/saffire_i_steady_180s.svg",
+    "observation_time_s": 180.0,
+    "gravity_regime": "Microgravity (~10^-5 g)",
+    "fuel_or_material": "SIBAL fabric (75% cotton / 25% fiberglass)",
+    "apparatus": "Saffire Flow Duct (20 cm/s forced airflow, cabin air, 101.3 kPa)",
+    "camera_modality": "On-board Flight Camera 1 (1080p Visible)",
+    "resolution": "1280x720",
+    "source_citation": "Urban, D. L., Ruff, G. A., et al. (2017). Saffire-I Flight Experiment. NASA/TM-2017-219502.",
+    "doi": "10.60555/0t15-1z43",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+    "paired_comparison_id": "IMG-SAFFIRE-01",
+    "comparison_axis_note": "Shows transition from initial ignition to fully developed concurrent flame spread.",
+    "annotations": [
+      {
+        "id": "ant-saf-3",
+        "label": "Active Flame Front",
+        "description": "Concurrent flame boundary advancing with forced airflow at 1.8 mm/s.",
+        "x_pct": 54.0,
+        "y_pct": 50.0,
+        "radius_pct": 14.0,
+        "color": "#F59E0B"
+      },
+      {
+        "id": "ant-saf-4",
+        "label": "Pyrolysis Zone",
+        "description": "Solid fabric decomposition zone releasing combustible volatile hydrocarbons.",
+        "x_pct": 42.0,
+        "y_pct": 50.0,
+        "radius_pct": 10.0,
+        "color": "#EF4444"
+      },
+      {
+        "id": "ant-saf-5",
+        "label": "Fiberglass Char Lattice",
+        "description": "Non-combustible woven fiberglass backing that retains char and prevents burning debris release.",
+        "x_pct": 26.0,
+        "y_pct": 50.0,
+        "radius_pct": 12.0,
+        "color": "#A78BFA"
+      }
+    ]
+  },
+  {
+    "id": "IMG-SAFFIRE-03",
+    "investigation_id": "PSI-98",
+    "title": "SAFFIRE-I Post-Burn Char & Structural Retention Matrix (t = 450 s)",
+    "description": "Post-extinction inspection frame at t = 450 s. All combustible cotton has pyrolyzed while the fiberglass grid remained intact across the entire 0.94 m length, proving structural retention under spacecraft duct flow.",
+    "file_path": "/images/experiments/saffire_i_post_burn_450s.svg",
+    "thumbnail_path": "/images/experiments/saffire_i_post_burn_450s.svg",
+    "observation_time_s": 450.0,
+    "gravity_regime": "Microgravity (~10^-5 g)",
+    "fuel_or_material": "SIBAL post-burn fiberglass substrate",
+    "apparatus": "Saffire Flow Duct (uncrewed Cygnus OA-6)",
+    "camera_modality": "On-board Flight Camera 1 (1080p Visible)",
+    "resolution": "1280x720",
+    "source_citation": "Urban, D. L., et al. (2017). Saffire-I Flight Experiment. NASA/TM-2017-219502.",
+    "doi": "10.60555/0t15-1z43",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+    "paired_comparison_id": "IMG-SAFFIRE-02",
+    "comparison_axis_note": "Comparison of peak flame spread against post-extinction residual char structure.",
+    "annotations": [
+      {
+        "id": "ant-saf-6",
+        "label": "Consumed Fuel Zone",
+        "description": "94 cm sample fully pyrolyzed; ambient oxygen dropped from 20.95% to 18.79%.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 28.0,
+        "color": "#64748B"
+      }
+    ]
+  },
+  {
+    "id": "IMG-SPICE-01",
+    "investigation_id": "PSI-107",
+    "title": "SPICE Laminar Closed-Tip Jet Flame (Below Smoke Point)",
+    "description": "Color-ratio pyrometry camera frame of an ethylene jet diffusion flame in microgravity at 10 cm/s co-flow velocity. The flame tip remains fully closed with complete soot oxidation within the flame envelope.",
+    "file_path": "/images/experiments/spice_closed_tip_flame.svg",
+    "thumbnail_path": "/images/experiments/spice_closed_tip_flame.svg",
+    "observation_time_s": 60.0,
+    "gravity_regime": "Microgravity (~10^-6 g)",
+    "fuel_or_material": "Ethylene (C2H4, 1.6 mm nozzle diameter)",
+    "apparatus": "ACME / CIR on ISS (Laminar Co-flow Air Duct at 10 cm/s, 101.3 kPa)",
+    "camera_modality": "Color Ratio Pyrometry (Visible/NIR)",
+    "resolution": "1024x1024",
+    "source_citation": "Sunderland, P. B., Urban, D. L., Axelbaum, R. L., & Chao, B. H. (2018). Proceedings of the Combustion Institute, 37(2), 2045-2053.",
+    "doi": "10.60555/9kbh-e962",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107",
+    "paired_comparison_id": "IMG-SPICE-02",
+    "comparison_axis_note": "Comparison between non-smoking closed tip (below smoke point) and open smoking tip (above smoke point) under co-flow.",
+    "annotations": [
+      {
+        "id": "ant-spice-1",
+        "label": "Fuel Jet Nozzle",
+        "description": "1.6 mm brass burner nozzle issuing ethylene gas.",
+        "x_pct": 50.0,
+        "y_pct": 82.0,
+        "radius_pct": 5.0,
+        "color": "#38BDF8"
+      },
+      {
+        "id": "ant-spice-2",
+        "label": "Closed Luminous Tip",
+        "description": "Parabolic flame boundary completely enclosing reaction products; zero smoke emission.",
+        "x_pct": 50.0,
+        "y_pct": 42.0,
+        "radius_pct": 7.0,
+        "color": "#10B981"
+      }
+    ]
+  },
+  {
+    "id": "IMG-SPICE-02",
+    "investigation_id": "PSI-107",
+    "title": "SPICE Smoking Flame Tip (Above Smoke Point Threshold)",
+    "description": "Pyrometry camera frame of an ethylene jet flame exceeding its laminar smoke point (fuel flow rate 2.32 mg/s, 30 cm/s co-flow). Lengthened soot residence time prevents complete oxidation, causing soot particle breakthrough at the flame tip.",
+    "file_path": "/images/experiments/spice_smoking_tip_flame.svg",
+    "thumbnail_path": "/images/experiments/spice_smoking_tip_flame.svg",
+    "observation_time_s": 90.0,
+    "gravity_regime": "Microgravity (~10^-6 g)",
+    "fuel_or_material": "Ethylene (C2H4, 2.1 mm nozzle diameter)",
+    "apparatus": "ACME / CIR on ISS (Laminar Co-flow Air Duct at 30 cm/s, 101.3 kPa)",
+    "camera_modality": "Color Ratio Pyrometry (Visible/NIR)",
+    "resolution": "1024x1024",
+    "source_citation": "Sunderland, P. B., et al. (2018). Laminar smoke points in microgravity. Proc. Combust. Inst.",
+    "doi": "10.60555/9kbh-e962",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107",
+    "paired_comparison_id": "IMG-SPICE-01",
+    "comparison_axis_note": "Direct morphological evidence of soot breakthrough above the critical smoke-point threshold.",
+    "annotations": [
+      {
+        "id": "ant-spice-3",
+        "label": "Soot Breakthrough Zone",
+        "description": "Tip rupture point where unoxidized soot aggregates escape into co-flow duct.",
+        "x_pct": 50.0,
+        "y_pct": 28.0,
+        "radius_pct": 9.0,
+        "color": "#EF4444"
+      },
+      {
+        "id": "ant-spice-4",
+        "label": "Soot Emission Plume",
+        "description": "Aerosolized soot particles drifting toward spacecraft detection duct.",
+        "x_pct": 50.0,
+        "y_pct": 14.0,
+        "radius_pct": 12.0,
+        "color": "#64748B"
+      }
+    ]
+  }
+]

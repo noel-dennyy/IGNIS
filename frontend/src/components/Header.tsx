@@ -17,6 +17,10 @@ export const Header: React.FC<HeaderProps> = ({ activePage, dbStatus, investigat
     ranking: "Transparent Evidence-Relevance Ranking",
     assistant: "Citation-Grounded AI Research Assistant",
     scenario: "Mission Scenario & Spacecraft Safety Explorer",
+    viz: "Scientific Visualization Dashboard",
+    gallery: "Experiment Image Gallery",
+    "image-compare": "Side-by-Side Image Comparison",
+    workspace: "Experiment Comparison Workspace",
   };
 
   return (

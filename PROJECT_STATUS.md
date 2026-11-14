@@ -3,8 +3,8 @@
 **Project:** IGNIS — Intelligent Guidance for Next-generation In-Space Safety  
 **Challenge:** Flame in Freefall: SI-Powered Fire Safety Insights from Microgravity Combustion Data  
 **Event:** NASA Space Apps Challenge 2026 Hackathon Prototype  
-**Current Milestone:** All Milestones (M0 - M5) COMPLETED & VERIFIED  
-**Last Updated:** 2026-11-14T20:55:00+05:30  
+**Current Milestone:** All Milestones (M0 - M6) COMPLETED & VERIFIED  
+**Last Updated:** 2026-11-14T23:05:00+05:30  
 
 ---
 
@@ -18,6 +18,7 @@
 | **M3: Frontend Research Dashboard** | React + Vite + TypeScript, dark scientific workstation UI, all 7 core modules implemented | P0 | **COMPLETED** | Overview, Explorer, Library, Compare, Ranking, Assistant, and Mission Scenario modules live with database data. |
 | **M4: Automated Testing & Verification** | Backend unit test suite, frontend TypeScript build (`npm run build`) | P0 | **COMPLETED** | 10/10 backend unit tests passing in 0.04s. Clean Vite production build with zero TypeScript errors. |
 | **M5: Submission & Documentation** | Comprehensive README.md, demo script, architecture guide, submission checklist | P0 | **COMPLETED** | README.md, DATA_AUDIT.md, AI_USAGE.md, docs/demo-script.md, and docs/architecture.md finalized. |
+| **M6: Scientific Visualization & Image Comparison** | Interactive time-series, scatter, distribution, heatmaps, image gallery, side-by-side slider, insights panel | P0 | **COMPLETED** | 18/18 backend unit tests passing. Recharts interactive dashboards, 8 verified synthetic SVG illustrations, comparison slider, Recharts & Vite build passing. |
 
 ---
 
@@ -25,13 +26,17 @@
 
 - [x] Challenge-specific Resources tab inspected and verified (PSI & NTRS confirmed).
 - [x] DATA_AUDIT.md and AI_USAGE.md created and updated with full provenance and AI disclosure.
-- [x] Real NASA PSI investigation metadata and observations ingested into database (3 investigations, 58 observations, 12 findings).
-- [x] Backend API endpoints pass automated unit test suite (10/10 tests OK).
+- [x] Real NASA PSI investigation metadata and observations ingested into database (3 investigations, 58 observations, 12 findings, 8 verified experimental illustrations).
+- [x] Backend API endpoints pass automated unit test suite (18/18 tests OK).
 - [x] Frontend React application compiles without errors (`vite build` production output generated in `frontend/dist`).
 - [x] Overview dashboard shows live counts from database (no hardcoded counts).
 - [x] Research Library text search returns snippets with verifiable NASA URLs and page numbers.
 - [x] AI Assistant generates grounded answers with exact source citations + works offline without API key.
 - [x] Evidence Comparison enforces comparability rules (rejects incompatible fuel/geometry comparisons with clear scientific advisory).
 - [x] Transparent Evidence Ranking explains score components (Topic, Condition, Coverage, Provenance).
+- [x] Scientific Visualization Dashboard renders interactive Line, Scatter, Distribution, and Heatmap charts from verified database records.
+- [x] Experiment Image Gallery displays authenticated synthetic SVG illustrations with clear labeling, zoom, metadata, and interactive point-of-interest annotations.
+- [x] Side-by-Side Image Comparison features an interactive swipe slider and explicit comparability advisories.
+- [x] Scientific Insights Panel explains visual trends, correlation vs causation, and explicitly details conclusions that cannot be drawn from the data.
 - [x] Clear disclaimer: "Archived NASA Research Prototype — Not Operational Safety Guidance" visible across the UI.
 - [x] README.md, demo script, architecture guide, and source manifest updated and verified.

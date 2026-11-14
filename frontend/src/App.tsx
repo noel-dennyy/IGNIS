@@ -9,6 +9,10 @@ import { EvidenceComparePage } from "./pages/EvidenceComparePage";
 import { EvidenceRankingPage } from "./pages/EvidenceRankingPage";
 import { AssistantPage } from "./pages/AssistantPage";
 import { MissionScenarioPage } from "./pages/MissionScenarioPage";
+import { VisualizationDashboardPage } from "./pages/VisualizationDashboardPage";
+import { ImageGalleryPage } from "./pages/ImageGalleryPage";
+import { ImageComparisonPage } from "./pages/ImageComparisonPage";
+import { ExperimentWorkspacePage } from "./pages/ExperimentWorkspacePage";
 import { api } from "./api/client";
 
 export const App: React.FC = () => {
@@ -66,6 +70,14 @@ export const App: React.FC = () => {
           {activePage === "assistant" && <AssistantPage />}
 
           {activePage === "scenario" && <MissionScenarioPage />}
+
+          {activePage === "viz" && <VisualizationDashboardPage />}
+
+          {activePage === "gallery" && <ImageGalleryPage />}
+
+          {activePage === "image-compare" && <ImageComparisonPage />}
+
+          {activePage === "workspace" && <ExperimentWorkspacePage />}
         </div>
       </main>
     </div>

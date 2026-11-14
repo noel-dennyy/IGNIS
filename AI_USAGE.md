@@ -26,6 +26,7 @@ In accordance with the official rules and guidelines issued by the NASA Space Ap
 | **Specialized Subagents** (Antigravity ecosystem) | Google DeepMind | Domain Validation & Quality Assurance | - NASA Research Agent: Verified scientific parameters against NASA PSI records.<br>- Backend Agent: Verified database schemas and REST API endpoints.<br>- Frontend Agent: Verified responsive dark-theme UI components and accessibility.<br>- Testing Agent: Executed pytest and Vite production builds.<br>- Scientific Reviewer: Checked comparability logic and citation grounding. |
 | **Lexical Retrieval Engine** (scikit-learn TF-IDF / BM25) | Open Source (scikit-learn) | Grounded Search & Context Retrieval | Deterministic vector retrieval over authentic NASA document chunks; operates fully offline without external API keys. |
 | **Optional LLM Inference Service** | OpenAI / Gemini API (Optional backend) | Natural Language Synthesis of Retrieved Chunks | Formulates natural-language answers strictly citing retrieved passages; system includes an offline, no-API-key fallback mode that surfaces source cards directly. |
+| **Synthetic Scientific Vector Generator** | Antigravity Python scripts (`render_images.py`) | Procedural SVG Scientific Illustrations | Created 8 authentic parametric SVG illustrations representing flame morphology, thermocouple layouts, and droplet geometry (PSI-69, PSI-98, PSI-107). Each asset is visibly labeled "Scientific Illustration (Synthetic) — Not a NASA photograph" in strict adherence to Space Apps guidelines. |
 
 ---
 

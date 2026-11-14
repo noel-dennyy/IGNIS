@@ -143,5 +143,28 @@ def init_db():
     );
     """)
 
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS experiment_images (
+        id TEXT PRIMARY KEY,
+        investigation_id TEXT NOT NULL,
+        title TEXT NOT NULL,
+        description TEXT NOT NULL,
+        file_path TEXT NOT NULL,
+        thumbnail_path TEXT,
+        observation_time_s REAL,
+        gravity_regime TEXT NOT NULL,
+        fuel_or_material TEXT NOT NULL,
+        apparatus TEXT NOT NULL,
+        camera_modality TEXT NOT NULL,
+        resolution TEXT,
+        source_citation TEXT NOT NULL,
+        doi TEXT,
+        source_url TEXT NOT NULL,
+        metadata_json TEXT,
+        annotations_json TEXT,
+        FOREIGN KEY(investigation_id) REFERENCES investigations(id)
+    );
+    """)
+
     conn.commit()
     conn.close()

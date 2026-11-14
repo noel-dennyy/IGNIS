@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <radialGradient id="spiceBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+    <linearGradient id="closedFlame" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="30%" stop-color="#818cf8" />
+      <stop offset="70%" stop-color="#f59e0b" />
+      <stop offset="95%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="rgba(16, 185, 129, 0)" />
+    </linearGradient>
+    <filter id="flameGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#spiceBg)" />
+
+  <!-- Burner Nozzle -->
+  <rect x="385" y="660" width="30" height="80" fill="#94a3b8" stroke="#475569" stroke-width="1.5" />
+  <text x="400" y="760" fill="#64748b" font-family="monospace" font-size="11" text-anchor="middle">1.6 mm Nozzle</text>
+
+  <!-- Co-Flow Duct Airflow Arrows -->
+  <g stroke="#38bdf8" stroke-width="1.2" opacity="0.6">
+    <path d="M 260 680 L 260 400 M 255 415 L 260 400 L 265 415" />
+    <path d="M 540 680 L 540 400 M 535 415 L 540 400 L 545 415" />
+  </g>
+  <text x="270" y="540" fill="#38bdf8" font-family="monospace" font-size="11">Co-flow 10 cm/s</text>
+
+  <!-- Closed Laminar Parabolic Flame Tip -->
+  <path d="M 386 660 C 350 560, 360 400, 400 340 C 440 400, 450 560, 414 660 Z"
+        fill="url(#closedFlame)" filter="url(#flameGlow)" />
+
+  <text x="400" y="320" fill="#10b981" font-family="monospace" font-size="11" text-anchor="middle" font-weight="bold">Closed Tip (Zero Smoke)</text>
+
+  <!-- Scale Bar (10 mm) -->
+  <rect x="580" y="720" width="160" height="4" fill="#38bdf8" />
+  <line x1="580" y1="712" x2="580" y2="728" stroke="#38bdf8" stroke-width="2" />
+  <line x1="740" y1="712" x2="740" y2="728" stroke="#38bdf8" stroke-width="2" />
+  <text x="660" y="710" fill="#38bdf8" font-family="monospace" font-size="12" text-anchor="middle">10.0 mm Scale</text>
+
+  <!-- Telemetry Header Overlay -->
+  <rect x="25" y="25" width="460" height="52" rx="4" fill="rgba(15, 23, 42, 0.85)" stroke="#334155" />
+  <text x="38" y="46" fill="#10b981" font-family="monospace" font-weight="bold" font-size="13">NASA PSI-107 · SPICE LAMINAR JET FLAME</text>
+  <text x="38" y="66" fill="#94a3b8" font-family="monospace" font-size="11">Ethylene · V_co=10cm/s · L_sp=28.5mm · Non-Smoking Tip</text>
+</svg>

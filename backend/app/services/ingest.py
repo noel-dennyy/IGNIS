@@ -12,7 +12,7 @@ def run_ingestion():
     cur = conn.cursor()
 
     # Clear existing data for idempotent re-ingestion
-    tables = ["ranking_runs", "research_findings", "observations", "document_chunks", "documents", "source_files", "investigations"]
+    tables = ["experiment_images", "ranking_runs", "research_findings", "observations", "document_chunks", "documents", "source_files", "investigations"]
     for t in tables:
         cur.execute(f"DELETE FROM {t};")
 
@@ -286,6 +286,39 @@ def run_ingestion():
                         doc["source_url"],
                         "2026-11-14T15:00:00Z"
                     ))
+
+    # 5. Ingest Authentic Experiment Images
+    images_path = RAW_DATA_DIR / "psi_experiment_images.json"
+    if images_path.exists():
+        with open(images_path, "r", encoding="utf-8") as f:
+            imgs = json.load(f)
+            for img in imgs:
+                cur.execute("""
+                INSERT INTO experiment_images (
+                    id, investigation_id, title, description, file_path, thumbnail_path,
+                    observation_time_s, gravity_regime, fuel_or_material, apparatus,
+                    camera_modality, resolution, source_citation, doi, source_url,
+                    metadata_json, annotations_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """, (
+                    img["id"],
+                    img["investigation_id"],
+                    img["title"],
+                    img["description"],
+                    img["file_path"],
+                    img.get("thumbnail_path"),
+                    img.get("observation_time_s"),
+                    img["gravity_regime"],
+                    img["fuel_or_material"],
+                    img["apparatus"],
+                    img["camera_modality"],
+                    img.get("resolution"),
+                    img["source_citation"],
+                    img.get("doi"),
+                    img["source_url"],
+                    json.dumps(img),
+                    json.dumps(img.get("annotations", []))
+                ))
 
     conn.commit()
     conn.close()

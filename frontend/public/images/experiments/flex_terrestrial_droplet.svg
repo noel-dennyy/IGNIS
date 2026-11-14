@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <radialGradient id="earthGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#030712" />
+    </radialGradient>
+    <linearGradient id="plumeGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="rgba(37, 99, 235, 0.8)" />
+      <stop offset="25%" stop-color="rgba(99, 102, 241, 0.7)" />
+      <stop offset="60%" stop-color="rgba(245, 158, 11, 0.85)" />
+      <stop offset="90%" stop-color="rgba(239, 68, 68, 0.9)" />
+      <stop offset="100%" stop-color="rgba(180, 83, 9, 0)" />
+    </linearGradient>
+    <radialGradient id="dropletCore2" cx="45%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#bae6fd" />
+      <stop offset="70%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </radialGradient>
+    <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="800" height="800" fill="url(#earthGlow)" />
+  <line x1="100" y1="580" x2="700" y2="580" stroke="#334155" stroke-width="0.8" stroke-dasharray="4,4" />
+  <line x1="400" y1="100" x2="400" y2="700" stroke="#334155" stroke-width="0.8" stroke-dasharray="4,4" />
+
+  <!-- Support Fiber -->
+  <line x1="50" y1="580" x2="750" y2="580" stroke="#475569" stroke-width="1.2" />
+
+  <!-- Buoyancy Vector Arrows (Updraft) -->
+  <path d="M 220 580 L 220 300 M 215 315 L 220 300 L 225 315" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4" />
+  <path d="M 580 580 L 580 300 M 575 315 L 580 300 L 585 315" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4" />
+  <text x="230" y="440" fill="#38bdf8" font-family="monospace" font-size="11">Buoyant Updraft (1.0 g)</text>
+
+  <!-- Elongated Teardrop Flame Plume -->
+  <path d="M 360 580 C 340 500, 360 300, 400 160 C 440 300, 460 500, 440 580 C 430 610, 370 610, 360 580 Z"
+        fill="url(#plumeGrad)" filter="url(#glow2)" />
+
+  <!-- Flickering Tip Details -->
+  <path d="M 390 190 Q 400 130 405 110 Q 412 140 410 190 Z" fill="#ef4444" opacity="0.8" filter="url(#glow2)" />
+
+  <!-- Droplet Core Tethered at Base -->
+  <circle cx="400" cy="580" r="26" fill="url(#dropletCore2)" stroke="#38bdf8" stroke-width="1.5" />
+
+  <!-- Scale Bar (2.0 mm) -->
+  <rect x="580" y="720" width="160" height="4" fill="#38bdf8" />
+  <line x1="580" y1="712" x2="580" y2="728" stroke="#38bdf8" stroke-width="2" />
+  <line x1="740" y1="712" x2="740" y2="728" stroke="#38bdf8" stroke-width="2" />
+  <text x="660" y="710" fill="#38bdf8" font-family="monospace" font-size="12" text-anchor="middle">2.0 mm Scale</text>
+
+  <!-- Telemetry Header Overlay -->
+  <rect x="25" y="25" width="460" height="52" rx="4" fill="rgba(15, 23, 42, 0.85)" stroke="#334155" />
+  <text x="38" y="46" fill="#f59e0b" font-family="monospace" font-weight="bold" font-size="13">NASA GRC GROUND RIG · 1.0-g BASELINE</text>
+  <text x="38" y="66" fill="#94a3b8" font-family="monospace" font-size="11">Heptane d0=2.12mm · t=2.4s · Buoyant Teardrop Plume</text>
+</svg>

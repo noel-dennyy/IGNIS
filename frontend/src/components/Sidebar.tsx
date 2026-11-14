@@ -7,7 +7,11 @@ import {
   TrendingUp,
   MessageSquare,
   ShieldAlert,
-  Flame
+  Flame,
+  BarChart2,
+  Images,
+  SplitSquareHorizontal,
+  Layers
 } from "lucide-react";
 
 export type PageId =
@@ -17,7 +21,11 @@ export type PageId =
   | "compare"
   | "ranking"
   | "assistant"
-  | "scenario";
+  | "scenario"
+  | "viz"
+  | "gallery"
+  | "image-compare"
+  | "workspace";
 
 interface SidebarProps {
   activePage: PageId;
@@ -33,6 +41,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage }) =
     { id: "ranking", label: "Relevance Ranking", icon: TrendingUp },
     { id: "assistant", label: "IGNIS AI Assistant", icon: MessageSquare },
     { id: "scenario", label: "Mission Scenario Analyzer", icon: ShieldAlert },
+    { id: "viz", label: "Scientific Visualizations", icon: BarChart2 },
+    { id: "gallery", label: "Image Gallery", icon: Images },
+    { id: "image-compare", label: "Image Comparison", icon: SplitSquareHorizontal },
+    { id: "workspace", label: "Experiment Workspace", icon: Layers },
   ];
 
   return (

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <radialGradient id="spaceGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#030712" />
+    </radialGradient>
+    <radialGradient id="sootShell" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(245, 158, 11, 0)" />
+      <stop offset="70%" stop-color="rgba(245, 158, 11, 0.45)" />
+      <stop offset="85%" stop-color="rgba(217, 119, 6, 0.65)" />
+      <stop offset="100%" stop-color="rgba(180, 83, 9, 0)" />
+    </radialGradient>
+    <radialGradient id="rxnZone" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="rgba(56, 189, 248, 0.1)" />
+      <stop offset="50%" stop-color="rgba(99, 102, 241, 0.5)" />
+      <stop offset="80%" stop-color="rgba(56, 189, 248, 0.85)" />
+      <stop offset="100%" stop-color="rgba(37, 99, 235, 0)" />
+    </radialGradient>
+    <radialGradient id="dropletCore" cx="45%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#bae6fd" />
+      <stop offset="70%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0369a1" />
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Chamber -->
+  <rect width="800" height="800" fill="url(#spaceGlow)" />
+  <circle cx="400" cy="400" r="380" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6,6" />
+
+  <!-- Grid Crosshairs (MDCA Calibration) -->
+  <line x1="100" y1="400" x2="700" y2="400" stroke="#334155" stroke-width="0.8" stroke-dasharray="4,4" />
+  <line x1="400" y1="100" x2="400" y2="700" stroke="#334155" stroke-width="0.8" stroke-dasharray="4,4" />
+
+  <!-- SiC Support Fiber -->
+  <line x1="50" y1="400" x2="750" y2="400" stroke="#475569" stroke-width="1.2" />
+  <text x="60" y="392" fill="#64748b" font-family="monospace" font-size="11">14 μm SiC Filament</text>
+
+  <!-- Outer Soot Shell (Spherical) -->
+  <circle cx="400" cy="400" r="210" fill="url(#sootShell)" filter="url(#glow)" />
+
+  <!-- Inner Chemiluminescent Reaction Zone (Spherical Blue Flame) -->
+  <circle cx="400" cy="400" r="140" fill="url(#rxnZone)" filter="url(#glow)" />
+
+  <!-- Droplet Core (Liquid Heptane) -->
+  <circle cx="400" cy="400" r="26" fill="url(#dropletCore)" stroke="#38bdf8" stroke-width="1.5" />
+  <circle cx="394" cy="392" r="5" fill="#f0f9ff" opacity="0.6" />
+
+  <!-- Scale Bar (2.0 mm) -->
+  <rect x="580" y="720" width="160" height="4" fill="#38bdf8" />
+  <line x1="580" y1="712" x2="580" y2="728" stroke="#38bdf8" stroke-width="2" />
+  <line x1="740" y1="712" x2="740" y2="728" stroke="#38bdf8" stroke-width="2" />
+  <text x="660" y="710" fill="#38bdf8" font-family="monospace" font-size="12" text-anchor="middle">2.0 mm Scale</text>
+
+  <!-- Telemetry Header Overlay -->
+  <rect x="25" y="25" width="460" height="52" rx="4" fill="rgba(15, 23, 42, 0.85)" stroke="#334155" />
+  <text x="38" y="46" fill="#38bdf8" font-family="monospace" font-weight="bold" font-size="13">NASA PSI-69 · FLEX FLIGHT TELEMETRY</text>
+  <text x="38" y="66" fill="#94a3b8" font-family="monospace" font-size="11">ISS CIR/MDCA · n-Heptane · t=2.4s · 0-g Spherical Symmetry</text>
+</svg>

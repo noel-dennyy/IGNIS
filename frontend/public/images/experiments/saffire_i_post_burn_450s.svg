@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="100%" height="100%">
+  <rect width="1280" height="720" fill="#0f172a" />
+  <rect x="80" y="120" width="1120" height="480" fill="#090d16" stroke="#334155" stroke-width="2" />
+
+  <!-- Entire Sample Panel Consumed: Residual Fiberglass Lattice -->
+  <rect x="240" y="200" width="880" height="320" fill="#1e293b" stroke="#475569" stroke-width="1.5" />
+  <!-- Retained fiberglass grid matrix -->
+  <g stroke="#94a3b8" stroke-width="0.8" opacity="0.6">
+    <path d="M 240 240 L 1120 240 M 240 280 L 1120 280 M 240 320 L 1120 320 M 240 360 L 1120 360 M 240 400 L 1120 400 M 240 440 L 1120 440 M 240 480 L 1120 480" />
+    <path d="M 320 200 L 320 520 M 400 200 L 400 520 M 480 200 L 480 520 M 560 200 L 560 520 M 640 200 L 640 520 M 720 200 L 720 520 M 800 200 L 800 520 M 880 200 L 880 520 M 960 200 L 960 520 M 1040 200 L 1040 520" />
+  </g>
+
+  <rect x="420" y="330" width="520" height="60" rx="4" fill="rgba(15, 23, 42, 0.9)" stroke="#10b981" />
+  <text x="680" y="355" fill="#10b981" font-family="monospace" font-size="13" font-weight="bold" text-anchor="middle">FIBERGLASS MESH STRUCTURAL RETENTION VERIFIED</text>
+  <text x="680" y="375" fill="#94a3b8" font-family="monospace" font-size="11" text-anchor="middle">Zero particulate release into ventilation duct · 100% Cotton consumed</text>
+
+  <!-- Scale Bar -->
+  <rect x="960" y="560" width="160" height="4" fill="#38bdf8" />
+  <line x1="960" y1="552" x2="960" y2="568" stroke="#38bdf8" stroke-width="2" />
+  <line x1="1120" y1="552" x2="1120" y2="568" stroke="#38bdf8" stroke-width="2" />
+  <text x="1040" y="550" fill="#38bdf8" font-family="monospace" font-size="12" text-anchor="middle">10.0 cm Scale</text>
+
+  <!-- Telemetry Header Overlay -->
+  <rect x="25" y="25" width="560" height="52" rx="4" fill="rgba(15, 23, 42, 0.85)" stroke="#334155" />
+  <text x="38" y="46" fill="#10b981" font-family="monospace" font-weight="bold" font-size="13">NASA PSI-98 · POST-BURN FIBERGLASS CHAR MATRIX</text>
+  <text x="38" y="66" fill="#94a3b8" font-family="monospace" font-size="11">t=450s · Final O2 18.79% · CO2 4.50% · Flame Fully Extinguished</text>
+</svg>

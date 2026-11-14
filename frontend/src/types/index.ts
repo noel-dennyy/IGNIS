@@ -188,3 +188,123 @@ export interface AssistantAskResponse {
   retrieval_method: string;
   is_offline_fallback: boolean;
 }
+
+// ── Experiment Images ────────────────────────────────────────────────────────
+
+export interface ImageAnnotation {
+  id: string;
+  label: string;
+  description: string;
+  x_pct: number;
+  y_pct: number;
+  color?: string;
+}
+
+export interface ExperimentImage {
+  id: string;
+  investigation_id: string;
+  title: string;
+  description: string;
+  file_path: string;
+  thumbnail_path?: string;
+  observation_time_s?: number;
+  gravity_regime: string;
+  fuel_or_material: string;
+  apparatus: string;
+  camera_modality: string;
+  resolution?: string;
+  source_citation: string;
+  doi?: string;
+  source_url: string;
+  annotations: ImageAnnotation[];
+  paired_comparison_id?: string;
+  image_type_label: string;
+}
+
+export interface ImageCompareResponse {
+  image_a: ExperimentImage;
+  image_b: ExperimentImage;
+  comparison_note: string;
+  compatible_for_visual_comparison: boolean;
+  shared_investigation: boolean;
+}
+
+// ── Visualization ────────────────────────────────────────────────────────────
+
+export interface VizChannel {
+  key: string;
+  name: string;
+  unit: string;
+  color: string;
+}
+
+export interface TimeSeriesResponse {
+  investigation_id: string;
+  title: string;
+  x_axis: { label: string; unit: string };
+  channels: VizChannel[];
+  data: Record<string, number | string | null>[];
+  source_note: string;
+}
+
+export interface ScatterResponse {
+  dataset_type: string;
+  title: string;
+  x_axis: { key: string; label: string; unit: string };
+  y_axis: { key: string; label: string; unit: string };
+  group_by?: string;
+  color_dimension?: string;
+  points: Record<string, number | string | null>[];
+  source_note: string;
+}
+
+export interface DistributionBin {
+  bin_min: number;
+  bin_max: number;
+  count: number;
+  label: string;
+}
+
+export interface DistributionResponse {
+  variable_name: string;
+  title: string;
+  unit: string;
+  bins: DistributionBin[];
+  statistics: {
+    count: number;
+    min: number;
+    max: number;
+    mean: number;
+    median: number;
+    std_dev: number;
+  };
+  source_note: string;
+}
+
+export interface HeatmapCell {
+  row: string;
+  col: string;
+  value: number | null;
+}
+
+export interface HeatmapResponse {
+  heatmap_type: string;
+  title: string;
+  row_label: string;
+  col_label: string;
+  value_label: string;
+  unit: string;
+  cells: HeatmapCell[];
+  source_note: string;
+}
+
+export interface ScientificInsight {
+  view_id: string;
+  what_graph_displays: string;
+  important_trends: string[];
+  differences_between_experiments: string[];
+  potential_correlations: string[];
+  limitations: string[];
+  conclusions_not_drawable: string[];
+  source_references: string[];
+}
