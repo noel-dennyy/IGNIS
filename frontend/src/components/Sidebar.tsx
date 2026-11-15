@@ -11,7 +11,8 @@ import {
   BarChart2,
   Images,
   SplitSquareHorizontal,
-  Layers
+  Layers,
+  Map
 } from "lucide-react";
 
 export type PageId =
@@ -25,7 +26,8 @@ export type PageId =
   | "viz"
   | "gallery"
   | "image-compare"
-  | "workspace";
+  | "workspace"
+  | "evidence-gap";
 
 interface SidebarProps {
   activePage: PageId;
@@ -41,6 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage }) =
     { id: "ranking", label: "Relevance Ranking", icon: TrendingUp },
     { id: "assistant", label: "IGNIS AI Assistant", icon: MessageSquare },
     { id: "scenario", label: "Mission Scenario Analyzer", icon: ShieldAlert },
+    { id: "evidence-gap", label: "Evidence Gap Heatmap", icon: Map },
     { id: "viz", label: "Scientific Visualizations", icon: BarChart2 },
     { id: "gallery", label: "Image Gallery", icon: Images },
     { id: "image-compare", label: "Image Comparison", icon: SplitSquareHorizontal },
@@ -80,7 +83,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage }) =
         <div style={{ marginBottom: "4px", color: "var(--text-muted)" }}>NASA Space Apps 2026</div>
         <div>Flame in Freefall Challenge</div>
         <div style={{ marginTop: "6px", fontSize: "0.68rem", color: "var(--text-dim)" }}>
-          Data Source: NASA PSI & NTRS
+          Data Source: NASA PSI &amp; NTRS
         </div>
       </div>
     </aside>

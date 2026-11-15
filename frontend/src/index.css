@@ -19,6 +19,26 @@
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* Light mode overrides */
+body.light-mode {
+  --bg-main: #F1F5F9;
+  --bg-surface: #FFFFFF;
+  --bg-elevated: #E8EDF4;
+  --border-color: #CBD5E1;
+  --border-highlight: #94A3B8;
+  --accent-cyan: #0284C7;
+  --accent-purple: #7C3AED;
+  --color-caution: #B45309;
+  --color-caution-bg: rgba(180, 83, 9, 0.1);
+  --color-error: #DC2626;
+  --color-error-bg: rgba(220, 38, 38, 0.1);
+  --color-success: #059669;
+  --color-success-bg: rgba(5, 150, 105, 0.1);
+  --text-main: #0F172A;
+  --text-muted: #475569;
+  --text-dim: #94A3B8;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -454,4 +474,92 @@ a:hover {
   background-color: var(--bg-elevated);
   border: 1px solid var(--border-color);
   color: var(--accent-cyan);
+}
+
+/* Evidence Strength Bar */
+.evidence-bar-track {
+  height: 6px;
+  background-color: var(--bg-elevated);
+  border-radius: 3px;
+  overflow: hidden;
+  flex-grow: 1;
+}
+.evidence-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+/* Light mode header adjustments */
+body.light-mode .top-header {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+body.light-mode .sidebar {
+  background-color: var(--bg-surface);
+}
+body.light-mode .nav-item.active {
+  background-color: rgba(2, 132, 199, 0.12);
+}
+body.light-mode .data-table tr:hover td {
+  background-color: rgba(232, 237, 244, 0.6);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.theme-toggle:hover {
+  border-color: var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+/* Tour launch button */
+.tour-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(167, 139, 250, 0.1);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 20px;
+  color: var(--accent-purple);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.tour-btn:hover {
+  background: rgba(167, 139, 250, 0.2);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 56px;
+  }
+  .sidebar .brand-sub,
+  .sidebar .sidebar-footer,
+  .sidebar .nav-item span {
+    display: none;
+  }
+  .sidebar .nav-item {
+    justify-content: center;
+    padding: 12px;
+  }
+  .content-body {
+    padding: 16px;
+  }
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }

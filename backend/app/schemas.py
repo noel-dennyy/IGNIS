@@ -169,6 +169,8 @@ class ChatMessage(BaseModel):
     suggested_follow_ups: List[str] = []
     intent: Optional[str] = None
     created_at: Optional[str] = None
+    evidence_strength: Optional[str] = None
+    evidence_score: Optional[float] = None
 
 class AssistantAskRequest(BaseModel):
     question: str
@@ -188,6 +190,8 @@ class AssistantAskResponse(BaseModel):
     intent: Optional[str] = None
     reasoning_steps: List[str] = []
     suggested_follow_ups: List[str] = []
+    evidence_strength: Optional[str] = None   # 'Strong', 'Moderate', 'Sparse', or None
+    evidence_score: Optional[float] = None    # 0.0 – 1.0 normalized
 
 class SessionSummary(BaseModel):
     id: str

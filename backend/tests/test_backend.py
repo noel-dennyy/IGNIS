@@ -274,5 +274,28 @@ class TestIgnisBackendDirect(unittest.TestCase):
         self.assertIn("SAFFIRE", resp.answer)
         self.assertGreater(len(resp.citations), 0)
 
+    def test_23_evidence_strength_and_confidence_indicator(self):
+        """Answered scientific queries should return evidence_strength and normalized evidence_score."""
+        req = AssistantAskRequest(question="What was the main objective of the FLEX investigation?")
+        resp = ask_assistant(req)
+        self.assertEqual(resp.status, "answered")
+        self.assertIn(resp.evidence_strength, ["Strong", "Moderate", "Sparse"])
+        self.assertIsNotNone(resp.evidence_score)
+        self.assertGreater(resp.evidence_score, 0.0)
+        self.assertLessEqual(resp.evidence_score, 1.0)
+
+    def test_24_evidence_gap_heatmap_endpoint(self):
+        """Evidence gap heatmap endpoint should return matrix dimensions and cells."""
+        from app.routers.evidence_gap import get_evidence_gap_matrix
+        matrix = get_evidence_gap_matrix()
+        self.assertIn("gravity_regimes", matrix)
+        self.assertIn("fuels_materials", matrix)
+        self.assertIn("atmosphere_conditions", matrix)
+        self.assertIn("cells", matrix)
+        self.assertIn("summary", matrix)
+        self.assertGreater(matrix["summary"]["total_combinations"], 0)
+        self.assertGreater(matrix["summary"]["gap"], 0)
+        self.assertGreater(matrix["summary"]["tested"], 0)
+
 if __name__ == "__main__":
     unittest.main()

@@ -461,10 +461,24 @@ class ResearchAssistantService:
             except Exception:
                 pass  # Fall back to structured offline synthesis
 
+        # Compute evidence strength from chunk count and top relevance score
+        top_score = chunks[0]["relevance_score"] if chunks else 0.0
+        n_chunks = len(chunks)
+        raw_ev = min(1.0, (n_chunks / 5.0) * 0.5 + min(top_score / 0.3, 1.0) * 0.5)
+        if raw_ev >= 0.65:
+            evidence_strength = "Strong"
+        elif raw_ev >= 0.35:
+            evidence_strength = "Moderate"
+        else:
+            evidence_strength = "Sparse"
+        reasoning_steps.append(f"Evidence strength: {evidence_strength} ({n_chunks} chunks, top score {top_score:.3f}).")
+
         # 7. Adaptive Grounded Offline Synthesis
         res = self._adaptive_synthesis(question, enriched_query, chunks, citations, prior_messages, reasoning_steps)
         res["session_id"] = session_id
         res["intent"] = intent
+        res["evidence_strength"] = evidence_strength
+        res["evidence_score"] = round(raw_ev, 3)
 
         self.save_message(session_id, "user", question, status="answered", intent=intent)
         self.save_message(

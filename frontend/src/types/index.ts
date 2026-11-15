@@ -191,6 +191,8 @@ export interface ChatMessage {
   suggested_follow_ups?: string[];
   intent?: string;
   created_at?: string;
+  evidence_strength?: "Strong" | "Moderate" | "Sparse";
+  evidence_score?: number;
 }
 
 export interface AssistantAskResponse {
@@ -204,6 +206,8 @@ export interface AssistantAskResponse {
   intent?: string;
   reasoning_steps?: string[];
   suggested_follow_ups?: string[];
+  evidence_strength?: "Strong" | "Moderate" | "Sparse";
+  evidence_score?: number;
 }
 
 export interface SessionSummary {
@@ -340,4 +344,29 @@ export interface ScientificInsight {
   limitations: string[];
   conclusions_not_drawable: string[];
   source_references: string[];
+}
+
+// ── Evidence Gap ─────────────────────────────────────────────────────────────
+
+export interface EvidenceGapCell {
+  gravity: string;
+  fuel: string;
+  atmosphere: string;
+  status: "tested" | "partial" | "gap";
+}
+
+export interface EvidenceGapResponse {
+  gravity_regimes: string[];
+  fuels_materials: string[];
+  atmosphere_conditions: string[];
+  cells: EvidenceGapCell[];
+  summary: {
+    total_combinations: number;
+    tested: number;
+    partial: number;
+    gap: number;
+    coverage_pct: number;
+  };
+  data_note: string;
+  source_investigations: Array<{ id: string; name: string; doi: string; url: string }>;
 }

@@ -19,7 +19,8 @@ import type {
   ScatterResponse,
   DistributionResponse,
   HeatmapResponse,
-  ScientificInsight
+  ScientificInsight,
+  EvidenceGapResponse
 } from "../types";
 
 const API_BASE = "http://127.0.0.1:8000";
@@ -127,4 +128,6 @@ export const api = {
     request<HeatmapResponse>(`/api/viz/heatmap?heatmap_type=${heatmap_type}`),
   getInsights: (view_id: string) =>
     request<ScientificInsight>(`/api/viz/insights/${view_id}`),
+
+  getEvidenceGap: () => request<EvidenceGapResponse>("/api/evidence-gap"),
 };

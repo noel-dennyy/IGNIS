@@ -98,6 +98,8 @@ export const AssistantPage: React.FC = () => {
           reasoning_steps: res.reasoning_steps || [],
           suggested_follow_ups: res.suggested_follow_ups || [],
           intent: res.intent,
+          evidence_strength: res.evidence_strength,
+          evidence_score: res.evidence_score,
           created_at: new Date().toISOString()
         };
         setMessages((prev) => [...prev, assistantMsg]);
@@ -322,6 +324,59 @@ export const AssistantPage: React.FC = () => {
                       </div>
                     )}
                   </div>
+
+                  {/* Evidence Strength Indicator (for assistant) */}
+                  {!isUser && msg.evidence_strength && (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        marginBottom: "12px",
+                        padding: "6px 10px",
+                        backgroundColor: "var(--bg-elevated)",
+                        borderRadius: "6px",
+                        border: "1px solid var(--border-color)"
+                      }}
+                    >
+                      <span style={{ fontSize: "0.72rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", fontWeight: 600 }}>
+                        Evidence Strength:
+                      </span>
+                      <span
+                        className={`badge ${
+                          msg.evidence_strength === "Strong"
+                            ? "badge-green"
+                            : msg.evidence_strength === "Moderate"
+                            ? "badge-cyan"
+                            : "badge-caution"
+                        }`}
+                        style={{ fontSize: "0.7rem", padding: "2px 8px" }}
+                      >
+                        {msg.evidence_strength}
+                      </span>
+                      {typeof msg.evidence_score === "number" && (
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexGrow: 1, maxWidth: "160px" }}>
+                          <div className="evidence-bar-track">
+                            <div
+                              className="evidence-bar-fill"
+                              style={{
+                                width: `${Math.round(msg.evidence_score * 100)}%`,
+                                backgroundColor:
+                                  msg.evidence_strength === "Strong"
+                                    ? "var(--color-success)"
+                                    : msg.evidence_strength === "Moderate"
+                                    ? "var(--accent-cyan)"
+                                    : "var(--color-caution)"
+                              }}
+                            />
+                          </div>
+                          <span style={{ fontSize: "0.7rem", fontFamily: "var(--font-mono)", color: "var(--text-dim)" }}>
+                            {Math.round(msg.evidence_score * 100)}%
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Reasoning Process Accordion (for assistant) */}
                   {!isUser && msg.reasoning_steps && msg.reasoning_steps.length > 0 && (

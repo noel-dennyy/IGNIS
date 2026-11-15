@@ -19,6 +19,7 @@ from app.routers import (
     images,
     visualization
 )
+from app.routers import evidence_gap
 
 app = FastAPI(
     title="IGNIS — Microgravity Combustion Intelligence API",
@@ -49,6 +50,7 @@ app.include_router(assistant.router)
 app.include_router(sources.router)
 app.include_router(images.router)
 app.include_router(visualization.router)
+app.include_router(evidence_gap.router)
 
 from starlette.staticfiles import StaticFiles
 from pathlib import Path

@@ -56,6 +56,35 @@ export const MissionScenarioPage: React.FC = () => {
       gaps: [
         "SUPPRESSION TOTAL FLOODING: While FLEX tested small-scale CO2 and He suppression of droplet flames, full-scale vehicle compartment depressurization or flooding dynamics are not in the current indexed subset."
       ]
+    },
+    iss_wiring: {
+      title: "ISS Electronics Standoff & Wire Harness Overheat",
+      gravity: "Orbital Microgravity (~10^-6 g aboard ISS)",
+      description: "Potential electrical overload or arc fault in tightly bundled wiring behind rack standoffs with standard cabin atmosphere (21% O2, 101.3 kPa) and stagnant ventilation dead zones (< 5 cm/s).",
+      relevantLeads: [
+        {
+          investigation: "SPICE (PSI-107)",
+          insight: "Shows soot agglomeration in microgravity leads to larger particle sizes and delayed detection thresholds for standard optical obscuration smoke detectors in low-flow pockets.",
+          doi: "10.60555/9kbh-e962",
+          sourceUrl: "https://psi.nasa.gov/physci/repo/data/investigations/PSI-107"
+        },
+        {
+          investigation: "FLEX (PSI-69)",
+          insight: "In microgravity with near-zero flow, pyrolyzed fuel vapors pool around ignition sites, creating potential for low-temperature cool flame resurgence when air circulation restarts.",
+          doi: "10.60555/mbq8-0451",
+          sourceUrl: "https://psi.nasa.gov/physci/repo/data/investigations/PSI-69"
+        },
+        {
+          investigation: "SAFFIRE-I (PSI-98)",
+          insight: "Demonstrated that low-speed forced ventilation (~20 cm/s) can transition quiescent smoldering into active, high-temperature downstream flame spread.",
+          doi: "10.60555/0t15-1z43",
+          sourceUrl: "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98"
+        }
+      ],
+      gaps: [
+        "MATERIAL GAP: The indexed corpus contains SIBAL fabric, n-heptane, ethanol, methane, and ethylene. Polymeric electrical wire insulation (PTFE, ETFE, Kapton) is not indexed in the current microgravity combustion database.",
+        "CONFINEMENT GEOMETRY: Tests inside open flow ducts (SAFFIRE) or spherical combustion chambers (FLEX) do not model narrow wire-loom standoffs between avionics chassis."
+      ]
     }
   };
 
@@ -90,6 +119,7 @@ export const MissionScenarioPage: React.FC = () => {
             >
               <option value="lunar_base">Artemis Pressurized Lunar Habitat</option>
               <option value="mars_transit">Mars Long-Duration Transit Vehicle</option>
+              <option value="iss_wiring">ISS Rack Standoff & Wire Harness Overheat</option>
             </select>
           </div>
 
