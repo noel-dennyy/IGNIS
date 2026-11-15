@@ -15,6 +15,7 @@ import { ImageComparisonPage } from "./pages/ImageComparisonPage";
 import { ExperimentWorkspacePage } from "./pages/ExperimentWorkspacePage";
 import { EvidenceGapPage } from "./pages/EvidenceGapPage";
 import { OnboardingTour } from "./components/OnboardingTour";
+import { CombustionBackground } from "./components/CombustionBackground";
 import { api } from "./api/client";
 
 export const App: React.FC = () => {
@@ -69,6 +70,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="app-container">
+      <CombustionBackground />
       <Sidebar activePage={activePage} setActivePage={setActivePage} />
 
       <main className="main-content">

@@ -9,67 +9,119 @@ import type {
   TimeSeriesResponse, ScatterResponse, DistributionResponse,
   HeatmapResponse, ScientificInsight
 } from "../types";
+import { Flame, Activity, AlertTriangle, BarChart2 } from "lucide-react";
 
 type TabId = "time-series" | "scatter" | "distribution" | "heatmap";
 
-const TAB_LABELS: Record<TabId, string> = {
-  "time-series": "Time Series",
-  "scatter": "Scatter Plot",
-  "distribution": "Distribution",
-  "heatmap": "Heatmap"
+const TAB_LABELS: Record<TabId, { label: string; desc: string }> = {
+  "time-series": { label: "Time Series Telemetry", desc: "SAFFIRE-I Thermocouple & Spread Curves" },
+  "scatter": { label: "Multi-Variable Scatter", desc: "Droplet Regressions & Airflow Correlation" },
+  "distribution": { label: "Parameter Distributions", desc: "Statistical Bins, LOI & Burn Rates" },
+  "heatmap": { label: "Spatial & Correlation Heatmap", desc: "Duct Temperatures & Variable Covariance" }
 };
 
 const HEATMAP_COLORS = (v: number | null): string => {
-  if (v === null) return "#1e293b";
-  if (v > 800) return "#ef4444";
-  if (v > 600) return "#f97316";
-  if (v > 400) return "#eab308";
-  if (v > 200) return "#22c55e";
-  if (v > 0.5) return "#38bdf8"; // correlation
-  if (v > 0.2) return "#818cf8";
-  if (v < -0.5) return "#fb7185";
-  if (v < -0.2) return "#f9a8d4";
-  return "#334155";
+  if (v === null) return "#19232D";
+  if (v > 800) return "#EF4444";
+  if (v > 600) return "#FF7626";
+  if (v > 400) return "#FFB547";
+  if (v > 200) return "#10B981";
+  if (v > 0.5) return "#39C5E8"; // high correlation
+  if (v > 0.2) return "#38BDF8";
+  if (v < -0.5) return "#EF4444";
+  if (v < -0.2) return "#FB7185";
+  return "#253344";
+};
+
+// Custom High-Tech Monospace HUD Tooltip
+const HudTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div style={{
+        background: "rgba(17, 24, 32, 0.95)",
+        border: "1px solid var(--accent-molten)",
+        borderRadius: "4px",
+        padding: "10px 14px",
+        boxShadow: "0 0 15px rgba(255, 118, 38, 0.25)",
+        fontFamily: "var(--font-mono)",
+        fontSize: "0.78rem"
+      }}>
+        {label !== undefined && (
+          <div style={{ color: "var(--accent-amber)", marginBottom: "6px", borderBottom: "1px solid var(--border-color)", paddingBottom: "4px" }}>
+            T: {label}
+          </div>
+        )}
+        {payload.map((entry: any, index: number) => (
+          <div key={`item-${index}`} style={{ display: "flex", justifyContent: "space-between", gap: "14px", color: entry.color || "var(--text-primary)", marginTop: "2px" }}>
+            <span>{entry.name}:</span>
+            <span style={{ fontWeight: 700 }}>{typeof entry.value === "number" ? entry.value.toFixed(2) : entry.value}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
 };
 
 function ScientificInsightsPanel({ insight }: { insight: ScientificInsight | null }) {
   if (!insight) return null;
   return (
-    <div className="card" style={{ marginTop: "1.5rem" }}>
+    <div className="card hud-panel" style={{ marginTop: "1.5rem", borderLeft: "3px solid var(--accent-cyan)" }}>
       <div className="card-header">
-        <h3 className="card-title">🔬 Scientific Insights</h3>
+        <h3 className="card-title" style={{ fontSize: "0.95rem" }}>
+          <Activity size={18} color="var(--accent-cyan)" />
+          <span>Scientific Insight &amp; Physical Bounds</span>
+        </h3>
+        <span className="badge badge-cyan">NASA Grounded</span>
       </div>
-      <div style={{ padding: "1rem", fontSize: "0.875rem", lineHeight: 1.7, color: "var(--text-secondary)" }}>
-        <p style={{ marginBottom: "0.75rem" }}><strong style={{ color: "var(--text-primary)" }}>What This Graph Shows:</strong> {insight.what_graph_displays}</p>
+      <div style={{ fontSize: "0.86rem", lineHeight: 1.65, color: "var(--text-secondary)" }}>
+        <p style={{ marginBottom: "0.85rem" }}>
+          <strong style={{ color: "var(--text-primary)" }}>What This Graph Shows:</strong> {insight.what_graph_displays}
+        </p>
+
         {insight.important_trends.length > 0 && (
-          <>
-            <strong style={{ color: "var(--text-primary)" }}>Key Trends:</strong>
-            <ul style={{ margin: "0.5rem 0 0.75rem 1.2rem" }}>
+          <div style={{ marginBottom: "0.85rem" }}>
+            <strong style={{ color: "var(--text-primary)", display: "block", marginBottom: "4px" }}>Key Experimental Trends:</strong>
+            <ul style={{ margin: "0 0 0 1.2rem", display: "flex", flexDirection: "column", gap: "4px" }}>
               {insight.important_trends.map((t, i) => <li key={i}>{t}</li>)}
             </ul>
-          </>
+          </div>
         )}
+
         {insight.potential_correlations.length > 0 && (
-          <>
-            <strong style={{ color: "var(--text-primary)" }}>Correlation vs Causation:</strong>
-            {insight.potential_correlations.map((c, i) => <p key={i} style={{ marginTop: "0.4rem" }}>{c}</p>)}
-          </>
+          <div style={{ marginBottom: "0.85rem" }}>
+            <strong style={{ color: "var(--text-primary)", display: "block", marginBottom: "4px" }}>Correlation vs. Causation Analysis:</strong>
+            {insight.potential_correlations.map((c, i) => (
+              <p key={i} style={{ marginTop: "2px" }}>{c}</p>
+            ))}
+          </div>
         )}
+
         {insight.limitations.length > 0 && (
-          <div style={{ marginTop: "0.75rem", padding: "0.6rem 0.9rem", background: "rgba(245,158,11,0.08)", borderLeft: "3px solid #f59e0b", borderRadius: "4px" }}>
-            <strong style={{ color: "#f59e0b" }}>⚠ Measurement Limitations:</strong>
-            {insight.limitations.map((l, i) => <p key={i} style={{ margin: "0.3rem 0 0" }}>{l}</p>)}
+          <div style={{ marginTop: "0.85rem", padding: "0.75rem 1rem", background: "rgba(255, 181, 71, 0.08)", borderLeft: "3px solid var(--accent-amber)", borderRadius: "4px" }}>
+            <strong style={{ color: "var(--accent-amber)", display: "flex", alignItems: "center", gap: "6px" }}>
+              <AlertTriangle size={14} /> Measurement Limitations &amp; Boundary Conditions:
+            </strong>
+            {insight.limitations.map((l, i) => (
+              <p key={i} style={{ margin: "0.3rem 0 0", fontSize: "0.82rem" }}>{l}</p>
+            ))}
           </div>
         )}
+
         {insight.conclusions_not_drawable.length > 0 && (
-          <div style={{ marginTop: "0.75rem", padding: "0.6rem 0.9rem", background: "rgba(239,68,68,0.08)", borderLeft: "3px solid #ef4444", borderRadius: "4px" }}>
-            <strong style={{ color: "#ef4444" }}>✗ Conclusions NOT Supported:</strong>
-            {insight.conclusions_not_drawable.map((c, i) => <p key={i} style={{ margin: "0.3rem 0 0" }}>{c}</p>)}
+          <div style={{ marginTop: "0.75rem", padding: "0.75rem 1rem", background: "rgba(239, 68, 68, 0.08)", borderLeft: "3px solid var(--accent-flame)", borderRadius: "4px" }}>
+            <strong style={{ color: "var(--accent-flame)", display: "flex", alignItems: "center", gap: "6px" }}>
+              <Flame size={14} /> Conclusions NOT Supported by Current Data:
+            </strong>
+            {insight.conclusions_not_drawable.map((c, i) => (
+              <p key={i} style={{ margin: "0.3rem 0 0", fontSize: "0.82rem" }}>{c}</p>
+            ))}
           </div>
         )}
+
         {insight.source_references.length > 0 && (
-          <div style={{ marginTop: "0.75rem", fontSize: "0.78rem", color: "var(--text-muted)" }}>
-            <strong>Sources:</strong> {insight.source_references.join(" · ")}
+          <div style={{ marginTop: "0.85rem", fontSize: "0.76rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+            <strong>Official NASA References:</strong> {insight.source_references.join(" · ")}
           </div>
         )}
       </div>
@@ -92,9 +144,17 @@ function TimeSeriesTab() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div className="empty-state">Loading SAFFIRE-I telemetry…</div>;
-  if (error) return <div className="empty-state" style={{ color: "#ef4444" }}>Error: {error}</div>;
-  if (!data || data.data.length === 0) return <div className="empty-state">No time-series data available.</div>;
+  if (loading) return (
+    <div className="card" style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
+      LOADING SAFFIRE-I FLIGHT TELEMETRY...
+    </div>
+  );
+  if (error) return (
+    <div className="card" style={{ padding: "40px", color: "var(--color-error)", fontFamily: "var(--font-mono)" }}>
+      Error loading telemetry: {error}
+    </div>
+  );
+  if (!data || data.data.length === 0) return <div className="card">No time-series data available.</div>;
 
   const toggleChannel = (key: string) => {
     setActiveChannels(prev => {
@@ -106,34 +166,72 @@ function TimeSeriesTab() {
 
   return (
     <>
-      <div className="card">
-        <div className="card-header" style={{ flexWrap: "wrap", gap: "0.5rem" }}>
-          <h3 className="card-title">{data.title}</h3>
+      <div className="card hud-panel">
+        <div className="card-header" style={{ flexWrap: "wrap", gap: "0.75rem" }}>
+          <div>
+            <h3 className="card-title">{data.title}</h3>
+            <span style={{ fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+              FACILITY: CYGNUS OA-6 CARGO SPACECRAFT // FORCED FLOW: 20 cm/s // O₂: 21.0%
+            </span>
+          </div>
+
           <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-            {data.channels.map(ch => (
-              <button key={ch.key} onClick={() => toggleChannel(ch.key)}
-                className={`btn btn-sm ${activeChannels.has(ch.key) ? "" : "btn-ghost"}`}
-                style={{ borderColor: ch.color, color: activeChannels.has(ch.key) ? ch.color : "var(--text-muted)", fontSize: "0.75rem" }}>
-                {ch.name} ({ch.unit})
-              </button>
-            ))}
+            {data.channels.map(ch => {
+              const active = activeChannels.has(ch.key);
+              return (
+                <button
+                  key={ch.key}
+                  onClick={() => toggleChannel(ch.key)}
+                  className="btn"
+                  style={{
+                    backgroundColor: active ? "rgba(25, 35, 45, 0.9)" : "transparent",
+                    borderColor: active ? ch.color : "var(--border-color)",
+                    color: active ? ch.color : "var(--text-dim)",
+                    fontSize: "0.75rem",
+                    padding: "4px 10px",
+                    fontFamily: "var(--font-mono)",
+                    boxShadow: active ? `0 0 8px ${ch.color}33` : "none"
+                  }}
+                >
+                  <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: active ? ch.color : "var(--border-color)" }} />
+                  <span>{ch.name} ({ch.unit})</span>
+                </button>
+              );
+            })}
           </div>
         </div>
-        <div style={{ padding: "1rem" }}>
-          <ResponsiveContainer width="100%" height={340}>
-            <LineChart data={data.data} margin={{ top: 10, right: 20, bottom: 20, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis dataKey="time_elapsed_s" label={{ value: `${data.x_axis.label} (${data.x_axis.unit})`, position: "insideBottom", offset: -10, fill: "#64748b" }} stroke="#334155" tick={{ fill: "#94a3b8", fontSize: 11 }} />
-              <YAxis stroke="#334155" tick={{ fill: "#94a3b8", fontSize: 11 }} />
-              <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #334155", color: "#e2e8f0" }} />
-              <Legend wrapperStyle={{ paddingTop: "10px", color: "#94a3b8", fontSize: "0.78rem" }} />
+
+        <div style={{ padding: "0.5rem 0" }}>
+          <ResponsiveContainer width="100%" height={360}>
+            <LineChart data={data.data} margin={{ top: 15, right: 25, bottom: 25, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
+              <XAxis
+                dataKey="time_elapsed_s"
+                label={{ value: `${data.x_axis.label} (${data.x_axis.unit})`, position: "insideBottom", offset: -12, fill: "#64748B", fontSize: 11 }}
+                stroke="#1E293B"
+                tick={{ fill: "#94A3B8", fontSize: 11 }}
+              />
+              <YAxis
+                stroke="#1E293B"
+                tick={{ fill: "#94A3B8", fontSize: 11 }}
+              />
+              <Tooltip content={<HudTooltip />} />
+              <Legend wrapperStyle={{ paddingTop: "12px", color: "#94A3B8", fontSize: "0.78rem", fontFamily: "var(--font-mono)" }} />
               {data.channels.filter(ch => activeChannels.has(ch.key)).map(ch => (
-                <Line key={ch.key} type="monotone" dataKey={ch.key} stroke={ch.color} dot={false} name={`${ch.name} (${ch.unit})`} strokeWidth={2} />
+                <Line
+                  key={ch.key}
+                  type="monotone"
+                  dataKey={ch.key}
+                  stroke={ch.color}
+                  dot={false}
+                  name={`${ch.name} (${ch.unit})`}
+                  strokeWidth={2.2}
+                />
               ))}
             </LineChart>
           </ResponsiveContainer>
-          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.5rem" }}>
-            📎 {data.source_note}
+          <p style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginTop: "0.75rem", fontFamily: "var(--font-mono)" }}>
+            SOURCE: {data.source_note}
           </p>
         </div>
       </div>
@@ -158,55 +256,89 @@ function ScatterTab() {
   useEffect(() => { load(dataset); }, [dataset, load]);
 
   const fuelColors: Record<string, string> = {
-    "Methanol": "#38bdf8", "n-Heptane": "#f59e0b", "n-Decane": "#a78bfa",
-    "Ethanol": "#10b981", "Ethylene": "#ef4444", "Propane": "#fb923c"
+    "Methanol": "#39C5E8",
+    "n-Heptane": "#FF7626",
+    "n-Decane": "#FFB547",
+    "Ethanol": "#10B981",
+    "Ethylene": "#EF4444",
+    "Propane": "#FB923C",
+    "PMMA": "#A78BFA",
+    "Heptane/Hexadecane": "#38BDF8"
   };
 
-  if (loading) return <div className="empty-state">Loading scatter data…</div>;
-  if (!data) return <div className="empty-state">No scatter data.</div>;
+  if (loading) return (
+    <div className="card" style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
+      LOADING SCATTER REGRESSION DATA...
+    </div>
+  );
+  if (!data) return <div className="card">No scatter data available.</div>;
 
   const xKey = data.x_axis.key;
   const yKey = data.y_axis.key;
 
   return (
     <>
-      <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">{data.title}</h3>
-          <select className="select-box" value={dataset} onChange={e => setDataset(e.target.value)} style={{ minWidth: "200px" }}>
-            <option value="flex_droplet">FLEX — Droplet d₀ vs K</option>
-            <option value="flex2_binary">FLEX-2 — Binary Droplet d₀ vs K</option>
-            <option value="bass_solid">BASS — Airflow vs Flame Spread (Solid)</option>
-            <option value="spice_smoke_point">SPICE — Velocity vs Smoke Length</option>
+      <div className="card hud-panel">
+        <div className="card-header" style={{ flexWrap: "wrap", gap: "0.75rem" }}>
+          <div>
+            <h3 className="card-title">{data.title}</h3>
+            <span style={{ fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+              CROSS-RUN VARIABLE REGRESSION &amp; DROPLET RESIDUALS
+            </span>
+          </div>
+
+          <select className="select-box" value={dataset} onChange={e => setDataset(e.target.value)} style={{ minWidth: "260px" }}>
+            <option value="flex_droplet">FLEX (PSI-69) — Droplet d₀ vs K</option>
+            <option value="flex2_binary">FLEX-2 (PSI-70) — Binary Droplet d₀ vs K</option>
+            <option value="bass_solid">BASS (PSI-108) — Airflow vs Flame Spread</option>
+            <option value="spice_smoke_point">SPICE (PSI-107) — Jet Velocity vs Smoke Length</option>
           </select>
         </div>
-        <div style={{ padding: "1rem" }}>
-          <ResponsiveContainer width="100%" height={340}>
-            <ScatterChart margin={{ top: 10, right: 20, bottom: 30, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis type="number" dataKey={xKey} name={data.x_axis.label} unit={` ${data.x_axis.unit}`}
-                label={{ value: `${data.x_axis.label} (${data.x_axis.unit})`, position: "insideBottom", offset: -15, fill: "#64748b" }}
-                stroke="#334155" tick={{ fill: "#94a3b8", fontSize: 11 }} />
-              <YAxis type="number" dataKey={yKey} name={data.y_axis.label} unit={` ${data.y_axis.unit}`}
-                label={{ value: `${data.y_axis.label} (${data.y_axis.unit})`, angle: -90, position: "insideLeft", fill: "#64748b" }}
-                stroke="#334155" tick={{ fill: "#94a3b8", fontSize: 11 }} />
-              <Tooltip cursor={{ strokeDasharray: "3 3" }} contentStyle={{ background: "#0f172a", border: "1px solid #334155", color: "#e2e8f0" }}
-                formatter={(value: any, name: any) => [`${value}`, `${name}`]} />
+
+        <div style={{ padding: "0.5rem 0" }}>
+          <ResponsiveContainer width="100%" height={360}>
+            <ScatterChart margin={{ top: 15, right: 25, bottom: 35, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" />
+              <XAxis
+                type="number"
+                dataKey={xKey}
+                name={data.x_axis.label}
+                unit={` ${data.x_axis.unit}`}
+                label={{ value: `${data.x_axis.label} (${data.x_axis.unit})`, position: "insideBottom", offset: -18, fill: "#64748B", fontSize: 11 }}
+                stroke="#1E293B"
+                tick={{ fill: "#94A3B8", fontSize: 11 }}
+              />
+              <YAxis
+                type="number"
+                dataKey={yKey}
+                name={data.y_axis.label}
+                unit={` ${data.y_axis.unit}`}
+                label={{ value: `${data.y_axis.label} (${data.y_axis.unit})`, angle: -90, position: "insideLeft", fill: "#64748B", fontSize: 11 }}
+                stroke="#1E293B"
+                tick={{ fill: "#94A3B8", fontSize: 11 }}
+              />
+              <Tooltip cursor={{ strokeDasharray: "3 3", stroke: "rgba(255,118,38,0.5)" }} content={<HudTooltip />} />
               <Scatter data={data.points as Record<string, number>[]}>
                 {data.points.map((pt, i) => (
-                  <Cell key={i} fill={fuelColors[pt["fuel"] as string] || "#38bdf8"} />
+                  <Cell key={i} fill={fuelColors[pt["fuel"] as string] || "#39C5E8"} />
                 ))}
               </Scatter>
             </ScatterChart>
           </ResponsiveContainer>
-          <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginTop: "0.5rem" }}>
+
+          {/* Fuel Color Legend */}
+          <div style={{ display: "flex", gap: "14px", flexWrap: "wrap", marginTop: "10px", padding: "8px 12px", background: "var(--bg-elevated)", borderRadius: "4px" }}>
             {Object.entries(fuelColors).map(([fuel, color]) => (
-              <span key={fuel} style={{ display: "flex", alignItems: "center", gap: "5px", fontSize: "0.75rem", color: "var(--text-secondary)" }}>
-                <span style={{ width: 10, height: 10, borderRadius: "50%", background: color, display: "inline-block" }} /> {fuel}
+              <span key={fuel} style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.74rem", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: color, display: "inline-block", boxShadow: `0 0 6px ${color}88` }} />
+                <span>{fuel}</span>
               </span>
             ))}
           </div>
-          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.5rem" }}>📎 {data.source_note}</p>
+
+          <p style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginTop: "0.75rem", fontFamily: "var(--font-mono)" }}>
+            SOURCE: {data.source_note}
+          </p>
         </div>
       </div>
       <ScientificInsightsPanel insight={insight} />
@@ -229,17 +361,27 @@ function DistributionTab() {
 
   useEffect(() => { load(variable); }, [variable, load]);
 
-  if (loading) return <div className="empty-state">Loading distribution…</div>;
-  if (!data) return <div className="empty-state">No distribution data.</div>;
+  if (loading) return (
+    <div className="card" style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
+      COMPUTING STATISTICAL DISTRIBUTION...
+    </div>
+  );
+  if (!data) return <div className="card">No distribution data available.</div>;
 
   const stats = data.statistics;
 
   return (
     <>
-      <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">{data.title}</h3>
-          <select className="select-box" value={variable} onChange={e => setVariable(e.target.value)}>
+      <div className="card hud-panel">
+        <div className="card-header" style={{ flexWrap: "wrap", gap: "0.75rem" }}>
+          <div>
+            <h3 className="card-title">{data.title}</h3>
+            <span style={{ fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+              EXPERIMENTAL SAMPLE BINS &amp; CENTRAL TENDENCY METRICS
+            </span>
+          </div>
+
+          <select className="select-box" value={variable} onChange={e => setVariable(e.target.value)} style={{ minWidth: "260px" }}>
             <option value="burning_rate_k">FLEX — Burning Rate K (mm²/s)</option>
             <option value="flex2_burning_rate">FLEX-2 — Binary Burning Rate K (mm²/s)</option>
             <option value="extinction_diameter">FLEX — Extinction Diameter d_e (mm)</option>
@@ -248,36 +390,68 @@ function DistributionTab() {
             <option value="smoke_point_length">SPICE — Smoke-Point Length (mm)</option>
           </select>
         </div>
-        <div style={{ padding: "1rem" }}>
-          <div style={{ display: "flex", gap: "1.5rem", marginBottom: "1rem", flexWrap: "wrap" }}>
+
+        <div style={{ padding: "0.5rem 0" }}>
+          {/* Statistical Metric HUD Pills */}
+          <div style={{ display: "flex", gap: "12px", marginBottom: "16px", flexWrap: "wrap" }}>
             {[
-              { label: "n", val: stats.count },
-              { label: `Mean (${data.unit})`, val: stats.mean },
-              { label: `Median (${data.unit})`, val: stats.median },
-              { label: `Std Dev`, val: stats.std_dev },
-              { label: `Min`, val: stats.min },
-              { label: `Max`, val: stats.max },
+              { label: "Observations (n)", val: stats.count, color: "var(--accent-cyan)" },
+              { label: `Mean (${data.unit})`, val: stats.mean, color: "var(--accent-molten)" },
+              { label: `Median (${data.unit})`, val: stats.median, color: "var(--accent-amber)" },
+              { label: `Std Dev (σ)`, val: stats.std_dev, color: "var(--text-primary)" },
+              { label: `Min`, val: stats.min, color: "var(--text-secondary)" },
+              { label: `Max`, val: stats.max, color: "var(--text-secondary)" },
             ].map(s => (
-              <div key={s.label} className="metric-card" style={{ minWidth: "80px", textAlign: "center" }}>
-                <div style={{ fontSize: "1.1rem", fontWeight: 700, color: "var(--accent-cyan)" }}>{s.val}</div>
-                <div style={{ fontSize: "0.68rem", color: "var(--text-muted)" }}>{s.label}</div>
+              <div 
+                key={s.label} 
+                style={{
+                  background: "var(--bg-elevated)",
+                  border: "1px solid var(--border-color)",
+                  borderRadius: "6px",
+                  padding: "10px 14px",
+                  minWidth: "110px",
+                  textAlign: "center",
+                  flex: "1 1 0"
+                }}
+              >
+                <div style={{ fontSize: "1.15rem", fontWeight: 700, color: s.color, fontFamily: "var(--font-mono)" }}>
+                  {s.val}
+                </div>
+                <div style={{ fontSize: "0.68rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)", textTransform: "uppercase" }}>
+                  {s.label}
+                </div>
               </div>
             ))}
           </div>
-          <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={data.bins} margin={{ top: 10, right: 20, bottom: 30, left: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis dataKey="label" stroke="#334155" tick={{ fill: "#94a3b8", fontSize: 10 }}
-                label={{ value: `${data.unit}`, position: "insideBottom", offset: -15, fill: "#64748b" }} />
-              <YAxis stroke="#334155" tick={{ fill: "#94a3b8", fontSize: 11 }}
-                label={{ value: "Count", angle: -90, position: "insideLeft", fill: "#64748b" }} />
-              <Tooltip contentStyle={{ background: "#0f172a", border: "1px solid #334155", color: "#e2e8f0" }} />
+
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={data.bins} margin={{ top: 15, right: 25, bottom: 35, left: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
+              <XAxis
+                dataKey="label"
+                stroke="#1E293B"
+                tick={{ fill: "#94A3B8", fontSize: 10 }}
+                label={{ value: `${data.unit}`, position: "insideBottom", offset: -18, fill: "#64748B", fontSize: 11 }}
+              />
+              <YAxis
+                stroke="#1E293B"
+                tick={{ fill: "#94A3B8", fontSize: 11 }}
+                label={{ value: "Frequency Count", angle: -90, position: "insideLeft", fill: "#64748B", fontSize: 11 }}
+              />
+              <Tooltip content={<HudTooltip />} />
               <Bar dataKey="count" name="Observations">
-                {data.bins.map((_, i) => <Cell key={i} fill={i % 2 === 0 ? "#38bdf8" : "#0ea5e9"} />)}
+                {data.bins.map((_, i) => (
+                  <Cell 
+                    key={i} 
+                    fill={i % 2 === 0 ? "var(--accent-molten)" : "var(--accent-amber)"} 
+                  />
+                ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
-          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.5rem" }}>📎 {data.source_note}</p>
+          <p style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginTop: "0.75rem", fontFamily: "var(--font-mono)" }}>
+            SOURCE: {data.source_note}
+          </p>
         </div>
       </div>
       <ScientificInsightsPanel insight={insight} />
@@ -300,48 +474,75 @@ function HeatmapTab() {
 
   useEffect(() => { load(heatmapType); }, [heatmapType, load]);
 
-  if (loading) return <div className="empty-state">Loading heatmap…</div>;
-  if (!data || data.cells.length === 0) return <div className="empty-state">No heatmap data.</div>;
+  if (loading) return (
+    <div className="card" style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
+      COMPUTING THERMAL GRID HEATMAP...
+    </div>
+  );
+  if (!data || data.cells.length === 0) return <div className="card">No heatmap data available.</div>;
 
   const rows = Array.from(new Set(data.cells.map(c => c.row)));
   const cols = Array.from(new Set(data.cells.map(c => c.col)));
   const cellMap = new Map(data.cells.map(c => [`${c.row}||${c.col}`, c.value]));
-
   const isCorr = heatmapType === "correlation_matrix";
 
   return (
     <>
-      <div className="card">
-        <div className="card-header">
-          <h3 className="card-title">{data.title}</h3>
-          <select className="select-box" value={heatmapType} onChange={e => setHeatmapType(e.target.value)}>
-            <option value="duct_temperature_grid">SAFFIRE-I — Duct Temperature Grid</option>
+      <div className="card hud-panel">
+        <div className="card-header" style={{ flexWrap: "wrap", gap: "0.75rem" }}>
+          <div>
+            <h3 className="card-title">{data.title}</h3>
+            <span style={{ fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+              {isCorr ? "VARIABLE CROSS-CORRELATION MATRIX" : "SPATIAL DUCT THERMOCOUPLE GRADIENT (°C)"}
+            </span>
+          </div>
+
+          <select className="select-box" value={heatmapType} onChange={e => setHeatmapType(e.target.value)} style={{ minWidth: "260px" }}>
+            <option value="duct_temperature_grid">SAFFIRE-I — Flow Duct Temperature Grid</option>
             <option value="correlation_matrix">FLEX — Correlation Matrix</option>
           </select>
         </div>
-        <div style={{ padding: "1rem", overflowX: "auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: `140px repeat(${cols.length}, 1fr)`, gap: "2px", minWidth: "500px" }}>
+
+        <div style={{ padding: "0.5rem 0", overflowX: "auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: `160px repeat(${cols.length}, 1fr)`, gap: "3px", minWidth: "550px" }}>
             {/* Header row */}
-            <div style={{ fontSize: "0.68rem", color: "var(--text-muted)", padding: "4px" }}>{data.row_label}</div>
+            <div style={{ fontSize: "0.72rem", color: "var(--text-dim)", padding: "6px", fontFamily: "var(--font-mono)" }}>
+              {data.row_label}
+            </div>
             {cols.map(col => (
-              <div key={col} style={{ fontSize: "0.65rem", color: "var(--text-muted)", padding: "4px", textAlign: "center", wordBreak: "break-word" }}>{col}</div>
+              <div key={col} style={{ fontSize: "0.7rem", color: "var(--text-dim)", padding: "6px", textAlign: "center", wordBreak: "break-word", fontFamily: "var(--font-mono)" }}>
+                {col}
+              </div>
             ))}
+
             {/* Data rows */}
             {rows.map(row => (
               <Fragment key={row}>
-                <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", padding: "4px", display: "flex", alignItems: "center" }}>{row}</div>
+                <div style={{ fontSize: "0.74rem", color: "var(--text-secondary)", padding: "6px", display: "flex", alignItems: "center", fontFamily: "var(--font-mono)" }}>
+                  {row}
+                </div>
                 {cols.map(col => {
                   const val = cellMap.get(`${row}||${col}`) ?? null;
                   return (
-                    <div key={col} title={val !== null ? `${val} ${data.unit}` : "No data"}
+                    <div
+                      key={col}
+                      title={val !== null ? `${val} ${data.unit}` : "No measurement recorded"}
                       style={{
                         background: isCorr
-                          ? `rgba(${val !== null && val > 0 ? "56,189,248" : "239,68,68"}, ${val !== null ? Math.abs(val) * 0.9 : 0})`
+                          ? `rgba(${val !== null && val > 0 ? "57,197,232" : "239,68,68"}, ${val !== null ? Math.max(0.15, Math.abs(val) * 0.85) : 0})`
                           : HEATMAP_COLORS(val),
-                        borderRadius: "3px", height: "32px",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: "0.65rem", color: "#e2e8f0", fontWeight: 600
-                      }}>
+                        borderRadius: "4px",
+                        height: "36px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: "0.72rem",
+                        color: "#F2F5F7",
+                        fontWeight: 700,
+                        fontFamily: "var(--font-mono)",
+                        border: "1px solid rgba(0,0,0,0.25)"
+                      }}
+                    >
                       {val !== null ? (isCorr ? val.toFixed(2) : Math.round(val)) : "—"}
                     </div>
                   );
@@ -349,11 +550,15 @@ function HeatmapTab() {
               </Fragment>
             ))}
           </div>
-          <div style={{ display: "flex", gap: "1rem", marginTop: "1rem", fontSize: "0.72rem", color: "var(--text-muted)", flexWrap: "wrap", alignItems: "center" }}>
-            <span>Unit: <strong style={{ color: "var(--text-secondary)" }}>{data.value_label} ({data.unit})</strong></span>
-            <span>—= No measurement (not zero)</span>
+
+          <div style={{ display: "flex", gap: "1.5rem", marginTop: "1rem", fontSize: "0.74rem", color: "var(--text-dim)", flexWrap: "wrap", alignItems: "center", fontFamily: "var(--font-mono)" }}>
+            <span>VALUE UNIT: <strong style={{ color: "var(--text-primary)" }}>{data.value_label} ({data.unit})</strong></span>
+            <span>— : NO TELEMETRY RECORDED (NOT ZERO)</span>
           </div>
-          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginTop: "0.5rem" }}>📎 {data.source_note}</p>
+
+          <p style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginTop: "0.75rem", fontFamily: "var(--font-mono)" }}>
+            SOURCE: {data.source_note}
+          </p>
         </div>
       </div>
       <ScientificInsightsPanel insight={insight} />
@@ -367,28 +572,63 @@ export function VisualizationDashboardPage() {
   return (
     <div>
       <div style={{ marginBottom: "1.5rem" }}>
-        <h2 style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "1.4rem", marginBottom: "0.4rem" }}>
-          Scientific Visualization Dashboard
-        </h2>
-        <p style={{ color: "var(--text-muted)", fontSize: "0.875rem" }}>
-          Interactive charts from verified NASA PSI records. All measurements are real experimental observations.
-          No data is fabricated or imputed.
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+          <BarChart2 size={20} color="var(--accent-molten)" />
+          <h2 style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.35rem" }}>
+            Scientific Telemetry &amp; Physical Measurement Visualizer
+          </h2>
+        </div>
+        <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem" }}>
+          Interactive multi-channel charts generated from verified NASA Physical Sciences Informatics (PSI) flight records. 
+          Enforces scientific integrity by prohibiting uncalibrated cross-apparatus axis sharing.
         </p>
-        <div style={{ marginTop: "0.75rem", padding: "0.5rem 0.9rem", background: "rgba(56,189,248,0.07)", borderLeft: "3px solid #38bdf8", borderRadius: "4px", fontSize: "0.8rem", color: "var(--text-muted)" }}>
-          ⚠ Experiments (FLEX, SAFFIRE-I, SPICE) have different apparatus, fuels, and measurement domains.
-          They are shown on <strong>separate tabs</strong> and are not plotted on shared quantitative axes.
+
+        <div style={{ 
+          marginTop: "0.75rem", 
+          padding: "0.6rem 1rem", 
+          background: "rgba(57, 197, 232, 0.08)", 
+          borderLeft: "3px solid var(--accent-cyan)", 
+          borderRadius: "4px", 
+          fontSize: "0.78rem", 
+          color: "var(--text-secondary)",
+          fontFamily: "var(--font-mono)"
+        }}>
+          PHYSICAL LAW: Distinct combustion domains (droplet evaporation K in mm²/s vs fabric flame spread in mm/s vs smoke point in mm) are strictly isolated on separate dimensional projections.
         </div>
       </div>
 
-      {/* Tab bar */}
-      <div style={{ display: "flex", gap: "0.25rem", marginBottom: "1.5rem", borderBottom: "1px solid #1e293b", paddingBottom: "0" }}>
-        {(Object.entries(TAB_LABELS) as [TabId, string][]).map(([id, label]) => (
-          <button key={id} onClick={() => setActiveTab(id)}
-            className={`btn btn-sm ${activeTab === id ? "" : "btn-ghost"}`}
-            style={{ borderRadius: "6px 6px 0 0", borderBottom: activeTab === id ? "2px solid var(--accent-cyan)" : "2px solid transparent" }}>
-            {label}
-          </button>
-        ))}
+      {/* Futuristic Tab Selection Bar */}
+      <div style={{ display: "flex", gap: "8px", marginBottom: "1.5rem", flexWrap: "wrap" }}>
+        {(Object.entries(TAB_LABELS) as [TabId, { label: string; desc: string }][]).map(([id, meta]) => {
+          const isActive = activeTab === id;
+          return (
+            <button
+              key={id}
+              onClick={() => setActiveTab(id)}
+              className="btn"
+              style={{
+                backgroundColor: isActive ? "rgba(255, 118, 38, 0.14)" : "var(--bg-surface)",
+                borderColor: isActive ? "var(--accent-molten)" : "var(--border-color)",
+                color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
+                padding: "8px 14px",
+                borderRadius: "6px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "flex-start",
+                gap: "2px",
+                boxShadow: isActive ? "0 0 12px rgba(255, 118, 38, 0.25)" : "none",
+                transition: "all 0.15s ease"
+              }}
+            >
+              <span style={{ fontSize: "0.84rem", fontWeight: 700, color: isActive ? "var(--accent-molten)" : "var(--text-primary)" }}>
+                {meta.label}
+              </span>
+              <span style={{ fontSize: "0.68rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+                {meta.desc}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {activeTab === "time-series" && <TimeSeriesTab />}

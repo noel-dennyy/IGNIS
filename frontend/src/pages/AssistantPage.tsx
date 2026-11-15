@@ -5,7 +5,6 @@ import {
   MessageSquare,
   Send,
   ExternalLink,
-  Sparkles,
   CheckCircle2,
   AlertCircle,
   PlusCircle,
@@ -14,7 +13,10 @@ import {
   User,
   RotateCcw,
   BookOpen,
-  Info
+  Info,
+  Flame,
+  Radio,
+  Cpu
 } from "lucide-react";
 
 export const AssistantPage: React.FC = () => {
@@ -29,14 +31,13 @@ export const AssistantPage: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const starterQuestions = [
-    "What was the main objective of the FLEX investigation?",
-    "Which gaseous suppressants does the FLEX record mention?",
-    "What materials and measurement systems were used in SAFFIRE-I?",
-    "What does SPICE investigate about co-flow conditions and smoke points?",
-    "Why can flame behaviour in microgravity differ from behaviour on Earth?",
-    "What are the major differences between FLEX, SAFFIRE-I, and SPICE?",
-    "What evidence is relevant to a lunar-habitat partial gravity fire scenario?",
-    "What are the fire safety protocols for antimatter warp drive containment?"
+    "What was the primary scientific objective of the FLEX investigation?",
+    "Which gaseous suppressants (CO2, He, SF6) were evaluated in FLEX droplet tests?",
+    "What materials and thermocouple measurement systems were deployed in SAFFIRE-I?",
+    "How does SPICE characterize co-flow flame lengths and smoke point thresholds?",
+    "Compare PMMA solid burn extinction in BASS against SIBAL fabric in SAFFIRE-I.",
+    "Why does microgravity suppress buoyant convective draft in orbital flames?",
+    "What are the fire safety implications for a 34% O2 lunar surface habitat?"
   ];
 
   // Load existing session history or set welcome message
@@ -141,14 +142,14 @@ export const AssistantPage: React.FC = () => {
   };
 
   const formatMarkdown = (text: string) => {
-    // Process markdown-like formatting for readable aerospace technical notes
     return text.split("\n\n").map((para, idx) => {
-      // Bold tags
-      const formatted = para.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      const formatted = para
+        .replace(/\*\*(.*?)\*\*/g, "<strong style='color: var(--text-primary)'>$1</strong>")
+        .replace(/`([^`]+)`/g, "<code style='background: rgba(255,118,38,0.1); color: var(--accent-molten); padding: 1px 5px; border-radius: 3px; font-family: var(--font-mono); font-size: 0.85em;'>$1</code>");
       return (
         <p
           key={idx}
-          style={{ marginBottom: "12px", lineHeight: 1.6 }}
+          style={{ marginBottom: "12px", lineHeight: 1.65 }}
           dangerouslySetInnerHTML={{ __html: formatted }}
         />
       );
@@ -156,16 +157,19 @@ export const AssistantPage: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
-      {/* Assistant Header Card */}
-      <div className="card card-elevated" style={{ marginBottom: "16px" }}>
-        <div className="card-header" style={{ marginBottom: "10px", paddingBottom: "10px" }}>
+    <div style={{ maxWidth: "1120px", margin: "0 auto" }}>
+      {/* Assistant Header HUD Card */}
+      <div className="card hud-panel" style={{ marginBottom: "20px" }}>
+        <div className="card-header" style={{ marginBottom: "12px", paddingBottom: "10px" }}>
           <div className="card-title">
-            <MessageSquare size={18} color="var(--accent-cyan)" />
-            <span>IGNIS Adaptive Research Assistant</span>
+            <Cpu size={20} color="var(--accent-molten)" />
+            <span>IGNIS Autonomous Microgravity Research Engine</span>
           </div>
           <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-            <span className="badge badge-green">Offline Retrieval Engine</span>
+            <span className="badge badge-molten" style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+              <Radio size={12} />
+              <span>OFFLINE RAG CORE</span>
+            </span>
             <button
               onClick={handleNewConversation}
               className="btn btn-outline"
@@ -173,25 +177,26 @@ export const AssistantPage: React.FC = () => {
               title="Start a fresh conversation thread with cleared context"
             >
               <RotateCcw size={13} />
-              <span>New Conversation</span>
+              <span>Reset Context</span>
             </button>
           </div>
         </div>
 
-        <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", lineHeight: 1.5 }}>
-          Multi-turn conversational assistant with context memory, coreference understanding, and citation-grounded synthesis. Answers are strictly verified against authentic NASA Physical Sciences Informatics (PSI) records (FLEX, SAFFIRE-I, SPICE).
+        <p style={{ fontSize: "0.86rem", color: "var(--text-secondary)", lineHeight: 1.55 }}>
+          Multi-turn conversational assistant with context memory, coreference resolution, and citation-grounded synthesis. 
+          Every assertion is strictly cross-referenced against authentic NASA Physical Sciences Informatics (PSI) flight records (FLEX, FLEX-2, SAFFIRE-I, SPICE, BASS).
         </p>
 
         {/* Recent Session Pills */}
         {recentSessions.length > 1 && (
-          <div style={{ marginTop: "10px", display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
-            <span style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>Recent Threads:</span>
+          <div style={{ marginTop: "12px", display: "flex", gap: "6px", alignItems: "center", flexWrap: "wrap" }}>
+            <span style={{ fontSize: "0.72rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>PRIOR SESSIONS:</span>
             {recentSessions.map((s) => (
               <button
                 key={s.id}
                 onClick={() => setSessionId(s.id)}
-                className={`badge ${s.id === sessionId ? "badge-cyan" : "badge-purple"}`}
-                style={{ cursor: "pointer", border: "1px solid var(--border-color)", textTransform: "none", padding: "3px 8px" }}
+                className={`badge ${s.id === sessionId ? "badge-molten" : "badge-cyan"}`}
+                style={{ cursor: "pointer", textTransform: "none", padding: "3px 8px" }}
               >
                 {s.title || s.id}
               </button>
@@ -205,31 +210,32 @@ export const AssistantPage: React.FC = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          gap: "16px",
+          gap: "18px",
           minHeight: "360px",
-          marginBottom: "20px"
+          marginBottom: "24px"
         }}
       >
         {messages.length === 0 ? (
           <div
-            className="card"
+            className="card hud-panel"
             style={{
-              padding: "30px 24px",
+              padding: "36px 24px",
               textAlign: "center",
-              backgroundColor: "rgba(17, 24, 39, 0.6)",
+              backgroundColor: "rgba(17, 24, 32, 0.7)",
               border: "1px dashed var(--border-color)"
             }}
           >
-            <Sparkles size={28} color="var(--accent-cyan)" style={{ margin: "0 auto 12px" }} />
-            <h3 style={{ fontSize: "1.05rem", color: "var(--text-main)", marginBottom: "6px" }}>
-              Start an Adaptive Research Session
+            <Flame size={32} className="brand-flame-icon" style={{ margin: "0 auto 14px" }} />
+            <h3 style={{ fontSize: "1.15rem", color: "var(--text-primary)", marginBottom: "8px", fontWeight: 700 }}>
+              Autonomous Combustion Intelligence Terminal
             </h3>
-            <p style={{ fontSize: "0.82rem", color: "var(--text-muted)", maxWidth: "600px", margin: "0 auto 20px" }}>
-              You can ask technical questions in natural language, request comparisons between experiments, or ask follow-up questions using pronouns like "it", "its temperature", or "what about the other one?".
+            <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", maxWidth: "640px", margin: "0 auto 24px", lineHeight: 1.6 }}>
+              Submit research inquiries in natural language, request multi-variable cross-payload comparisons, or probe hypothetical spaceflight fire scenarios. 
+              Maintains full conversational memory and coreference across turns.
             </p>
 
             {/* Suggested Starter Chips */}
-            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center" }}>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", justifyContent: "center", maxWidth: "900px", margin: "0 auto" }}>
               {starterQuestions.map((sq, i) => (
                 <button
                   key={i}
@@ -238,11 +244,13 @@ export const AssistantPage: React.FC = () => {
                     fontSize: "0.75rem",
                     padding: "6px 12px",
                     borderRadius: "16px",
-                    textAlign: "left"
+                    textAlign: "left",
+                    borderColor: "var(--border-color)",
+                    backgroundColor: "var(--bg-elevated)"
                   }}
                   onClick={() => handleSend(sq)}
                 >
-                  <PlusCircle size={13} color="var(--accent-cyan)" style={{ flexShrink: 0 }} />
+                  <PlusCircle size={13} color="var(--accent-molten)" style={{ flexShrink: 0 }} />
                   <span>{sq}</span>
                 </button>
               ))}
@@ -263,14 +271,18 @@ export const AssistantPage: React.FC = () => {
               >
                 {/* Message Bubble Container */}
                 <div
+                  className={!isUser ? "card hud-panel" : "card"}
                   style={{
                     maxWidth: isUser ? "80%" : "100%",
                     width: isUser ? "auto" : "100%",
                     backgroundColor: isUser ? "var(--bg-elevated)" : "var(--bg-surface)",
-                    border: `1px solid ${isUser ? "var(--accent-cyan)" : "var(--border-color)"}`,
+                    borderColor: isUser ? "var(--accent-molten)" : "var(--border-color)",
                     borderRadius: "8px",
-                    padding: "16px 20px",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.2)"
+                    padding: "18px 22px",
+                    boxShadow: isUser 
+                      ? "0 4px 14px rgba(255, 118, 38, 0.15)" 
+                      : "0 4px 20px rgba(0, 0, 0, 0.35)",
+                    marginBottom: 0
                   }}
                 >
                   {/* Message Header */}
@@ -279,26 +291,26 @@ export const AssistantPage: React.FC = () => {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      marginBottom: "10px",
+                      marginBottom: "12px",
                       gap: "10px"
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                       {isUser ? (
                         <>
-                          <User size={15} color="var(--accent-cyan)" />
-                          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--accent-cyan)" }}>
-                            You (Aerospace Investigator)
+                          <User size={15} color="var(--accent-molten)" />
+                          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--accent-molten)", fontFamily: "var(--font-mono)" }}>
+                            AEROSPACE RESEARCHER
                           </span>
                         </>
                       ) : (
                         <>
-                          <Sparkles size={15} color="var(--accent-purple)" />
-                          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--accent-purple)" }}>
-                            IGNIS Research Engine
+                          <Flame size={15} className="brand-flame-icon" />
+                          <span style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--accent-molten)", fontFamily: "var(--font-mono)" }}>
+                            IGNIS COMBUSTION INTELLIGENCE
                           </span>
                           {msg.intent && (
-                            <span className="badge" style={{ fontSize: "0.65rem", padding: "1px 6px", color: "var(--text-dim)", background: "rgba(255,255,255,0.05)" }}>
+                            <span className="badge badge-cyan" style={{ fontSize: "0.65rem", padding: "1px 6px" }}>
                               {msg.intent}
                             </span>
                           )}
@@ -331,16 +343,17 @@ export const AssistantPage: React.FC = () => {
                       style={{
                         display: "flex",
                         alignItems: "center",
-                        gap: "10px",
-                        marginBottom: "12px",
-                        padding: "6px 10px",
+                        gap: "12px",
+                        marginBottom: "14px",
+                        padding: "8px 12px",
                         backgroundColor: "var(--bg-elevated)",
                         borderRadius: "6px",
-                        border: "1px solid var(--border-color)"
+                        border: "1px solid var(--border-color)",
+                        fontFamily: "var(--font-mono)"
                       }}
                     >
-                      <span style={{ fontSize: "0.72rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.04em", fontWeight: 600 }}>
-                        Evidence Strength:
+                      <span style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", letterSpacing: "0.05em", fontWeight: 600 }}>
+                        EVIDENCE FIDELITY:
                       </span>
                       <span
                         className={`badge ${
@@ -355,7 +368,7 @@ export const AssistantPage: React.FC = () => {
                         {msg.evidence_strength}
                       </span>
                       {typeof msg.evidence_score === "number" && (
-                        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexGrow: 1, maxWidth: "160px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexGrow: 1, maxWidth: "180px" }}>
                           <div className="evidence-bar-track">
                             <div
                               className="evidence-bar-fill"
@@ -366,11 +379,11 @@ export const AssistantPage: React.FC = () => {
                                     ? "var(--color-success)"
                                     : msg.evidence_strength === "Moderate"
                                     ? "var(--accent-cyan)"
-                                    : "var(--color-caution)"
+                                    : "var(--accent-amber)"
                               }}
                             />
                           </div>
-                          <span style={{ fontSize: "0.7rem", fontFamily: "var(--font-mono)", color: "var(--text-dim)" }}>
+                          <span style={{ fontSize: "0.7rem", color: "var(--text-dim)" }}>
                             {Math.round(msg.evidence_score * 100)}%
                           </span>
                         </div>
@@ -380,7 +393,7 @@ export const AssistantPage: React.FC = () => {
 
                   {/* Reasoning Process Accordion (for assistant) */}
                   {!isUser && msg.reasoning_steps && msg.reasoning_steps.length > 0 && (
-                    <div style={{ marginBottom: "12px" }}>
+                    <div style={{ marginBottom: "14px" }}>
                       <button
                         onClick={() => toggleReasoning(index)}
                         style={{
@@ -390,30 +403,33 @@ export const AssistantPage: React.FC = () => {
                           fontSize: "0.75rem",
                           display: "flex",
                           alignItems: "center",
-                          gap: "4px",
+                          gap: "5px",
                           cursor: "pointer",
-                          padding: "2px 0"
+                          padding: "2px 0",
+                          fontFamily: "var(--font-mono)"
                         }}
                       >
-                        {expandedReasoning[index] ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                        <span>Internal Analytical Steps ({msg.reasoning_steps.length} steps)</span>
+                        {expandedReasoning[index] ? <ChevronDown size={14} color="var(--accent-cyan)" /> : <ChevronRight size={14} color="var(--accent-cyan)" />}
+                        <span>Internal Analytical Execution ({msg.reasoning_steps.length} logic steps)</span>
                       </button>
 
                       {expandedReasoning[index] && (
                         <div
                           style={{
-                            marginTop: "6px",
-                            padding: "8px 12px",
-                            backgroundColor: "rgba(0,0,0,0.25)",
+                            marginTop: "8px",
+                            padding: "10px 14px",
+                            backgroundColor: "rgba(8, 11, 16, 0.6)",
                             borderRadius: "4px",
-                            borderLeft: "2px solid var(--accent-purple)",
-                            fontSize: "0.74rem",
-                            color: "var(--text-muted)"
+                            borderLeft: "2px solid var(--accent-cyan)",
+                            fontSize: "0.76rem",
+                            color: "var(--text-secondary)",
+                            fontFamily: "var(--font-mono)"
                           }}
                         >
                           {msg.reasoning_steps.map((st, sidx) => (
-                            <div key={sidx} style={{ marginBottom: "3px" }}>
-                              • {st}
+                            <div key={sidx} style={{ marginBottom: "4px" }}>
+                              <span style={{ color: "var(--accent-cyan)", marginRight: "6px" }}>&gt;</span>
+                              {st}
                             </div>
                           ))}
                         </div>
@@ -422,38 +438,39 @@ export const AssistantPage: React.FC = () => {
                   )}
 
                   {/* Main Answer Content */}
-                  <div style={{ fontSize: "0.92rem", color: "var(--text-main)", lineHeight: 1.65 }}>
+                  <div style={{ fontSize: "0.92rem", color: "var(--text-primary)", lineHeight: 1.65 }}>
                     {formatMarkdown(msg.content)}
                   </div>
 
                   {/* Supporting Grounding Citations */}
                   {!isUser && msg.citations && msg.citations.length > 0 && (
-                    <div style={{ marginTop: "14px", borderTop: "1px solid var(--border-color)", paddingTop: "12px" }}>
+                    <div style={{ marginTop: "16px", borderTop: "1px solid var(--border-color)", paddingTop: "14px" }}>
                       <div
                         style={{
-                          fontSize: "0.75rem",
+                          fontSize: "0.76rem",
                           fontWeight: 700,
                           color: "var(--accent-cyan)",
                           textTransform: "uppercase",
-                          letterSpacing: "0.04em",
-                          marginBottom: "8px",
+                          letterSpacing: "0.06em",
+                          marginBottom: "10px",
                           display: "flex",
                           alignItems: "center",
-                          gap: "6px"
+                          gap: "6px",
+                          fontFamily: "var(--font-mono)"
                         }}
                       >
-                        <BookOpen size={13} />
-                        <span>Grounding Citations ({msg.citations.length} Supporting NASA Records)</span>
+                        <BookOpen size={14} />
+                        <span>NASA PSI Grounding Citations ({msg.citations.length} Verified Sources)</span>
                       </div>
 
-                      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                         {msg.citations.map((cit, cidx) => (
-                          <div key={cidx} className="citation-box" style={{ margin: 0, padding: "10px 14px" }}>
+                          <div key={cidx} className="citation-box" style={{ margin: 0, padding: "12px 16px" }}>
                             <div className="citation-header">
                               <div>
                                 <span>{cit.document_title}</span>
                                 {cit.investigation_id && (
-                                  <span className="badge badge-cyan" style={{ marginLeft: "6px" }}>
+                                  <span className="badge badge-molten" style={{ marginLeft: "8px" }}>
                                     {cit.investigation_id}
                                   </span>
                                 )}
@@ -464,22 +481,22 @@ export const AssistantPage: React.FC = () => {
                             </div>
 
                             {cit.section && (
-                              <div style={{ fontSize: "0.75rem", color: "var(--accent-purple)", fontWeight: 600, marginBottom: "3px" }}>
-                                Section: {cit.section}
+                              <div style={{ fontSize: "0.75rem", color: "var(--accent-amber)", fontWeight: 600, marginBottom: "4px", fontFamily: "var(--font-mono)" }}>
+                                SECTION: {cit.section}
                               </div>
                             )}
 
-                            <div className="citation-body" style={{ fontSize: "0.78rem" }}>
+                            <div className="citation-body">
                               "{cit.excerpt}"
                             </div>
 
-                            <div style={{ marginTop: "6px" }}>
+                            <div style={{ marginTop: "8px" }}>
                               <a
                                 href={cit.source_url}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="btn btn-outline"
-                                style={{ fontSize: "0.7rem", padding: "2px 8px" }}
+                                style={{ fontSize: "0.72rem", padding: "3px 8px" }}
                               >
                                 <ExternalLink size={11} />
                                 <span>Open Verified NASA Record</span>
@@ -495,19 +512,19 @@ export const AssistantPage: React.FC = () => {
                   {!isUser && msg.limitations && msg.limitations.length > 0 && (
                     <div
                       style={{
-                        marginTop: "12px",
-                        backgroundColor: "rgba(245, 158, 11, 0.07)",
-                        borderLeft: "3px solid var(--color-caution)",
-                        padding: "8px 12px",
+                        marginTop: "14px",
+                        backgroundColor: "rgba(255, 181, 71, 0.08)",
+                        borderLeft: "3px solid var(--accent-amber)",
+                        padding: "10px 14px",
                         borderRadius: "4px"
                       }}
                     >
-                      <div style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--color-caution)", marginBottom: "3px", display: "flex", alignItems: "center", gap: "4px" }}>
-                        <Info size={12} />
-                        <span>SCIENTIFIC SCOPE & INTEGRITY NOTE:</span>
+                      <div style={{ fontSize: "0.74rem", fontWeight: 700, color: "var(--accent-amber)", marginBottom: "4px", display: "flex", alignItems: "center", gap: "6px", fontFamily: "var(--font-mono)" }}>
+                        <Info size={13} />
+                        <span>SCIENTIFIC BOUNDARY &amp; INTEGRITY DISCLOSURE:</span>
                       </div>
                       {msg.limitations.map((lim, lidx) => (
-                        <div key={lidx} style={{ fontSize: "0.74rem", color: "var(--text-muted)", lineHeight: 1.4 }}>
+                        <div key={lidx} style={{ fontSize: "0.76rem", color: "var(--text-secondary)", lineHeight: 1.45 }}>
                           • {lim}
                         </div>
                       ))}
@@ -516,21 +533,22 @@ export const AssistantPage: React.FC = () => {
 
                   {/* Context-Aware Suggested Follow-ups */}
                   {!isUser && msg.suggested_follow_ups && msg.suggested_follow_ups.length > 0 && (
-                    <div style={{ marginTop: "14px", borderTop: "1px dashed var(--border-color)", paddingTop: "10px" }}>
-                      <div style={{ fontSize: "0.72rem", color: "var(--text-dim)", marginBottom: "6px" }}>
-                        Suggested Follow-Up Questions (Maintains Conversation Context):
+                    <div style={{ marginTop: "16px", borderTop: "1px dashed var(--border-color)", paddingTop: "12px" }}>
+                      <div style={{ fontSize: "0.72rem", color: "var(--text-dim)", marginBottom: "8px", fontFamily: "var(--font-mono)" }}>
+                        SUGGESTED REASONING FOLLOW-UPS:
                       </div>
-                      <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                         {msg.suggested_follow_ups.map((fup, fidx) => (
                           <button
                             key={fidx}
                             onClick={() => handleSend(fup)}
                             className="btn btn-outline"
                             style={{
-                              fontSize: "0.72rem",
-                              padding: "4px 10px",
+                              fontSize: "0.74rem",
+                              padding: "4px 12px",
                               borderRadius: "14px",
-                              borderColor: "var(--border-highlight)"
+                              backgroundColor: "var(--bg-elevated)",
+                              borderColor: "var(--border-color)"
                             }}
                           >
                             <span>{fup}</span>
@@ -548,20 +566,19 @@ export const AssistantPage: React.FC = () => {
         {/* Loading Indicator */}
         {loading && (
           <div
+            className="card hud-panel"
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "10px",
-              padding: "16px",
-              backgroundColor: "var(--bg-surface)",
-              borderRadius: "8px",
-              border: "1px solid var(--border-color)",
-              width: "fit-content"
+              gap: "12px",
+              padding: "16px 20px",
+              width: "fit-content",
+              marginBottom: 0
             }}
           >
-            <Sparkles size={18} color="var(--accent-cyan)" style={{ animation: "spin 2s linear infinite" }} />
-            <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
-              Contextualizing query and synthesizing verified NASA PSI excerpts...
+            <Flame size={20} className="brand-flame-icon" />
+            <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
+              SYNTHESIZING VERIFIED NASA PSI EXCERPTS &amp; MAPPING FLUID REGIMES...
             </span>
           </div>
         )}
@@ -571,12 +588,13 @@ export const AssistantPage: React.FC = () => {
 
       {/* Input Form Bar */}
       <div
-        className="card card-elevated"
+        className="card hud-panel"
         style={{
           position: "sticky",
           bottom: "16px",
           padding: "14px 18px",
-          boxShadow: "0 -4px 16px rgba(0,0,0,0.3)"
+          boxShadow: "0 -4px 20px rgba(0,0,0,0.5)",
+          zIndex: 25
         }}
       >
         <form
@@ -589,7 +607,7 @@ export const AssistantPage: React.FC = () => {
           <input
             type="text"
             className="input-text"
-            placeholder="Ask a question, follow-up, or comparison (e.g. 'What was its peak temperature?')..."
+            placeholder="Ask a technical combustion question, comparison, or follow-up (e.g. 'What was the peak burning rate?')..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
             disabled={loading}
@@ -602,13 +620,13 @@ export const AssistantPage: React.FC = () => {
             style={{ padding: "12px 20px", flexShrink: 0 }}
           >
             <Send size={16} />
-            <span>{loading ? "Analyzing..." : "Send"}</span>
+            <span>{loading ? "Analyzing..." : "Transmit"}</span>
           </button>
         </form>
 
-        <div style={{ marginTop: "6px", display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: "var(--text-dim)" }}>
-          <span>Session: <code style={{ color: "var(--accent-cyan)" }}>{sessionId}</code> (Conversational context maintained)</span>
-          <span>Press Enter to send · Offline Grounded Synthesis</span>
+        <div style={{ marginTop: "8px", display: "flex", justifyContent: "space-between", fontSize: "0.7rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+          <span>SESSION: <code style={{ color: "var(--accent-molten)" }}>{sessionId}</code></span>
+          <span>NASA PSI GROUNDED // NO HALLUCINATION DISCLOSURE</span>
         </div>
       </div>
     </div>
