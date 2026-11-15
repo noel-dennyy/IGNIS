@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Sidebar } from "./components/Sidebar";
 import type { PageId } from "./components/Sidebar";
-import { Header } from "./components/Header";
-import { OverviewPage } from "./pages/OverviewPage";
+import { TopNavbar } from "./components/TopNavbar";
+import type { WorkspaceTab } from "./components/TopNavbar";
+import { CombustionBackdrop } from "./components/CombustionBackdrop";
+import { ShowdownLobby } from "./components/ShowdownLobby";
 import { InvestigationExplorerPage } from "./pages/InvestigationExplorerPage";
 import { ResearchLibraryPage } from "./pages/ResearchLibraryPage";
 import { EvidenceComparePage } from "./pages/EvidenceComparePage";
@@ -18,11 +19,23 @@ import { OnboardingTour } from "./components/OnboardingTour";
 import { api } from "./api/client";
 
 export const App: React.FC = () => {
-  const [activePage, setActivePage] = useState<PageId>("overview");
+  // Tabs state: starts with Home (Lobby)
+  const [tabs, setTabs] = useState<WorkspaceTab[]>([
+    {
+      id: "home",
+      pageId: "overview",
+      label: "Home",
+      closable: false
+    }
+  ]);
+  const [activeTabId, setActiveTabId] = useState<string>("home");
+
+  // Selected investigation ID for deep explorer
   const [selectedInvId, setSelectedInvId] = useState<string>("PSI-69");
   const [dbStatus, setDbStatus] = useState<string>("Online");
-  const [invCount, setInvCount] = useState<number>(3);
-  
+  const [invCount, setInvCount] = useState<number>(5);
+  const [globalSearch, setGlobalSearch] = useState<string>("");
+
   const [lightMode, setLightMode] = useState<boolean>(() => {
     return localStorage.getItem("ignis_theme_mode") === "light";
   });
@@ -53,9 +66,53 @@ export const App: React.FC = () => {
       });
   }, []);
 
-  const handleSelectInvestigation = (id: string) => {
-    setSelectedInvId(id);
-    setActivePage("investigations");
+  // Open a workspace tab
+  const handleOpenWorkspace = (pageId: PageId, invId?: string, label?: string) => {
+    if (pageId === "overview") {
+      setActiveTabId("home");
+      return;
+    }
+
+    if (invId) {
+      setSelectedInvId(invId);
+    }
+
+    const tabId = invId ? `tab-${pageId}-${invId}` : `tab-${pageId}`;
+    const displayLabel = label || (invId ? `${invId} Explorer` : pageId.charAt(0).toUpperCase() + pageId.slice(1));
+
+    // If tab already exists, just switch to it
+    const existing = tabs.find((t) => t.id === tabId);
+    if (existing) {
+      setActiveTabId(tabId);
+      return;
+    }
+
+    // Otherwise add new tab
+    const newTab: WorkspaceTab = {
+      id: tabId,
+      pageId,
+      label: displayLabel,
+      investigationId: invId,
+      closable: true
+    };
+
+    setTabs((prev) => [...prev, newTab]);
+    setActiveTabId(tabId);
+  };
+
+  // Close workspace tab
+  const handleCloseTab = (tabId: string) => {
+    const idx = tabs.findIndex((t) => t.id === tabId);
+    if (idx === -1) return;
+
+    const newTabs = tabs.filter((t) => t.id !== tabId);
+    setTabs(newTabs);
+
+    if (activeTabId === tabId) {
+      // Switch to previous tab or home
+      const nextTab = newTabs[Math.max(0, idx - 1)] || newTabs[0];
+      setActiveTabId(nextTab ? nextTab.id : "home");
+    }
   };
 
   const handleToggleTheme = () => {
@@ -67,58 +124,72 @@ export const App: React.FC = () => {
     localStorage.setItem("ignis_tour_seen", "true");
   };
 
+  const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0];
+
   return (
-    <div className="app-container">
-      <Sidebar activePage={activePage} setActivePage={setActivePage} />
+    <div className="showdown-app-container">
+      {/* Subtle combustion-inspired animated visual background */}
+      <CombustionBackdrop />
 
-      <main className="main-content">
-        <Header
-          activePage={activePage}
-          dbStatus={dbStatus}
-          investigationCount={invCount}
-          lightMode={lightMode}
-          onToggleTheme={handleToggleTheme}
-          onStartTour={() => setShowTour(true)}
-        />
+      {/* Top Navigation Bar across entire screen */}
+      <TopNavbar
+        tabs={tabs}
+        activeTabId={activeTabId}
+        onSelectTab={setActiveTabId}
+        onCloseTab={handleCloseTab}
+        onOpenWorkspace={handleOpenWorkspace}
+        lightMode={lightMode}
+        onToggleTheme={handleToggleTheme}
+        onStartTour={() => setShowTour(true)}
+        dbStatus={dbStatus}
+        investigationCount={invCount}
+        searchQuery={globalSearch}
+        onSearchChange={setGlobalSearch}
+      />
 
-        <div className="content-body">
-          {activePage === "overview" && (
-            <OverviewPage
-              onNavigate={setActivePage}
-              onSelectInvestigation={handleSelectInvestigation}
-            />
-          )}
+      {/* Main Content Area */}
+      <main className="showdown-main-viewport">
+        {activeTab.id === "home" ? (
+          <ShowdownLobby
+            onNavigate={handleOpenWorkspace}
+            onOpenWorkspaceTab={handleOpenWorkspace}
+            searchFilterQuery={globalSearch}
+          />
+        ) : (
+          <div className="showdown-subpage-container">
+            {activeTab.pageId === "investigations" && (
+              <InvestigationExplorerPage
+                initialInvestigationId={activeTab.investigationId || selectedInvId}
+              />
+            )}
 
-          {activePage === "investigations" && (
-            <InvestigationExplorerPage initialInvestigationId={selectedInvId} />
-          )}
+            {activeTab.pageId === "library" && <ResearchLibraryPage />}
 
-          {activePage === "library" && <ResearchLibraryPage />}
+            {activeTab.pageId === "compare" && <EvidenceComparePage />}
 
-          {activePage === "compare" && <EvidenceComparePage />}
+            {activeTab.pageId === "ranking" && <EvidenceRankingPage />}
 
-          {activePage === "ranking" && <EvidenceRankingPage />}
+            {activeTab.pageId === "assistant" && <AssistantPage />}
 
-          {activePage === "assistant" && <AssistantPage />}
+            {activeTab.pageId === "scenario" && <MissionScenarioPage />}
 
-          {activePage === "scenario" && <MissionScenarioPage />}
+            {activeTab.pageId === "evidence-gap" && <EvidenceGapPage />}
 
-          {activePage === "evidence-gap" && <EvidenceGapPage />}
+            {activeTab.pageId === "viz" && <VisualizationDashboardPage />}
 
-          {activePage === "viz" && <VisualizationDashboardPage />}
+            {activeTab.pageId === "gallery" && <ImageGalleryPage />}
 
-          {activePage === "gallery" && <ImageGalleryPage />}
+            {activeTab.pageId === "image-compare" && <ImageComparisonPage />}
 
-          {activePage === "image-compare" && <ImageComparisonPage />}
-
-          {activePage === "workspace" && <ExperimentWorkspacePage />}
-        </div>
+            {activeTab.pageId === "workspace" && <ExperimentWorkspacePage />}
+          </div>
+        )}
       </main>
 
       {showTour && (
         <OnboardingTour
           onClose={handleCloseTour}
-          onNavigate={(page) => setActivePage(page)}
+          onNavigate={(page) => handleOpenWorkspace(page)}
         />
       )}
     </div>
