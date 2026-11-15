@@ -158,18 +158,50 @@ class Citation(BaseModel):
     source_url: str
     doi: Optional[str] = None
 
+class ChatMessage(BaseModel):
+    id: Optional[str] = None
+    role: str  # 'user', 'assistant', 'system'
+    content: str
+    status: Optional[str] = "answered"
+    citations: List[Citation] = []
+    limitations: List[str] = []
+    reasoning_steps: List[str] = []
+    suggested_follow_ups: List[str] = []
+    intent: Optional[str] = None
+    created_at: Optional[str] = None
+
 class AssistantAskRequest(BaseModel):
     question: str
+    session_id: Optional[str] = None
+    history: Optional[List[ChatMessage]] = None
     investigation_ids: Optional[List[str]] = None
     top_k: Optional[int] = 5
 
 class AssistantAskResponse(BaseModel):
     answer: str
-    status: str  # 'answered' or 'insufficient_evidence'
-    citations: List[Citation]
-    limitations: List[str]
+    status: str  # 'answered', 'insufficient_evidence', 'conversational', 'clarification'
+    citations: List[Citation] = []
+    limitations: List[str] = []
     retrieval_method: str
     is_offline_fallback: bool
+    session_id: Optional[str] = None
+    intent: Optional[str] = None
+    reasoning_steps: List[str] = []
+    suggested_follow_ups: List[str] = []
+
+class SessionSummary(BaseModel):
+    id: str
+    title: str
+    created_at: str
+    updated_at: str
+    message_count: int
+
+class SessionDetail(BaseModel):
+    id: str
+    title: str
+    created_at: str
+    updated_at: str
+    messages: List[ChatMessage]
 
 
 # ── Experiment Images ────────────────────────────────────────────────────────

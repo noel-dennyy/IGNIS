@@ -14,7 +14,7 @@ from app.routers.observations import list_observations
 from app.routers.findings import list_findings
 from app.routers.compare import compare_investigations
 from app.routers.ranking import rank_evidence
-from app.routers.assistant import ask_assistant
+from app.routers.assistant import ask_assistant, get_session, delete_session
 from app.routers.images import list_images, get_image, compare_images
 from app.services.visualization import ScientificVisualizationService
 from app.schemas import CompareRequest, RankRequest, AssistantAskRequest
@@ -211,6 +211,68 @@ class TestIgnisBackendDirect(unittest.TestCase):
             self.assertTrue(result.get("what_graph_displays"), f"Missing 'what_graph_displays' for {view_id}")
             self.assertIsInstance(result.get("key_trends"), list, f"'key_trends' should be a list for {view_id}")
             self.assertGreater(len(result["key_trends"]), 0, f"No trends for {view_id}")
+
+    # ── Conversational Assistant Tests ────────────────────────────────────────
+
+    def test_19_conversational_greeting_and_persona(self):
+        """Conversational greetings should be answered naturally without error or insufficient evidence."""
+        req = AssistantAskRequest(question="Hello IGNIS, who are you and how can you help me?")
+        resp = ask_assistant(req)
+        self.assertEqual(resp.status, "conversational")
+        self.assertIn("IGNIS", resp.answer)
+        self.assertIn("FLEX", resp.answer)
+        self.assertIn("SAFFIRE", resp.answer)
+        self.assertGreater(len(resp.suggested_follow_ups), 0)
+
+    def test_20_multiturn_coreference_resolution(self):
+        """Follow-up questions with pronouns ('its', 'it') should resolve against conversation history."""
+        session_id = "test_coref_session_01"
+        # Turn 1: Ask about SAFFIRE-I
+        t1 = ask_assistant(AssistantAskRequest(
+            question="Tell me about SAFFIRE-I and its flight vehicle.",
+            session_id=session_id
+        ))
+        self.assertEqual(t1.status, "answered")
+        self.assertIn("Cygnus", t1.answer)
+
+        # Turn 2: Follow-up using 'its' and 'it' without mentioning SAFFIRE
+        t2 = ask_assistant(AssistantAskRequest(
+            question="What was its peak temperature and what did it burn?",
+            session_id=session_id
+        ))
+        self.assertEqual(t2.status, "answered")
+        self.assertIn("920", t2.answer)
+        self.assertIn("SIBAL", t2.answer)
+        self.assertGreater(len(t2.citations), 0)
+
+    def test_21_conversation_session_persistence_and_reset(self):
+        """Conversation sessions should store history and allow clean deletion."""
+        session_id = "test_persist_sess_02"
+        # Send a query
+        ask_assistant(AssistantAskRequest(
+            question="What is the burning rate constant in FLEX droplet combustion?",
+            session_id=session_id
+        ))
+
+        # Retrieve session detail
+        detail = get_session(session_id)
+        self.assertEqual(detail.id, session_id)
+        self.assertGreaterEqual(len(detail.messages), 2)  # 1 user + 1 assistant
+        roles = [m.role for m in detail.messages]
+        self.assertIn("user", roles)
+        self.assertIn("assistant", roles)
+
+        # Reset session
+        del_resp = delete_session(session_id)
+        self.assertEqual(del_resp["status"], "deleted")
+
+    def test_22_typo_resilience_and_informal_query(self):
+        """Informal phrasing and common typos should be handled smoothly."""
+        req = AssistantAskRequest(question="hey can u explain how safire 1 tested flame spred on fabric?")
+        resp = ask_assistant(req)
+        self.assertEqual(resp.status, "answered")
+        self.assertIn("SAFFIRE", resp.answer)
+        self.assertGreater(len(resp.citations), 0)
 
 if __name__ == "__main__":
     unittest.main()

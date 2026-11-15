@@ -180,6 +180,19 @@ export interface Citation {
   doi?: string;
 }
 
+export interface ChatMessage {
+  id?: string;
+  role: "user" | "assistant" | "system";
+  content: string;
+  status?: string;
+  citations?: Citation[];
+  limitations?: string[];
+  reasoning_steps?: string[];
+  suggested_follow_ups?: string[];
+  intent?: string;
+  created_at?: string;
+}
+
 export interface AssistantAskResponse {
   answer: string;
   status: string;
@@ -187,6 +200,26 @@ export interface AssistantAskResponse {
   limitations: string[];
   retrieval_method: string;
   is_offline_fallback: boolean;
+  session_id?: string;
+  intent?: string;
+  reasoning_steps?: string[];
+  suggested_follow_ups?: string[];
+}
+
+export interface SessionSummary {
+  id: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+  message_count: number;
+}
+
+export interface SessionDetail {
+  id: string;
+  title: string;
+  created_at: string;
+  updated_at: string;
+  messages: ChatMessage[];
 }
 
 // ── Experiment Images ────────────────────────────────────────────────────────

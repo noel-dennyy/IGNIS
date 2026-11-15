@@ -10,6 +10,9 @@ import type {
   CompareResponse,
   RankResponse,
   AssistantAskResponse,
+  ChatMessage,
+  SessionSummary,
+  SessionDetail,
   ExperimentImage,
   ImageCompareResponse,
   TimeSeriesResponse,
@@ -77,10 +80,31 @@ export const api = {
       method: "POST",
       body: JSON.stringify({ scenario_or_query, target_gravity, target_material_type })
     }),
-  askAssistant: (question: string, investigation_ids?: string[], top_k = 5) =>
+  askAssistant: (
+    question: string,
+    params?: {
+      sessionId?: string;
+      history?: ChatMessage[];
+      investigationIds?: string[];
+      topK?: number;
+    }
+  ) =>
     request<AssistantAskResponse>("/api/assistant/ask", {
       method: "POST",
-      body: JSON.stringify({ question, investigation_ids, top_k })
+      body: JSON.stringify({
+        question,
+        session_id: params?.sessionId,
+        history: params?.history,
+        investigation_ids: params?.investigationIds,
+        top_k: params?.topK ?? 5
+      })
+    }),
+
+  getAssistantSessions: () => request<SessionSummary[]>("/api/assistant/sessions"),
+  getAssistantSession: (sessionId: string) => request<SessionDetail>(`/api/assistant/sessions/${sessionId}`),
+  deleteAssistantSession: (sessionId: string) =>
+    request<{ status: string; session_id: string }>(`/api/assistant/sessions/${sessionId}`, {
+      method: "DELETE"
     }),
 
   // ── Images ────────────────────────────────────────────────────────────────

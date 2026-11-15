@@ -3,8 +3,8 @@
 **Project:** IGNIS — Intelligent Guidance for Next-generation In-Space Safety  
 **Challenge:** Flame in Freefall: SI-Powered Fire Safety Insights from Microgravity Combustion Data  
 **Event:** NASA Space Apps Challenge 2026 Hackathon Prototype  
-**Current Milestone:** All Milestones (M0 - M6) COMPLETED & VERIFIED  
-**Last Updated:** 2026-11-14T23:05:00+05:30  
+**Current Milestone:** All Milestones (M0 - M7) COMPLETED & VERIFIED  
+**Last Updated:** 2026-11-15T10:30:00+05:30  
 
 ---
 
@@ -19,6 +19,7 @@
 | **M4: Automated Testing & Verification** | Backend unit test suite, frontend TypeScript build (`npm run build`) | P0 | **COMPLETED** | 10/10 backend unit tests passing in 0.04s. Clean Vite production build with zero TypeScript errors. |
 | **M5: Submission & Documentation** | Comprehensive README.md, demo script, architecture guide, submission checklist | P0 | **COMPLETED** | README.md, DATA_AUDIT.md, AI_USAGE.md, docs/demo-script.md, and docs/architecture.md finalized. |
 | **M6: Scientific Visualization & Image Comparison** | Interactive time-series, scatter, distribution, heatmaps, image gallery, side-by-side slider, insights panel | P0 | **COMPLETED** | 18/18 backend unit tests passing. Recharts interactive dashboards, 8 verified synthetic SVG illustrations, comparison slider, Recharts & Vite build passing. |
+| **M7: Adaptive Conversational Assistant** | Multi-turn conversational memory, coreference resolution, session management, typo resilience, reasoning transparency | P0 | **COMPLETED** | 22/22 backend unit tests passing. SQLite session persistence, dynamic suggested follow-ups, reasoning steps, Vite build verified with zero errors. |
 
 ---
 
@@ -27,7 +28,12 @@
 - [x] Challenge-specific Resources tab inspected and verified (PSI & NTRS confirmed).
 - [x] DATA_AUDIT.md and AI_USAGE.md created and updated with full provenance and AI disclosure.
 - [x] Real NASA PSI investigation metadata and observations ingested into database (3 investigations, 58 observations, 12 findings, 8 verified experimental illustrations).
-- [x] Backend API endpoints pass automated unit test suite (18/18 tests OK).
+- [x] Backend API endpoints pass automated unit test suite (22/22 tests OK).
+- [x] Frontend React application compiles without errors (`vite build` production output generated in `frontend/dist`).
+- [x] Overview dashboard shows live counts from database (no hardcoded counts).
+- [x] Research Library text search returns snippets with verifiable NASA URLs and page numbers.
+- [x] AI Assistant generates grounded answers with exact source citations + works offline without API key.
+- [x] AI Assistant supports natural multi-turn conversations, coreference resolution ("it", "its"), dynamic suggested follow-ups, and session management.
 - [x] Frontend React application compiles without errors (`vite build` production output generated in `frontend/dist`).
 - [x] Overview dashboard shows live counts from database (no hardcoded counts).
 - [x] Research Library text search returns snippets with verifiable NASA URLs and page numbers.
