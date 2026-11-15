@@ -37,6 +37,7 @@ interface TopNavbarProps {
   onSelectTab: (tabId: string) => void;
   onCloseTab: (tabId: string) => void;
   onOpenWorkspace: (pageId: PageId, invId?: string, label?: string) => void;
+  onNavigateToLanding?: () => void;
   lightMode: boolean;
   onToggleTheme: () => void;
   onStartTour: () => void;
@@ -52,6 +53,7 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
   onSelectTab,
   onCloseTab,
   onOpenWorkspace,
+  onNavigateToLanding,
   lightMode,
   onToggleTheme,
   onStartTour,
@@ -107,8 +109,11 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
       <div className="top-bar-left">
         <div
           className="brand-pill"
-          onClick={() => onSelectTab("home")}
-          title="IGNIS — NASA Physical Sciences Informatics Platform"
+          onClick={() => {
+            if (onNavigateToLanding) onNavigateToLanding();
+            else onSelectTab("home");
+          }}
+          title="IGNIS — NASA Physical Sciences Informatics Platform (Click for Gateway)"
         >
           <div className="brand-logo-wrap">
             <Flame size={17} className="brand-flame" />
@@ -118,6 +123,17 @@ export const TopNavbar: React.FC<TopNavbarProps> = ({
             <span className="brand-sub-badge">NASA PSI</span>
           </div>
         </div>
+
+        {onNavigateToLanding && (
+          <button
+            className="top-nav-btn"
+            onClick={onNavigateToLanding}
+            title="Return to External Cinematic Landing Gateway"
+          >
+            <Flame size={13} color="var(--accent-molten)" />
+            <span>Gateway</span>
+          </button>
+        )}
 
         {/* Primary Navigation shortcuts styled like Showdown home tab */}
         <button

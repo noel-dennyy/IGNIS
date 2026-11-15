@@ -4,6 +4,7 @@ import { TopNavbar } from "./components/TopNavbar";
 import type { WorkspaceTab } from "./components/TopNavbar";
 import { CombustionBackdrop } from "./components/CombustionBackdrop";
 import { ShowdownLobby } from "./components/ShowdownLobby";
+import { LandingPage } from "./pages/LandingPage";
 import { InvestigationExplorerPage } from "./pages/InvestigationExplorerPage";
 import { ResearchLibraryPage } from "./pages/ResearchLibraryPage";
 import { EvidenceComparePage } from "./pages/EvidenceComparePage";
@@ -19,7 +20,16 @@ import { OnboardingTour } from "./components/OnboardingTour";
 import { api } from "./api/client";
 
 export const App: React.FC = () => {
-  // Tabs state: starts with Home (Lobby)
+  // Routing state: determines whether user is on external landing page or inside main research platform
+  const [currentRoute, setCurrentRoute] = useState<"landing" | "app">(() => {
+    const path = window.location.pathname;
+    if (path.startsWith("/app")) {
+      return "app";
+    }
+    return "landing";
+  });
+
+  // Tabs state for the main research platform
   const [tabs, setTabs] = useState<WorkspaceTab[]>([
     {
       id: "home",
@@ -44,6 +54,22 @@ export const App: React.FC = () => {
     return localStorage.getItem("ignis_tour_seen") !== "true";
   });
 
+  // Handle browser Back / Forward history navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path.startsWith("/app")) {
+        setCurrentRoute("app");
+      } else {
+        setCurrentRoute("landing");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  // Handle theme
   useEffect(() => {
     if (lightMode) {
       document.body.classList.add("light-mode");
@@ -54,6 +80,7 @@ export const App: React.FC = () => {
     }
   }, [lightMode]);
 
+  // Load backend health
   useEffect(() => {
     api
       .getHealth()
@@ -66,7 +93,39 @@ export const App: React.FC = () => {
       });
   }, []);
 
-  // Open a workspace tab
+  // Check URL search params for deep links on initial mount
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const inv = params.get("inv");
+    const page = params.get("page") as PageId | null;
+
+    if (inv) {
+      setSelectedInvId(inv);
+    }
+
+    if (page && page !== "overview") {
+      handleOpenWorkspace(page, inv || undefined);
+    }
+  }, []);
+
+  // Navigate to external Landing Gateway
+  const handleNavigateToLanding = () => {
+    window.history.pushState({}, "", "/");
+    setCurrentRoute("landing");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Enter main research platform
+  const handleEnterPlatform = (pageId?: string, invId?: string, label?: string) => {
+    window.history.pushState({}, "", "/app");
+    setCurrentRoute("app");
+
+    if (pageId && pageId !== "overview") {
+      handleOpenWorkspace(pageId as PageId, invId, label);
+    }
+  };
+
+  // Open a workspace tab inside the platform
   const handleOpenWorkspace = (pageId: PageId, invId?: string, label?: string) => {
     if (pageId === "overview") {
       setActiveTabId("home");
@@ -124,6 +183,12 @@ export const App: React.FC = () => {
     localStorage.setItem("ignis_tour_seen", "true");
   };
 
+  // ── Render 1: External Cinematic Landing Page (Route: `/`) ──────────────
+  if (currentRoute === "landing") {
+    return <LandingPage onEnterPlatform={handleEnterPlatform} />;
+  }
+
+  // ── Render 2: Main Research Platform (Route: `/app`) ────────────────────
   const activeTab = tabs.find((t) => t.id === activeTabId) || tabs[0];
 
   return (
@@ -138,6 +203,7 @@ export const App: React.FC = () => {
         onSelectTab={setActiveTabId}
         onCloseTab={handleCloseTab}
         onOpenWorkspace={handleOpenWorkspace}
+        onNavigateToLanding={handleNavigateToLanding}
         lightMode={lightMode}
         onToggleTheme={handleToggleTheme}
         onStartTour={() => setShowTour(true)}
