@@ -16,10 +16,9 @@ IGNIS solves this by ingesting **8 verified NASA PSI investigations** (176+ expe
 
 ---
 
-## Demo Video
 
-> **[YOU MUST ADD]** — Replace with your YouTube/Vimeo URL after recording.
-> `https://youtu.be/YOUR_VIDEO_ID`
+
+
 
 ---
 
