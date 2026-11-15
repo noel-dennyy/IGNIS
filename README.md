@@ -114,7 +114,7 @@ See [`docs/architecture.md`](docs/architecture.md) for the full architecture dia
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/ignis.git
+git clone https://github.com/noel-dennyy/ignis.git
 cd ignis
 ```
 
@@ -217,9 +217,9 @@ All AI tools used in this project are fully disclosed in [`AI_USAGE.md`](AI_USAG
 
 > **[YOU MUST ADD]** — Replace with your actual team information.
 
-| Name | Role |
+| Noel | Leader |
 |---|---|
-| [Your Name] | Solo Developer / Team Lead |
+| [Noel Denny] | Solo Developer  |
 
 ---
 
