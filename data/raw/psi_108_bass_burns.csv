@@ -1,0 +1,21 @@
+test_id,sample_material,sample_geometry,flow_velocity_cm_s,ambient_o2_percent,pressure_kpa,flame_spread_rate_mm_s,standoff_distance_mm,suppressant,suppressant_fraction_pct,peak_temp_c,outcome,gravity_regime
+BASS-01,PMMA Cast,Cylindrical Rod (12.7mm dia),1.0,21.0,101.3,0.32,4.8,None,0.0,780.0,Steady downstream spread,Microgravity
+BASS-02,PMMA Cast,Cylindrical Rod (12.7mm dia),2.0,21.0,101.3,0.48,3.9,None,0.0,815.0,Steady downstream spread,Microgravity
+BASS-03,PMMA Cast,Cylindrical Rod (12.7mm dia),4.0,21.0,101.3,0.71,2.8,None,0.0,860.0,Vigorous flame spread,Microgravity
+BASS-04,PMMA Cast,Cylindrical Rod (12.7mm dia),6.5,21.0,101.3,0.92,2.2,None,0.0,895.0,Vigorous flame spread,Microgravity
+BASS-05,PMMA Cast,Cylindrical Rod (12.7mm dia),0.5,21.0,101.3,0.18,6.2,None,0.0,690.0,Low-speed quiescent extinction,Microgravity
+BASS-06,PMMA Cast,Cylindrical Rod (12.7mm dia),2.0,18.0,101.3,0.31,4.5,Nitrogen (N2),14.0,720.0,Near-limit spread,Microgravity
+BASS-07,PMMA Cast,Cylindrical Rod (12.7mm dia),2.0,15.5,101.3,,6.8,Nitrogen (N2),26.0,580.0,Extinguished by N2 dilution,Microgravity
+BASS-08,PMMA Cast,Flat Slab (2.0mm thick),1.5,21.0,101.3,0.41,3.6,None,0.0,795.0,Two-sided steady spread,Microgravity
+BASS-09,PMMA Cast,Flat Slab (2.0mm thick),3.0,21.0,101.3,0.64,2.9,None,0.0,840.0,Steady spread with bubbling melt,Microgravity
+BASS-10,PMMA Cast,Flat Slab (2.0mm thick),5.0,21.0,101.3,0.88,2.1,None,0.0,885.0,Accelerating spread,Microgravity
+BASS-11,SIBAL Fabric,Flat Strip (Cotton/Glass),2.0,21.0,101.3,1.45,2.4,None,0.0,890.0,Concurrent fabric spread,Microgravity
+BASS-12,SIBAL Fabric,Flat Strip (Cotton/Glass),5.0,21.0,101.3,2.10,1.8,None,0.0,945.0,Rapid fabric spread,Microgravity
+BASS-13,SIBAL Fabric,Flat Strip (Cotton/Glass),1.0,21.0,101.3,0.85,3.8,None,0.0,810.0,Slow smolder-flame transition,Microgravity
+BASS-14,SIBAL Fabric,Flat Strip (Cotton/Glass),0.2,21.0,101.3,,7.5,None,0.0,540.0,Flow cessation extinction,Microgravity
+BASS-15,Nomex Fabric,Flat Strip (Aramid),2.0,21.0,101.3,,5.2,None,0.0,610.0,Self-extinguished (inherent FR),Microgravity
+BASS-16,Nomex Fabric,Flat Strip (Aramid),4.0,28.0,101.3,0.38,3.1,None,0.0,760.0,Marginal spread in elevated O2,Microgravity
+BASS-17,PMMA Cast,Cylindrical Rod (12.7mm dia),2.0,28.0,101.3,0.76,2.4,None,0.0,910.0,Rapid combustion (Artemis O2),Microgravity
+BASS-18,PMMA Cast,Cylindrical Rod (12.7mm dia),2.0,32.0,70.0,0.89,2.1,None,0.0,935.0,Intense spread in exploration atm,Microgravity
+BASS-19,PMMA Cast,Cylindrical Rod (12.7mm dia),0.0,21.0,101.3,,8.1,None,0.0,490.0,Quiescent radiative quenching,Microgravity
+BASS-20,PMMA Cast,Cylindrical Rod (12.7mm dia),2.0,21.0,101.3,,5.9,Nitrogen (N2),30.0,510.0,Rapid N2 flood extinguishment,Microgravity

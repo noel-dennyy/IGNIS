@@ -135,6 +135,84 @@ class ScientificVisualizationService:
                 "points": points
             }
 
+        elif dataset_type == "bass_solid":
+            cur.execute("""
+            SELECT experiment_run_id, fuel_or_material, value_numeric as flame_spread_rate,
+                   flow_velocity_cm_s, ambient_o2_percent, outcome_label, raw_metadata_json
+            FROM observations
+            WHERE investigation_id = 'PSI-108' AND value_numeric IS NOT NULL;
+            """)
+            rows = [dict(r) for r in cur.fetchall()]
+            conn.close()
+
+            points = []
+            for r in rows:
+                meta = {}
+                if r.get("raw_metadata_json"):
+                    try:
+                        meta = json.loads(r["raw_metadata_json"])
+                    except Exception:
+                        pass
+                points.append({
+                    "id": r["experiment_run_id"],
+                    "fuel": r["fuel_or_material"],
+                    "flow_velocity_cm_s": r["flow_velocity_cm_s"],
+                    "flame_spread_rate_mm_s": r["flame_spread_rate"],
+                    "standoff_distance_mm": float(meta.get("standoff_distance_mm", 3.5)),
+                    "ambient_o2_percent": r["ambient_o2_percent"],
+                    "outcome": r["outcome_label"]
+                })
+
+            return {
+                "dataset_type": "bass_solid",
+                "title": "BASS Solid Materials: Convective Airflow Velocity vs Flame Spread Rate",
+                "x_axis": {"key": "flow_velocity_cm_s", "label": "Forced Convective Flow Velocity", "unit": "cm/s"},
+                "y_axis": {"key": "flame_spread_rate_mm_s", "label": "Flame Spread Rate (V_f)", "unit": "mm/s"},
+                "group_by": "fuel",
+                "points": points
+            }
+
+        elif dataset_type == "flex2_binary":
+            cur.execute("""
+            SELECT experiment_run_id, fuel_or_material, value_numeric as burning_rate_k,
+                   extinction_diameter_mm, suppressant, suppressant_fraction_pct,
+                   ambient_o2_percent, pressure_atm, outcome_label, raw_metadata_json
+            FROM observations
+            WHERE investigation_id = 'PSI-70';
+            """)
+            rows = [dict(r) for r in cur.fetchall()]
+            conn.close()
+
+            points = []
+            for r in rows:
+                meta = {}
+                if r.get("raw_metadata_json"):
+                    try:
+                        meta = json.loads(r["raw_metadata_json"])
+                    except Exception:
+                        pass
+                points.append({
+                    "id": r["experiment_run_id"],
+                    "fuel": r["fuel_or_material"],
+                    "initial_diameter_mm": float(meta.get("initial_diameter_mm", 2.5)),
+                    "burning_rate_k_mm2_s": r["burning_rate_k"],
+                    "cool_flame_k_mm2_s": float(meta.get("cool_flame_k_mm2_s", 0.3)) if meta.get("cool_flame_k_mm2_s") else None,
+                    "extinction_diameter_mm": r["extinction_diameter_mm"],
+                    "suppressant": r["suppressant"] or "None",
+                    "ambient_o2_percent": r["ambient_o2_percent"],
+                    "pressure_atm": r["pressure_atm"],
+                    "outcome": r["outcome_label"]
+                })
+
+            return {
+                "dataset_type": "flex2_binary",
+                "title": "FLEX-2 Binary Droplets: Initial Diameter vs Burning Rate Constant (K)",
+                "x_axis": {"key": "initial_diameter_mm", "label": "Initial Droplet Diameter (d₀)", "unit": "mm"},
+                "y_axis": {"key": "burning_rate_k_mm2_s", "label": "Burning Rate Constant (K)", "unit": "mm²/s"},
+                "group_by": "fuel",
+                "points": points
+            }
+
         conn.close()
         return {"error": "Invalid dataset_type"}
 
@@ -162,6 +240,16 @@ class ScientificVisualizationService:
             values = [r[0] for r in cur.fetchall()]
             title = "Distribution of SPICE Smoke-Point Flame Lengths"
             unit = "mm"
+        elif variable_name == "bass_flame_spread":
+            cur.execute("SELECT value_numeric FROM observations WHERE investigation_id = 'PSI-108' AND value_numeric IS NOT NULL;")
+            values = [r[0] for r in cur.fetchall()]
+            title = "Distribution of BASS Solid Material Flame Spread Rates"
+            unit = "mm/s"
+        elif variable_name == "flex2_burning_rate":
+            cur.execute("SELECT value_numeric FROM observations WHERE investigation_id = 'PSI-70' AND value_numeric IS NOT NULL;")
+            values = [r[0] for r in cur.fetchall()]
+            title = "Distribution of FLEX-2 Binary Droplet Burning Rate Constants (K)"
+            unit = "mm²/s"
         else:
             conn.close()
             return {"error": f"Unknown variable '{variable_name}'"}

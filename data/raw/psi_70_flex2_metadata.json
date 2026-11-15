@@ -1,0 +1,34 @@
+{
+  "investigation_id": "PSI-70",
+  "name": "Flame Extinguishment Experiment-2 (FLEX-2)",
+  "doi": "10.60555/y812-q943",
+  "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-70",
+  "license": "CC0-1.0",
+  "version": "Version 4",
+  "updated_at": "2025-06-12",
+  "platform": "International Space Station (ISS)",
+  "facility": "Combustion Integrated Rack (CIR) / Multi-user Droplet Combustion Apparatus (MDCA)",
+  "nasa_center": "Glenn Research Center (GRC)",
+  "lead_investigators": [
+    "Forman A. Williams (UC San Diego, Principal Investigator)",
+    "Vedha Nayagam (NCSER / Case Western Reserve University)",
+    "Daniel L. Dietrich (NASA Glenn Research Center)",
+    "Michael C. Hicks (NASA Glenn Research Center)"
+  ],
+  "research_area": "Combustion Science",
+  "subresearch_area": "Spacecraft Fire Safety",
+  "description": "FLEX-2 extended microgravity droplet combustion research to binary fuel mixtures (n-heptane with n-hexadecane, and ethanol-water mixtures) and detailed quantitative characterization of sustained low-temperature 'cool flame' burning. Following apparent radiative extinction of the visible hot flame, droplets were observed to continue evaporating and burning in a low-temperature regime governed by low-temperature hydrocarbon chemical kinetics without visible soot or chemiluminescence.",
+  "gravity_regime": "Microgravity (~10^-6 g)",
+  "apparatus": "Advanced MDCA droplet dispenser inside the CIR, featuring dual fiber-supported and free-floating droplet deployment, intensified camera arrays (ICCD) for OH* and CH* chemiluminescence, and wideband radiometers.",
+  "fuels_tested": ["n-Heptane / n-Hexadecane Binary Blends", "n-Decane", "Ethanol / Water Mixtures", "n-Octane"],
+  "suppressants_tested": ["Carbon Dioxide (CO2)", "Helium (He)", "Nitrogen (N2)"],
+  "experimental_variables": [
+    "Initial droplet diameter (d_0) [mm]",
+    "First-stage hot flame burning rate (K_hot) [mm^2/s]",
+    "Second-stage cool flame burning rate (K_cool) [mm^2/s]",
+    "Hot flame extinction diameter (d_e,hot) [mm]",
+    "Cool flame extinction diameter (d_e,cool) [mm]",
+    "Binary mixture fraction (% hexadecane)",
+    "Ambient oxygen mole fraction (X_O2) [%]"
+  ]
+}

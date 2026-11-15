@@ -6,14 +6,18 @@ import type { CompareResponse } from "../types";
 
 const ALL_INVESTIGATIONS = [
   { id: "PSI-69", label: "PSI-69 — FLEX (Droplet Combustion)" },
-  { id: "PSI-98", label: "PSI-98 — SAFFIRE-I (Fabric Spread)" },
-  { id: "PSI-107", label: "PSI-107 — SPICE (Gas Jet Soot)" },
+  { id: "PSI-70", label: "PSI-70 — FLEX-2 (Binary Droplets & Cool Flames)" },
+  { id: "PSI-98", label: "PSI-98 — SAFFIRE-I (Large Fabric Spread)" },
+  { id: "PSI-107", label: "PSI-107 — SPICE (Gas Jet Smoke Points)" },
+  { id: "PSI-108", label: "PSI-108 — BASS (Solid Polymer Flammability)" },
 ];
 
 const INV_COLORS: Record<string, string> = {
   "PSI-69": "#38bdf8",
+  "PSI-70": "#60a5fa",
   "PSI-98": "#f59e0b",
-  "PSI-107": "#a78bfa"
+  "PSI-107": "#a78bfa",
+  "PSI-108": "#34d399"
 };
 
 function ConditionGrid({ investigations }: { investigations: any[] }) {

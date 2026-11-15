@@ -175,6 +175,8 @@ function ScatterTab() {
           <h3 className="card-title">{data.title}</h3>
           <select className="select-box" value={dataset} onChange={e => setDataset(e.target.value)} style={{ minWidth: "200px" }}>
             <option value="flex_droplet">FLEX — Droplet d₀ vs K</option>
+            <option value="flex2_binary">FLEX-2 — Binary Droplet d₀ vs K</option>
+            <option value="bass_solid">BASS — Airflow vs Flame Spread (Solid)</option>
             <option value="spice_smoke_point">SPICE — Velocity vs Smoke Length</option>
           </select>
         </div>
@@ -239,8 +241,10 @@ function DistributionTab() {
           <h3 className="card-title">{data.title}</h3>
           <select className="select-box" value={variable} onChange={e => setVariable(e.target.value)}>
             <option value="burning_rate_k">FLEX — Burning Rate K (mm²/s)</option>
+            <option value="flex2_burning_rate">FLEX-2 — Binary Burning Rate K (mm²/s)</option>
             <option value="extinction_diameter">FLEX — Extinction Diameter d_e (mm)</option>
             <option value="flame_spread_rate">SAFFIRE-I — Flame Spread Rate (mm/s)</option>
+            <option value="bass_flame_spread">BASS — Solid Flame Spread Rate (mm/s)</option>
             <option value="smoke_point_length">SPICE — Smoke-Point Length (mm)</option>
           </select>
         </div>

@@ -166,6 +166,27 @@ export function ImageComparisonPage() {
             </select>
           </div>
         </div>
+
+        {/* Quick Comparison Presets */}
+        <div style={{ padding: "0 1rem 1rem", display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center" }}>
+          <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginRight: "4px" }}>Recommended Presets:</span>
+          {[
+            { label: "BASS: PMMA Flame vs N2 Quench", a: "IMG-BASS-01", b: "IMG-BASS-02" },
+            { label: "FLEX: 0-g vs 1-g Droplet", a: "IMG-FLEX-01", b: "IMG-FLEX-02" },
+            { label: "FLEX vs FLEX-2: Pure vs Binary", a: "IMG-FLEX-01", b: "IMG-FLEX2-01" },
+            { label: "SAFFIRE: SIBAL vs Multi-Card", a: "IMG-SAFFIRE-02", b: "IMG-SAFFIRE2-01" },
+            { label: "SPICE: Clean vs Sooting Tip", a: "IMG-SPICE-01", b: "IMG-SPICE-02" },
+          ].map((preset, idx) => (
+            <button
+              key={idx}
+              className="btn btn-outline"
+              style={{ fontSize: "0.72rem", padding: "3px 8px" }}
+              onClick={() => { setSelectedA(preset.a); setSelectedB(preset.b); }}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {selectedA === selectedB && selectedA !== "" && (

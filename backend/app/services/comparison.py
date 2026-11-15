@@ -34,26 +34,81 @@ class ScientificComparisonService:
 
         # Geometry & Fuel Phase Check
         has_flex = "PSI-69" in inv_ids_set
+        has_flex2 = "PSI-70" in inv_ids_set
         has_saffire = "PSI-98" in inv_ids_set
+        has_bass = "PSI-108" in inv_ids_set
         has_spice = "PSI-107" in inv_ids_set
 
-        if has_flex and has_saffire:
-            is_valid_comparison = False
-            warnings.append(
-                "CRITICAL INCOMPATIBILITY (Droplet vs. Solid Sheet): FLEX measured isolated liquid droplets (spherical symmetry, burning rate constant K [mm^2/s]), whereas SAFFIRE-I measured large-scale solid composite fabric (0.4 m x 0.94 m SIBAL cloth, surface flame spread rate [mm/s]). They cannot be plotted on a common quantitative axis."
-            )
+        # Compatible Pair 1: FLEX & FLEX-2 (Both are microgravity droplet combustion)
+        if (has_flex or has_flex2) and len(inv_ids_set - {"PSI-69", "PSI-70"}) == 0:
             variables_analysis.append({
-                "variable_name": "Fuel State & Combustion Geometry",
-                "is_comparable": False,
-                "reason": "Liquid fuel droplet (spherical) vs. Solid fabric panel (planar).",
-                "units_match": False,
-                "notes": "FLEX uses d^2-law evaporation/combustion; SAFFIRE-I uses solid-phase pyrolysis and thermal boundary layer propagation."
+                "variable_name": "Droplet Burning Rate Constant (K)",
+                "is_comparable": True,
+                "reason": "Both FLEX and FLEX-2 evaluated isolated droplets in the CIR MDCA using the classical d^2-law burning rate constant K [mm^2/s].",
+                "units_match": True,
+                "notes": "Directly comparable across pure alkanes (heptane, decane) and binary alkane mixtures."
+            })
+            variables_analysis.append({
+                "variable_name": "Initial Droplet Diameter (d_0)",
+                "is_comparable": True,
+                "reason": "Both investigations systematically deployed droplets in the 1.8 to 3.5 mm diameter range on 14-micron SiC filaments.",
+                "units_match": True,
+                "notes": "Allows direct scaling comparisons of initial diameter effects on extinction."
+            })
+            variables_analysis.append({
+                "variable_name": "Low-Temperature Cool Flame Transition",
+                "is_comparable": True,
+                "reason": "Both investigations characterized radiative hot-flame extinction followed by sustained cool-flame droplet consumption.",
+                "units_match": True,
+                "notes": "FLEX discovered the phenomenon; FLEX-2 quantified burning rate K_cool for binary mixtures."
             })
 
-        if has_flex and has_spice:
+        # Compatible Pair 2: SAFFIRE-I & BASS (Both are solid material flame spread under forced airflow)
+        if (has_saffire or has_bass) and len(inv_ids_set - {"PSI-98", "PSI-108"}) == 0:
+            variables_analysis.append({
+                "variable_name": "Flame Spread Rate (V_f)",
+                "is_comparable": True,
+                "reason": "Both SAFFIRE-I and BASS measured surface flame propagation velocities [mm/s] across solid materials in microgravity duct flow.",
+                "units_match": True,
+                "notes": "Both tested SIBAL composite fabric; allows direct comparison of small-scale (MSG, 75mm duct) vs large-scale (Cygnus, 500mm duct) confinement scaling."
+            })
+            variables_analysis.append({
+                "variable_name": "Forced Convective Flow Velocity",
+                "is_comparable": True,
+                "reason": "Both investigations evaluate concurrent forced airflow velocity [cm/s] as the primary oxidizer transport mechanism.",
+                "units_match": True,
+                "notes": "BASS varied flow between 0.5 and 10 cm/s; SAFFIRE-I evaluated steady 20 cm/s flow."
+            })
+            variables_analysis.append({
+                "variable_name": "Peak Flame Temperature",
+                "is_comparable": True,
+                "reason": "Both investigations recorded thermocouple rake telemetry in the gas-phase boundary layer above solid fuels.",
+                "units_match": True,
+                "notes": "Peak temperatures between 780 °C and 920 °C reflect consistent aerothermal reaction kinetics."
+            })
+
+        # Incompatible combinations across different physical phases:
+        has_droplets = has_flex or has_flex2
+        has_solids = has_saffire or has_bass
+        has_gases = has_spice
+
+        if has_droplets and has_solids:
             is_valid_comparison = False
             warnings.append(
-                "CRITICAL INCOMPATIBILITY (Liquid Droplet vs. Gaseous Jet): FLEX evaluated liquid droplet extinguishment, while SPICE investigated gaseous hydrocarbon jet diffusion flame smoke points. Physical quantities are fundamentally non-equivalent."
+                "CRITICAL INCOMPATIBILITY (Droplet vs. Solid Sheet / Material): Liquid droplets burn with spherical symmetry via evaporating d^2-law surface regression (K in mm^2/s), whereas solid materials burn via surface pyrolysis and boundary layer flame propagation (V_f in mm/s). They cannot be plotted on a shared quantitative axis."
+            )
+            variables_analysis.append({
+                "variable_name": "Combustion Mode & Phase",
+                "is_comparable": False,
+                "reason": "Liquid fuel droplet (spherical) vs. Solid material surface spread (planar).",
+                "units_match": False,
+                "notes": "FLEX/FLEX-2 use d^2 evaporation kinetics; SAFFIRE/BASS use solid pyrolysis and forward heat conduction."
+            })
+
+        if has_droplets and has_gases:
+            is_valid_comparison = False
+            warnings.append(
+                "CRITICAL INCOMPATIBILITY (Liquid Droplet vs. Gas Jet): Droplet investigations evaluate liquid phase-change and spherical quenching, while SPICE investigated non-buoyant gaseous jet diffusion flame smoke points. Physical quantities are fundamentally non-equivalent."
             )
             variables_analysis.append({
                 "variable_name": "Combustion Mode",
@@ -63,27 +118,27 @@ class ScientificComparisonService:
                 "notes": "Different governing Damköhler and Lewis numbers."
             })
 
-        if has_saffire and has_spice:
+        if has_solids and has_gases:
             is_valid_comparison = False
             warnings.append(
-                "CRITICAL INCOMPATIBILITY (Solid Surface Spread vs. Laminar Gas Jet): SAFFIRE-I measured solid fabric flame propagation, while SPICE measured laminar smoke emission heights in gas nozzles."
+                "CRITICAL INCOMPATIBILITY (Solid Surface Spread vs. Laminar Gas Jet): Solid investigations measure flame spread rates (mm/s), while SPICE measures soot emission smoke-point flame lengths (mm) from gas burners."
             )
             variables_analysis.append({
                 "variable_name": "Flame Measurement Type",
                 "is_comparable": False,
                 "reason": "Solid surface flame spread (mm/s) vs. gas jet flame length (mm).",
                 "units_match": False,
-                "notes": "Different momentum and diffusion regimes."
+                "notes": "Different momentum and diffusion transport regimes."
             })
 
         # Flow Field Check
-        if has_flex and (has_saffire or has_spice):
+        if has_droplets and (has_solids or has_gases):
             variables_analysis.append({
                 "variable_name": "Convective Flow Velocity",
                 "is_comparable": False,
-                "reason": "FLEX is stagnant quiescent flow (~0 cm/s), while SAFFIRE-I (20 cm/s forced duct flow) and SPICE (5-40 cm/s co-flow) feature forced convection.",
+                "reason": "FLEX and FLEX-2 are stagnant quiescent chambers (~0 cm/s), while SAFFIRE, BASS, and SPICE feature forced or co-flow convective airflow (0.5 to 40 cm/s).",
                 "units_match": True,
-                "notes": "Forced flow drastically alters oxygen flux, cooling rates, and flame extinction dynamics."
+                "notes": "Forced flow fundamentally alters oxygen flux, convective cooling, and extinction limits."
             })
 
         # Atmosphere & Oxygen Condition (Compatible variable)

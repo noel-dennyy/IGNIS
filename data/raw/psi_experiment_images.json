@@ -328,5 +328,188 @@
         "color": "#64748B"
       }
     ]
+  },
+  {
+    "id": "IMG-BASS-01",
+    "investigation_id": "PSI-108",
+    "title": "BASS PMMA Cylindrical Rod Combustion in Low-Speed Flow Duct",
+    "description": "High-resolution video frame of a 12.7 mm diameter cast PMMA rod burning inside the BASS flow duct aboard the ISS Microgravity Science Glovebox. Shows the rounded leading flame base and molten pyrolyzing fuel layer under 2.0 cm/s forced airflow.",
+    "file_path": "/images/experiments/bass_pmma_rod_quench.svg",
+    "thumbnail_path": "/images/experiments/bass_pmma_rod_quench.svg",
+    "observation_time_s": 42.0,
+    "gravity_regime": "Microgravity (~10^-6 g)",
+    "fuel_or_material": "Cast PMMA Rod (12.7 mm diameter)",
+    "apparatus": "ISS Microgravity Science Glovebox (MSG) / BASS Flow Duct (21% O2, 1.0 atm)",
+    "camera_modality": "High-Definition 3-CCD Color Video (30 fps)",
+    "resolution": "1920x1080",
+    "source_citation": "Ferkul, P. V., Olson, S. L., & T'ien, J. S. (2014). Combustion and Flame, 161(11), 2975-2983.",
+    "doi": "10.60555/k489-p210",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-108",
+    "paired_comparison_id": "IMG-BASS-02",
+    "comparison_axis_note": "Comparison of steady polymeric flame spread under forced airflow vs nitrogen dilution extinction boundary.",
+    "annotations": [
+      {
+        "id": "ant-bass-1",
+        "label": "Hemispherical Flame Base",
+        "description": "Leading edge blue chemiluminescent flame anchor stabilized against the incoming 2.0 cm/s flow.",
+        "x_pct": 32.0,
+        "y_pct": 50.0,
+        "radius_pct": 12.0,
+        "color": "#38BDF8"
+      },
+      {
+        "id": "ant-bass-2",
+        "label": "Bubbling Pyrolysis Layer",
+        "description": "Sub-surface boiling and depolymerization of PMMA into methyl methacrylate monomer vapor.",
+        "x_pct": 46.0,
+        "y_pct": 50.0,
+        "radius_pct": 14.0,
+        "color": "#F59E0B"
+      },
+      {
+        "id": "ant-bass-3",
+        "label": "Thermocouple Array",
+        "description": "Rake sensor measuring peak gas flame temperatures exceeding 815 °C.",
+        "x_pct": 45.0,
+        "y_pct": 36.0,
+        "radius_pct": 6.0,
+        "color": "#EF4444"
+      }
+    ]
+  },
+  {
+    "id": "IMG-BASS-02",
+    "investigation_id": "PSI-108",
+    "title": "BASS Nitrogen Dilution Extinction at Limiting Oxygen Index (LOI)",
+    "description": "Extinction boundary sequence showing flame detachment and thermal quench of a PMMA rod following gaseous nitrogen injection into the ISS MSG duct as oxygen concentration falls below 15.5%.",
+    "file_path": "/images/experiments/bass_nitrogen_extinction.svg",
+    "thumbnail_path": "/images/experiments/bass_nitrogen_extinction.svg",
+    "observation_time_s": 78.0,
+    "gravity_regime": "Microgravity (~10^-6 g)",
+    "fuel_or_material": "Cast PMMA Rod (12.7 mm diameter)",
+    "apparatus": "ISS Microgravity Science Glovebox (MSG) / BASS Flow Duct (15.5% O2, 1.0 atm)",
+    "camera_modality": "High-Definition 3-CCD Color Video (30 fps)",
+    "resolution": "1920x1080",
+    "source_citation": "Ferkul, P. V., Olson, S. L., & T'ien, J. S. (2014). Combustion and Flame, 161(11), 2975-2983.",
+    "doi": "10.60555/k489-p210",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-108",
+    "paired_comparison_id": "IMG-BASS-01",
+    "comparison_axis_note": "Visual confirmation of nitrogen dilution suppression and flame lift-off at the limiting oxygen index.",
+    "annotations": [
+      {
+        "id": "ant-bass-4",
+        "label": "Detached Flame Boundary",
+        "description": "Receding reaction zone lifting off the rod surface due to insufficient chemical reaction rate.",
+        "x_pct": 48.0,
+        "y_pct": 50.0,
+        "radius_pct": 14.0,
+        "color": "#A78BFA"
+      },
+      {
+        "id": "ant-bass-5",
+        "label": "Extinguished Surface Char",
+        "description": "Quenched solid fuel tip with no remaining visible or radiant combustion activity.",
+        "x_pct": 26.0,
+        "y_pct": 50.0,
+        "radius_pct": 10.0,
+        "color": "#64748B"
+      }
+    ]
+  },
+  {
+    "id": "IMG-FLEX2-01",
+    "investigation_id": "PSI-70",
+    "title": "FLEX-2 Binary Droplet Two-Stage Hot and Cool Flame",
+    "description": "Intensified ICCD camera frame of a binary heptane/hexadecane droplet burning in the CIR MDCA on the ISS, displaying the concentric hot-flame extinction boundary and sustained inner cool flame reaction zone.",
+    "file_path": "/images/experiments/flex2_binary_droplet.svg",
+    "thumbnail_path": "/images/experiments/flex2_binary_droplet.svg",
+    "observation_time_s": 4.8,
+    "gravity_regime": "Microgravity (~10^-6 g)",
+    "fuel_or_material": "Heptane/Hexadecane (80/20 Binary Mixture, d0 = 2.20 mm)",
+    "apparatus": "MDCA / CIR on ISS (Quiescent Stagnant Chamber, 21% O2, 1.0 atm)",
+    "camera_modality": "Intensified OH* Chemiluminescence ICCD (308 nm narrow band)",
+    "resolution": "1024x1024",
+    "source_citation": "Dietrich, D. L., Nayagam, V., Hicks, M. C., & Williams, F. A. (2017). Microgravity Sci. Technol., 29(3), 201-212.",
+    "doi": "10.60555/y812-q943",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-70",
+    "paired_comparison_id": "IMG-FLEX-01",
+    "comparison_axis_note": "Comparison of single-stage pure alkane droplet burning (FLEX) vs two-stage binary cool-flame persistence (FLEX-2).",
+    "annotations": [
+      {
+        "id": "ant-flex2-1",
+        "label": "Binary Droplet Core",
+        "description": "Liquid fuel core with preferential vaporization of volatile n-heptane.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 6.0,
+        "color": "#38BDF8"
+      },
+      {
+        "id": "ant-flex2-2",
+        "label": "Sustained Cool Flame Shell",
+        "description": "Low-temperature reaction zone (600-850 K) burning without visible soot.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 24.0,
+        "color": "#A78BFA"
+      },
+      {
+        "id": "ant-flex2-3",
+        "label": "Extinguished Hot Flame Boundary",
+        "description": "Outer radius where visible high-temperature combustion extinguished radiatively.",
+        "x_pct": 50.0,
+        "y_pct": 50.0,
+        "radius_pct": 36.0,
+        "color": "#F59E0B"
+      }
+    ]
+  },
+  {
+    "id": "IMG-SAFFIRE2-01",
+    "investigation_id": "PSI-98",
+    "title": "SAFFIRE-II Multi-Material Spacecraft Flammability Card",
+    "description": "Composite imaging frame of the SAFFIRE-II multi-sample flammability experiment aboard Cygnus OA-5, comparing flame spread rates across concurrent SIBAL fabric, PMMA sheet, and self-extinguished Nomex.",
+    "file_path": "/images/experiments/saffire_ii_multisample_spread.svg",
+    "thumbnail_path": "/images/experiments/saffire_ii_multisample_spread.svg",
+    "observation_time_s": 120.0,
+    "gravity_regime": "Microgravity (~10^-6 g)",
+    "fuel_or_material": "SIBAL fabric, PMMA sheet, and Nomex strips",
+    "apparatus": "Cygnus OA-5 Post-Departure Vehicle Flow Duct (20 cm/s airflow, 21% O2)",
+    "camera_modality": "Multi-Angle High-Definition Visible/IR Cameras",
+    "resolution": "1920x1080",
+    "source_citation": "Urban, D. L., Ruff, G. A., et al. (2017). Saffire-II Multi-Sample Results. 47th ICES.",
+    "doi": "10.60555/0t15-1z43",
+    "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-98",
+    "paired_comparison_id": "IMG-SAFFIRE-02",
+    "comparison_axis_note": "Comparison of single-sample large-scale fabric spread (SAFFIRE-I) vs comparative multi-material flammability (SAFFIRE-II).",
+    "annotations": [
+      {
+        "id": "ant-saf2-1",
+        "label": "SIBAL Flame Front",
+        "description": "Rapid concurrent fabric flame spread reaching 1.75 mm/s.",
+        "x_pct": 58.0,
+        "y_pct": 32.0,
+        "radius_pct": 12.0,
+        "color": "#F59E0B"
+      },
+      {
+        "id": "ant-saf2-2",
+        "label": "PMMA Solid Sheet Spread",
+        "description": "Slower solid polymer flame spread (0.58 mm/s) accompanied by surface bubbling.",
+        "x_pct": 48.0,
+        "y_pct": 48.0,
+        "radius_pct": 12.0,
+        "color": "#38BDF8"
+      },
+      {
+        "id": "ant-saf2-3",
+        "label": "Nomex Self-Extinction Zone",
+        "description": "Inherent fire-retardant aramid fabric self-extinguishing immediately adjacent to igniter.",
+        "x_pct": 28.0,
+        "y_pct": 65.0,
+        "radius_pct": 8.0,
+        "color": "#EF4444"
+      }
+    ]
   }
 ]

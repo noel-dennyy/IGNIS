@@ -126,5 +126,69 @@
         "text": "Future exploration atmospheres for Artemis lunar landers and Mars transit habitats propose operating at reduced total pressures with elevated oxygen concentrations (e.g. 56.5 kPa / 8.2 psia with 34% O2, or 70.3 kPa with 28% O2) to minimize astronaut pre-breathe times for EVAs. Microgravity combustion research indicates that increased oxygen concentrations significantly enhance flame spread rates and lower material ignition thresholds, even when total atmospheric pressure is reduced. Rigorous testing under relevant partial pressures of oxygen is mandatory for material qualification."
       }
     ]
+  },
+  {
+    "document_id": "DOC-BASS-01",
+    "investigation_id": "PSI-108",
+    "title": "Burning and Suppression of Solids in Low-Speed Forced Flows in Microgravity",
+    "authors": "Ferkul, P. V., Olson, S. L., & T'ien, J. S.",
+    "publication_date": "2014-11-20",
+    "journal_or_report": "Combustion and Flame, Vol. 161, Iss. 11, pp. 2975-2983 / NASA/TM-2015-218458",
+    "doi": "10.1016/j.combustflame.2014.05.025",
+    "source_url": "https://doi.org/10.1016/j.combustflame.2014.05.025",
+    "document_type": "Peer-Reviewed Journal Article",
+    "abstract": "The Burning and Suppression of Solids (BASS) investigation aboard the International Space Station examined the flammability and extinction limits of solid polymers (cast PMMA rods and flat slabs) and fabrics in microgravity. BASS determined how low-speed forced convective airflow (0.5 to 10 cm/s) controls flame spread rates, standoff distances, and nitrogen dilution extinguishment.",
+    "chunks": [
+      {
+        "chunk_index": 1,
+        "page_number": 2976,
+        "section_heading": "PMMA Geometry & Flame Standoff Dynamics",
+        "text": "BASS conducted microgravity combustion tests on cast polymethyl methacrylate (PMMA) cylindrical rods (12.7 mm diameter) and flat slabs (2.0 mm thick) inside the ISS Microgravity Science Glovebox (MSG). In microgravity, the solid flame wraps around the rod surface with a hemispherical leading flame base and an extended pyrolyzing tail. Flame spread rate along the rod increased monotonically with forced convective flow velocity, rising from 0.32 mm/s at 1.0 cm/s flow to 0.92 mm/s at 6.5 cm/s flow. Standoff distance decreased from 4.8 mm to 2.2 mm as airflow increased, reflecting enhanced convective oxygen mass transfer toward the reaction boundary."
+      },
+      {
+        "chunk_index": 2,
+        "page_number": 2979,
+        "section_heading": "Solid Material Comparisons: SIBAL Fabric vs PMMA Polymer",
+        "text": "BASS enabled direct microgravity comparison between solid fuel geometries and materials under identical duct flow conditions. SIBAL fabric (cotton-fiberglass composite) exhibited flame spread rates between 0.85 mm/s and 2.10 mm/s, significantly faster than solid PMMA rods (0.32 to 0.92 mm/s) under identical convective flow (1.0 to 5.0 cm/s) due to lower thermal inertia and thinner effective pyrolyzing cross section. In contrast, inherently flame-retardant Nomex fabric self-extinguished in normal atmospheric air (21% O2) even under 2.0 cm/s flow, confirming that NASA-STD-6001 upward flammability screening is conservative for certain space flight materials."
+      },
+      {
+        "chunk_index": 3,
+        "page_number": 2981,
+        "section_heading": "Extinguishment Regimes: Flow Cessation vs Nitrogen Dilution",
+        "text": "BASS demonstrated two distinct physical mechanisms for extinguishing spacecraft solid fires: flow cessation and nitrogen dilution. When ventilation fan airflow was turned off (flow velocity -> 0 cm/s), the flame extinguished within 15 to 40 seconds due to stagnant accumulation of combustion products (CO2, H2O) and severe radiative heat loss (quiescent radiative quenching). When nitrogen was injected into the flow duct at 2.0 cm/s airflow, flame extinction occurred when the ambient oxygen concentration fell below the limiting oxygen index (LOI) of 15.5% O2 (requiring ~26% N2 dilution), establishing direct empirical benchmarks for spacecraft fire suppression systems."
+      }
+    ]
+  },
+  {
+    "document_id": "DOC-FLEX2-01",
+    "investigation_id": "PSI-70",
+    "title": "Droplet Combustion of Binary Fuel Mixtures and Cool Flame Phenomena in Microgravity",
+    "authors": "Dietrich, D. L., Nayagam, V., Hicks, M. C., & Williams, F. A.",
+    "publication_date": "2017-04-15",
+    "journal_or_report": "Microgravity Science and Technology, Vol. 29, Iss. 3, pp. 201-212",
+    "doi": "10.1007/s12217-017-9543-8",
+    "source_url": "https://doi.org/10.1007/s12217-017-9543-8",
+    "document_type": "Peer-Reviewed Journal Article",
+    "abstract": "The FLEX-2 experiment on the ISS investigated isolated droplet combustion of multicomponent binary fuels (heptane/hexadecane blends) and detailed second-stage low-temperature cool flame kinetics. Quantitative burning rates, hot flame extinction diameters, and cool flame persistence were measured under microgravity conditions.",
+    "chunks": [
+      {
+        "chunk_index": 1,
+        "page_number": 203,
+        "section_heading": "Preferential Vaporization in Binary Fuel Droplets",
+        "text": "FLEX-2 tested binary droplets containing mixtures of high-volatility n-heptane and low-volatility n-hexadecane. During the initial hot-flame combustion stage, n-heptane vaporizes preferentially from the droplet surface, driving a burning rate constant K_hot (~0.72 to 0.78 mm^2/s) comparable to pure heptane. As heptane is depleted, the droplet composition shifts toward hexadecane, causing the liquid surface temperature to rise and reducing the effective burning rate to ~0.64 mm^2/s before hot flame radiative extinction occurs."
+      },
+      {
+        "chunk_index": 2,
+        "page_number": 206,
+        "section_heading": "Quantitative Cool Flame Burning Rate and Extinction",
+        "text": "Following visible hot-flame extinction at diameters d_e,hot between 1.15 and 1.65 mm, droplets continued to evaporate and burn in a sustained cool-flame regime supported by low-temperature peroxy chemistry. The cool-flame burning rate constant K_cool was measured at approximately 0.22 to 0.35 mm^2/s, roughly 40% of the hot-flame burning rate. Final cool-flame extinction occurred at much smaller diameters (d_e,cool ~ 0.40 to 0.60 mm) when low-temperature kinetic reaction rates could no longer overcome conductive heat loss to the ambient gas."
+      },
+      {
+        "chunk_index": 3,
+        "page_number": 209,
+        "section_heading": "Suppression Kinetics & Multi-Stage Safety Hazards",
+        "text": "Gaseous suppressants in FLEX-2 revealed distinct multi-stage vulnerabilities. Carbon dioxide (CO2) suppressed hot flames effectively via radiation, but residual fuel vapor remained sufficiently hot to trigger long-lasting cool flames unless CO2 concentrations exceeded 25%. In contrast, Helium (He) accelerated conductive quenching of both hot and cool flame zones simultaneously due to its exceptional thermal conductivity. These findings demonstrate that spacecraft fire suppression systems must be sized to extinguish both visible high-temperature flames and invisible low-temperature cool flames."
+      }
+    ]
   }
 ]

@@ -23,3 +23,9 @@ FLEX-21,n-Heptane,2.10,0.690,1.10,CO2,20.0,25.0,1.5,Microgravity,Extinction,Radi
 FLEX-22,n-Heptane,2.15,0.730,1.05,CO2,20.0,30.0,2.0,Microgravity,Extinction,Radiative-High-Pressure
 FLEX-23,Methanol,1.80,0.590,1.20,CO2,25.0,18.0,0.7,Microgravity,Extinction,Kinetic-Low-Pressure
 FLEX-24,Methanol,2.00,0.880,0.65,CO2,15.0,30.0,1.5,Microgravity,Extinction,Radiative
+FLEX-25,Ethanol,1.95,0.750,0.82,None,0.0,21.0,1.0,Microgravity,Complete-Burn,None
+FLEX-26,Ethanol,2.15,0.640,1.18,CO2,20.0,21.0,1.0,Microgravity,Extinction,Radiative
+FLEX-27,Ethanol,2.20,0.550,1.42,CO2,30.0,21.0,1.0,Microgravity,Extinction,Radiative
+FLEX-28,n-Heptane,2.40,0.890,0.62,None,0.0,32.0,0.56,Microgravity,Complete-Burn,Kinetic-Artemis
+FLEX-29,n-Heptane,2.55,0.780,0.95,CO2,15.0,32.0,0.56,Microgravity,Extinction,Exploration-Atm
+FLEX-30,n-Decane,2.80,0.620,1.35,He,20.0,21.0,1.0,Microgravity,Cool-Flame-Transition,Thermal-Conduction

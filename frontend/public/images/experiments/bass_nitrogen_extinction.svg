@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <radialGradient id="extBkg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#090d16" />
+      <stop offset="100%" stop-color="#02040a" />
+    </radialGradient>
+    <linearGradient id="rodGradExt" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+    <radialGradient id="fadingFlame" cx="30%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35" />
+      <stop offset="50%" stop-color="#818cf8" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#1e293b" stop-opacity="0" />
+    </radialGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="800" fill="url(#extBkg)" />
+  <rect x="60" y="80" width="680" height="640" rx="10" fill="none" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="6,6" />
+
+  <!-- Flow Duct Boundaries -->
+  <line x1="80" y1="200" x2="720" y2="200" stroke="#334155" stroke-width="2" />
+  <line x1="80" y1="600" x2="720" y2="600" stroke="#334155" stroke-width="2" />
+  <text x="90" y="185" fill="#64748b" font-family="monospace" font-size="12">ISS MSG BASS FLOW DUCT — NITROGEN DILUTION TEST (X_O2 = 15.5%)</text>
+
+  <!-- Nitrogen Gas Ingress Representation (Purple dashed stream) -->
+  <g stroke="#a78bfa" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.6">
+    <line x1="90" y1="240" x2="260" y2="280" />
+    <line x1="90" y1="300" x2="280" y2="330" />
+    <line x1="90" y1="500" x2="280" y2="470" />
+    <line x1="90" y1="560" x2="260" y2="520" />
+    <text x="90" y="230" fill="#a78bfa" font-family="sans-serif" font-size="11">Injected Gaseous N2 Dilution Stream (26% vol)</text>
+  </g>
+
+  <!-- PMMA Cast Rod (Cooling / Quenched) -->
+  <rect x="180" y="375" width="480" height="50" rx="8" fill="url(#rodGradExt)" stroke="#64748b" stroke-width="1.2" />
+  <!-- Solidified Char/Melt Tip -->
+  <path d="M 180,375 Q 165,400 180,425 L 240,425 L 240,375 Z" fill="#334155" stroke="#475569" />
+  <text x="500" y="405" fill="#f8fafc" font-family="monospace" font-size="12">PMMA Rod (Quenched)</text>
+
+  <!-- Receding/Lifted Flame Envelope (Extinction Threshold) -->
+  <path d="M 270,400 C 270,335 340,330 450,340 C 510,350 540,380 550,400 C 540,420 510,450 450,460 C 340,470 270,465 270,400 Z"
+        fill="url(#fadingFlame)" filter="url(#softGlow)" stroke="#38bdf8" stroke-width="0.8" stroke-dasharray="3,3" />
+
+  <!-- Detached Pyrolysis Plume (Unreacted fuel vapor) -->
+  <ellipse cx="220" cy="400" rx="35" ry="18" fill="none" stroke="#64748b" stroke-dasharray="2,2" stroke-width="1" />
+  <text x="140" y="340" fill="#f59e0b" font-family="sans-serif" font-size="11">Lifted Flame Standoff: 6.8 mm</text>
+  <line x1="220" y1="350" x2="270" y2="390" stroke="#f59e0b" stroke-width="1" />
+
+  <!-- Thermocouple Sensor at Extinction -->
+  <circle cx="360" cy="305" r="5" fill="#64748b" stroke="#ffffff" stroke-width="1.5" />
+  <line x1="360" y1="305" x2="360" y2="260" stroke="#64748b" stroke-width="1" />
+  <text x="370" y="265" fill="#94a3b8" font-family="sans-serif" font-size="11">Rake TC-1: 580 °C (Below Flame Limit)</text>
+
+  <!-- Extinction Status Box -->
+  <rect x="220" y="520" width="360" height="50" rx="6" fill="rgba(239, 68, 68, 0.15)" stroke="#ef4444" stroke-width="1.2" />
+  <text x="235" y="542" fill="#ef4444" font-family="sans-serif" font-weight="bold" font-size="12">EXTINCTION: LIMITING OXYGEN INDEX (LOI)</text>
+  <text x="235" y="558" fill="#fca5a5" font-family="sans-serif" font-size="11">Flame quenched at X_O2 = 15.5% via convective heat loss</text>
+
+  <!-- NASA Space Apps Compliance Watermark -->
+  <rect x="70" y="725" width="660" height="30" fill="rgba(15, 23, 42, 0.9)" rx="4" stroke="#334155" stroke-width="1" />
+  <text x="80" y="745" fill="#94a3b8" font-family="sans-serif" font-size="10">
+    SCIENTIFIC ILLUSTRATION (SYNTHETIC) — NOT A NASA PHOTOGRAPH · NASA PSI-108 (BASS) · DOI: 10.60555/k489-p210
+  </text>
+</svg>

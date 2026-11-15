@@ -1,0 +1,21 @@
+run_id,fuel,initial_diameter_mm,burning_rate_k_mm2_s,cool_flame_k_mm2_s,extinction_diameter_mm,cool_flame_extinction_mm,suppressant,suppressant_fraction_pct,ambient_o2_percent,pressure_atm,gravity_regime,outcome
+FLEX2-01,n-Heptane (100%),2.45,0.78,0.32,1.25,0.48,None,0.0,21.0,1.0,Microgravity,Hot flame extinction -> sustained cool flame
+FLEX2-02,n-Heptane (100%),3.10,0.81,0.35,1.58,0.56,None,0.0,21.0,1.0,Microgravity,Long-duration cool flame second stage
+FLEX2-03,Heptane/Hexadecane (80/20),2.20,0.72,0.28,1.18,0.42,None,0.0,21.0,1.0,Microgravity,Preferential heptane vaporization
+FLEX2-04,Heptane/Hexadecane (80/20),2.95,0.75,0.31,1.44,0.51,None,0.0,21.0,1.0,Microgravity,Two-stage hot/cool burning
+FLEX2-05,Heptane/Hexadecane (50/50),2.35,0.64,0.22,1.32,0.61,None,0.0,21.0,1.0,Microgravity,Hexadecane condensation and delayed cool flame
+FLEX2-06,Heptane/Hexadecane (50/50),3.20,0.68,0.25,1.65,0.72,None,0.0,21.0,1.0,Microgravity,Pronounced radiative extinction
+FLEX2-07,n-Decane (100%),2.15,0.69,0.29,1.12,0.40,None,0.0,21.0,1.0,Microgravity,Sustained low-temp alkane reaction
+FLEX2-08,n-Decane (100%),3.05,0.73,0.33,1.49,0.52,None,0.0,21.0,1.0,Microgravity,Dual-stage extinction boundary
+FLEX2-09,n-Heptane (100%),2.50,0.92,0.41,1.02,0.35,None,0.0,30.0,1.0,Microgravity,Elevated O2 rapid burning
+FLEX2-10,n-Heptane (100%),3.30,0.96,0.45,1.28,0.44,None,0.0,30.0,1.0,Microgravity,Vigorous cool flame transition
+FLEX2-11,n-Heptane (100%),2.40,0.62,0.24,1.45,0.68,CO2,15.0,21.0,1.0,Microgravity,CO2 radiative suppression
+FLEX2-12,n-Heptane (100%),2.80,0.55,0.18,1.72,0.85,CO2,25.0,21.0,1.0,Microgravity,Early hot-flame extinction by CO2
+FLEX2-13,n-Heptane (100%),2.30,0.82,,1.55,,Helium (He),20.0,21.0,1.0,Microgravity,Conductive quench (no cool flame)
+FLEX2-14,n-Heptane (100%),2.75,0.76,,1.82,,Helium (He),30.0,21.0,1.0,Microgravity,Fast kinetic blowoff extinction
+FLEX2-15,Ethanol/Water (90/10),2.10,0.61,,1.35,,None,0.0,21.0,1.0,Microgravity,Water accumulation extinction
+FLEX2-16,Ethanol/Water (80/20),2.25,0.52,,1.58,,None,0.0,21.0,1.0,Microgravity,Early flame disruption by water shell
+FLEX2-17,n-Octane (100%),2.40,0.71,0.30,1.22,0.46,None,0.0,21.0,1.0,Microgravity,Classic cool flame burning
+FLEX2-18,n-Octane (100%),3.15,0.74,0.34,1.52,0.54,None,0.0,21.0,1.0,Microgravity,High-diameter cool flame stability
+FLEX2-19,Heptane/Hexadecane (80/20),2.60,0.85,0.38,1.15,0.39,None,0.0,28.0,0.7,Microgravity,Exploration subatmospheric run
+FLEX2-20,Heptane/Hexadecane (80/20),3.40,0.88,0.42,1.38,0.48,None,0.0,32.0,0.56,Microgravity,Artemis exploration habitat condition

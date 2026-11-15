@@ -205,7 +205,15 @@ class ResearchAssistantService:
         }
         for msg in reversed(history):
             text = (msg.content or "").lower()
-            if "flex" in text or "psi-69" in text or "droplet" in text or "cool flame" in text:
+            if "flex-2" in text or "flex2" in text or "psi-70" in text or "binary" in text:
+                context["investigation_id"] = "PSI-70"
+                context["topic"] = "binary droplet combustion and cool flames"
+                break
+            elif "bass" in text or "psi-108" in text or "pmma" in text or "polymer" in text or "rod" in text or "glovebox" in text:
+                context["investigation_id"] = "PSI-108"
+                context["topic"] = "solid polymer combustion and nitrogen suppression"
+                break
+            elif "flex" in text or "psi-69" in text or "droplet" in text or "cool flame" in text:
                 context["investigation_id"] = "PSI-69"
                 context["topic"] = "droplet combustion and cool flames"
                 break
@@ -235,10 +243,16 @@ class ResearchAssistantService:
         if context["investigation_id"] or context["topic"]:
             # Check for coreference terms
             coref_match = re.search(r'\b(it|that|this|its|the experiment|the previous|that one|the test)\b', cleaned, re.I)
-            is_fragment = len(cleaned.split()) <= 5 and not any(k in cleaned.lower() for k in ["flex", "saffire", "spice", "droplet", "fabric", "smoke"])
+            is_fragment = len(cleaned.split()) <= 5 and not any(k in cleaned.lower() for k in ["flex", "saffire", "spice", "bass", "droplet", "fabric", "smoke", "pmma"])
 
             if coref_match or is_fragment:
-                name_map = {"PSI-69": "FLEX PSI-69", "PSI-98": "SAFFIRE-I PSI-98", "PSI-107": "SPICE PSI-107"}
+                name_map = {
+                    "PSI-69": "FLEX PSI-69",
+                    "PSI-70": "FLEX-2 PSI-70",
+                    "PSI-98": "SAFFIRE-I PSI-98",
+                    "PSI-107": "SPICE PSI-107",
+                    "PSI-108": "BASS PSI-108"
+                }
                 subj = name_map.get(context["investigation_id"], context["topic"] or "")
                 enriched_query = f"{cleaned} ({subj})"
                 reasoning.append(f"Resolved conversational coreference using prior turn context: '{subj}'")
@@ -270,12 +284,16 @@ class ResearchAssistantService:
                 "NASA microgravity combustion physics and spacecraft fire safety.\n\n"
                 "I index authentic experimental datasets and technical reports from the NASA Physical Sciences Informatics (PSI) repository, including:\n"
                 "- **FLEX (PSI-69):** Spherically symmetric liquid droplet burning, cool flames, and gaseous suppressants ($CO_2$, $He$, $SF_6$).\n"
+                "- **FLEX-2 (PSI-70):** Binary multi-component alkane droplets (heptane/hexadecane) and second-stage cool flame kinetics.\n"
                 "- **SAFFIRE-I (PSI-98):** Large-scale fabric flame spread inside an uncrewed Orbital ATK Cygnus vehicle under forced ventilation.\n"
-                "- **SPICE (PSI-107):** Laminar co-flow gas jet diffusion flames, smoke points, and soot emission dynamics.\n\n"
+                "- **SPICE (PSI-107):** Laminar co-flow gas jet diffusion flames, smoke points, and soot emission dynamics.\n"
+                "- **BASS (PSI-108):** Solid polymer flammability (PMMA rods/slabs, Nomex, SIBAL) and nitrogen dilution extinction in the ISS Glovebox.\n\n"
                 "How can I assist your exploration of microgravity combustion physics today?"
             )
             suggested = [
                 "What was the main objective of the FLEX investigation?",
+                "How did BASS test PMMA solid polymer burning in microgravity?",
+                "What did FLEX-2 discover about binary droplet cool flames?",
                 "How did SAFFIRE-I measure flame spread in the Cygnus vehicle?",
                 "Why do flames produce more soot in microgravity than on Earth?"
             ]
@@ -506,8 +524,36 @@ class ResearchAssistantService:
         answer_parts = []
         suggested_follow_ups = []
 
+        # FLEX-2 / Binary Droplets / Second-Stage Cool Flame
+        if "flex-2" in q_lower or "flex2" in q_lower or "binary" in q_lower:
+            reasoning_steps.append("Synthesizing binary droplet combustion and cool-flame kinetics from FLEX-2 (PSI-70) verified data.")
+            answer_parts.append(
+                "According to NASA's Flame Extinguishment Experiment-2 (FLEX-2 / PSI-70) aboard the ISS CIR MDCA, binary fuel mixtures (such as n-heptane/n-hexadecane) exhibit multi-stage combustion behavior. "
+                "During initial burning, high-volatility heptane vaporizes preferentially, sustaining a hot flame with burning rate constant K_hot (~0.72 to 0.78 mm^2/s). "
+                "Following radiative hot-flame extinction at diameters d_e,hot (1.15–1.65 mm), the droplet continues evaporating and burning in a sustained second-stage 'cool flame' supported by low-temperature peroxy chemistry at K_cool (~0.22 to 0.35 mm^2/s), burning invisibly without visible soot or chemiluminescence until final extinction."
+            )
+            suggested_follow_ups = [
+                "What is preferential vaporization in binary alkane droplets?",
+                "How does the cool flame burning rate (K_cool) compare to hot flame burning (K_hot)?",
+                "Why does CO2 suppression leave residual risk for cool flame re-ignition?"
+            ]
+
+        # BASS / Solid Polymer Flammability / Nitrogen Extinction
+        elif "bass" in q_lower or "pmma" in q_lower or "polymer" in q_lower or "rod" in q_lower or "nitrogen dilution" in q_lower or "glovebox" in q_lower:
+            reasoning_steps.append("Synthesizing solid polymer combustion and nitrogen extinguishment from BASS (PSI-108) data.")
+            answer_parts.append(
+                "According to NASA's Burning and Suppression of Solids (BASS / PSI-108) investigation on the ISS Microgravity Science Glovebox (MSG), solid polymer materials (cast PMMA rods and flat slabs) exhibit distinctive burning and extinction limits under low-speed forced airflow (0.5 to 10 cm/s). "
+                "Flame spread rates along cylindrical PMMA rods increase with convective velocity, from 0.32 mm/s at 1.0 cm/s flow to 0.92 mm/s at 6.5 cm/s, while standoff distance contracts from 4.8 mm to 2.2 mm. "
+                "BASS demonstrated two key extinguishment methods: flow cessation (where the flame quenches radiatively in 15–40 seconds in stagnant air) and gaseous nitrogen dilution (which extinguishes the flame once oxygen concentration falls below the Limiting Oxygen Index of 15.5% O2)."
+            )
+            suggested_follow_ups = [
+                "How does forced airflow velocity control the standoff distance in BASS?",
+                "What is the Limiting Oxygen Index (LOI) determined by BASS for PMMA in microgravity?",
+                "How do PMMA solid burning rates compare to SIBAL fabric spread in SAFFIRE-I?"
+            ]
+
         # FLEX / Droplet / Cool Flames / Suppressants
-        if "flex" in q_lower or "droplet" in q_lower or "suppressant" in q_lower or "extinguish" in q_lower or "cool flame" in q_lower:
+        elif "flex" in q_lower or "droplet" in q_lower or "suppressant" in q_lower or "extinguish" in q_lower or "cool flame" in q_lower:
             reasoning_steps.append("Synthesizing droplet combustion physics from FLEX (PSI-69) verified documentation.")
             answer_parts.append(
                 "According to NASA's Flame Extinguishment Experiment (FLEX / PSI-69), microgravity eliminates buoyancy-driven natural convection, causing liquid droplet flames to burn with spherical symmetry rather than an elongated shape. "

@@ -29,8 +29,10 @@ In strict accordance with the Space Apps Global Organizing Team criteria, IGNIS 
 | Investigation | NASA PSI Repo Link | Official DOI | Platform / Facility | Research Focus |
 |---|---|---|---|---|
 | **FLEX (PSI-69)** | [NASA PSI Record](https://psi.nasa.gov/physci/repo/data/investigations/PSI-69) | `10.60555/mbq8-0451` | ISS / CIR / MDCA | Droplet burning rates ($K$), cool flame kinetics, and gaseous extinguishment ($\text{CO}_2, \text{He}, \text{SF}_6$). |
+| **FLEX-2 (PSI-70)** | [NASA PSI Record](https://psi.nasa.gov/physci/repo/data/investigations/PSI-70) | `10.60555/y812-q943` | ISS / CIR / MDCA | Binary alkane droplets (heptane/hexadecane), preferential vaporization, and quantitative cool flame burning. |
 | **SAFFIRE-I (PSI-98)** | [NASA PSI Record](https://psi.nasa.gov/physci/repo/data/investigations/PSI-98) | `10.60555/0t15-1z43` | Cygnus OA-6 Cargo Craft | Large-scale solid flame spread ($0.4 \times 0.94\text{ m}$ SIBAL fabric) under low-speed forced airflow ($20\text{ cm/s}$). |
 | **SPICE (PSI-107)** | [NASA PSI Record](https://psi.nasa.gov/physci/repo/data/investigations/PSI-107) | `10.60555/9kbh-e962` | ISS / CIR / ACME | Non-buoyant laminar gas jet diffusion flames, soot thresholds, and smoke-point lengths. |
+| **BASS (PSI-108)** | [NASA PSI Record](https://psi.nasa.gov/physci/repo/data/investigations/PSI-108) | `10.60555/k489-p210` | ISS / MSG Glovebox | Solid polymer combustion (cast PMMA rods/slabs, Nomex, SIBAL) and nitrogen dilution extinguishment (LOI = 15.5% $O_2$). |
 | **NASA Technical Reports Server (NTRS)** | [NASA NTRS](https://ntrs.nasa.gov/) | Multiple | Glenn Research Center & Partners | Ingested technical publications, author findings, and experimental methodologies. |
 
 *Full data provenance, file checksums, and CC0-1.0 license compliance are cataloged in `DATA_AUDIT.md`.*
@@ -91,7 +93,7 @@ In strict accordance with the Space Apps Global Organizing Team criteria, IGNIS 
 
 - **Backend:** Python 3.11, FastAPI, raw SQLite (`ignis.db`), scikit-learn TF-IDF, Pydantic v2.
 - **Frontend:** React 19, Vite 8, TypeScript 7, Recharts, Lucide React icons.
-- **Test Coverage:** **24/24 backend automated unit tests passing** (`test_backend.py`).
+- **Test Coverage:** **28/28 backend automated unit tests passing** (`test_backend.py`).
 - **Build Quality:** Zero TypeScript compilation errors (`tsc -b && vite build` clean).
 
 ---

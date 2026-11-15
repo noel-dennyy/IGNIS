@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <radialGradient id="msgBkg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#020617" />
+    </radialGradient>
+    <linearGradient id="rodGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1" />
+      <stop offset="30%" stop-color="#94a3b8" />
+      <stop offset="70%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+    <linearGradient id="meltLayer" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.8" />
+    </linearGradient>
+    <radialGradient id="solidFlameBase" cx="30%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9" />
+      <stop offset="40%" stop-color="#6366f1" stop-opacity="0.75" />
+      <stop offset="75%" stop-color="#f59e0b" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
+    </radialGradient>
+    <filter id="flameBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background MSG Chamber -->
+  <rect width="800" height="800" fill="url(#msgBkg)" />
+  <rect x="60" y="80" width="680" height="640" rx="10" fill="none" stroke="#334155" stroke-width="1.5" stroke-dasharray="6,6" />
+
+  <!-- Flow Duct Boundaries -->
+  <line x1="80" y1="200" x2="720" y2="200" stroke="#475569" stroke-width="2" />
+  <line x1="80" y1="600" x2="720" y2="600" stroke="#475569" stroke-width="2" />
+  <text x="90" y="185" fill="#64748b" font-family="monospace" font-size="12">ISS MSG BASS FLOW DUCT (75 mm x 75 mm)</text>
+
+  <!-- Forced Flow Direction Vectors (Left to Right, 2.0 cm/s) -->
+  <g stroke="#38bdf8" stroke-width="1.5" opacity="0.6">
+    <line x1="90" y1="260" x2="160" y2="260" />
+    <polygon points="160,256 170,260 160,264" fill="#38bdf8" />
+    <line x1="90" y1="540" x2="160" y2="540" />
+    <polygon points="160,536 170,540 160,544" fill="#38bdf8" />
+    <text x="90" y="245" fill="#38bdf8" font-family="sans-serif" font-size="11">Forced Flow V = 2.0 cm/s</text>
+  </g>
+
+  <!-- PMMA Cast Cylindrical Rod (12.7 mm diameter) -->
+  <rect x="180" y="375" width="480" height="50" rx="8" fill="url(#rodGrad)" stroke="#94a3b8" stroke-width="1.2" />
+  <text x="500" y="405" fill="#0f172a" font-family="monospace" font-weight="bold" font-size="12">Cast PMMA Rod (12.7mm)</text>
+
+  <!-- Molten Bubbling Pyrolysis Surface -->
+  <rect x="250" y="375" width="220" height="50" rx="4" fill="url(#meltLayer)" opacity="0.75" />
+  <circle cx="280" cy="385" r="4" fill="#fef9c3" opacity="0.8" />
+  <circle cx="330" cy="415" r="5" fill="#fef9c3" opacity="0.8" />
+  <circle cx="390" cy="390" r="3" fill="#fef9c3" opacity="0.8" />
+
+  <!-- Flame Envelope Around Rod in Microgravity -->
+  <path d="M 230,400 C 230,310 320,300 480,310 C 580,320 640,360 670,400 C 640,440 580,480 480,490 C 320,500 230,490 230,400 Z"
+        fill="url(#solidFlameBase)" filter="url(#flameBlur)" />
+
+  <!-- Inner Blue Chemiluminescent Standoff Zone -->
+  <path d="M 238,400 C 238,340 300,340 400,350 C 440,360 460,390 470,400 C 460,410 440,440 400,450 C 300,460 238,460 238,400 Z"
+        fill="#38bdf8" opacity="0.4" filter="url(#flameBlur)" />
+
+  <!-- Annotations / Callouts -->
+  <!-- Standoff Distance Marker -->
+  <line x1="230" y1="360" x2="250" y2="360" stroke="#f59e0b" stroke-width="1.5" />
+  <line x1="230" y1="355" x2="230" y2="365" stroke="#f59e0b" stroke-width="1.5" />
+  <line x1="250" y1="355" x2="250" y2="365" stroke="#f59e0b" stroke-width="1.5" />
+  <text x="180" y="345" fill="#f59e0b" font-family="monospace" font-size="11">Standoff: 3.9 mm</text>
+
+  <!-- Thermocouple Rake -->
+  <circle cx="360" cy="285" r="5" fill="#ef4444" stroke="#ffffff" stroke-width="1.5" />
+  <line x1="360" y1="285" x2="360" y2="240" stroke="#ef4444" stroke-width="1" />
+  <text x="370" y="245" fill="#ef4444" font-family="sans-serif" font-size="11">Rake TC-1 (815 °C)</text>
+
+  <!-- Calibration Scale -->
+  <line x1="600" y1="670" x2="700" y2="670" stroke="#94a3b8" stroke-width="2" />
+  <line x1="600" y1="665" x2="600" y2="675" stroke="#94a3b8" stroke-width="2" />
+  <line x1="700" y1="665" x2="700" y2="675" stroke="#94a3b8" stroke-width="2" />
+  <text x="625" y="660" fill="#94a3b8" font-family="monospace" font-size="11">25.0 mm</text>
+
+  <!-- NASA Space Apps Compliance Watermark -->
+  <rect x="70" y="725" width="660" height="30" fill="rgba(15, 23, 42, 0.9)" rx="4" stroke="#334155" stroke-width="1" />
+  <text x="80" y="745" fill="#94a3b8" font-family="sans-serif" font-size="10">
+    SCIENTIFIC ILLUSTRATION (SYNTHETIC) — NOT A NASA PHOTOGRAPH · NASA PSI-108 (BASS) · DOI: 10.60555/k489-p210
+  </text>
+</svg>

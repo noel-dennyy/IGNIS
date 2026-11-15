@@ -104,6 +104,64 @@ def run_ingestion():
                 json.dumps(meta)
             ))
 
+    # Ingest PSI-108 (BASS)
+    bass_meta_path = RAW_DATA_DIR / "psi_108_bass_metadata.json"
+    if bass_meta_path.exists():
+        with open(bass_meta_path, "r", encoding="utf-8") as f:
+            meta = json.load(f)
+            cur.execute("""
+            INSERT INTO investigations (id, external_id, name, description, research_area, subresearch_area, platform, facility, nasa_center, doi, license, source_url, source_version, source_updated_at, gravity_regime, apparatus, fuels_tested_json, metadata_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            """, (
+                "PSI-108",
+                "PSI-108",
+                meta["name"],
+                meta["description"],
+                meta["research_area"],
+                meta["subresearch_area"],
+                meta["platform"],
+                meta["facility"],
+                meta["nasa_center"],
+                meta["doi"],
+                meta["license"],
+                meta["source_url"],
+                meta["version"],
+                meta["updated_at"],
+                meta["gravity_regime"],
+                meta["apparatus"],
+                json.dumps(meta["fuels_tested"]),
+                json.dumps(meta)
+            ))
+
+    # Ingest PSI-70 (FLEX-2)
+    flex2_meta_path = RAW_DATA_DIR / "psi_70_flex2_metadata.json"
+    if flex2_meta_path.exists():
+        with open(flex2_meta_path, "r", encoding="utf-8") as f:
+            meta = json.load(f)
+            cur.execute("""
+            INSERT INTO investigations (id, external_id, name, description, research_area, subresearch_area, platform, facility, nasa_center, doi, license, source_url, source_version, source_updated_at, gravity_regime, apparatus, fuels_tested_json, metadata_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            """, (
+                "PSI-70",
+                "PSI-70",
+                meta["name"],
+                meta["description"],
+                meta["research_area"],
+                meta["subresearch_area"],
+                meta["platform"],
+                meta["facility"],
+                meta["nasa_center"],
+                meta["doi"],
+                meta["license"],
+                meta["source_url"],
+                meta["version"],
+                meta["updated_at"],
+                meta["gravity_regime"],
+                meta["apparatus"],
+                json.dumps(meta["fuels_tested"]),
+                json.dumps(meta)
+            ))
+
     # 2. Ingest Source Files from manifest
     manifest_path = DATA_DIR / "source_manifest.csv"
     if manifest_path.exists():
@@ -111,7 +169,7 @@ def run_ingestion():
             reader = csv.DictReader(f)
             for row in reader:
                 inv_id = row.get("investigation_id")
-                if inv_id and inv_id not in ["PSI-69", "PSI-98", "PSI-107"]:
+                if inv_id and inv_id not in ["PSI-69", "PSI-98", "PSI-107", "PSI-108", "PSI-70"]:
                     inv_id = None
                 cur.execute("""
                 INSERT INTO source_files (id, investigation_id, title, file_name, file_type, file_size_bytes, source_url, local_path, license, sha256, retrieved_at, parse_status)
@@ -225,6 +283,70 @@ def run_ingestion():
                     None,
                     row["soot_regime"],
                     f"Test {row['test_id']}, nozzle d={row['burner_diameter_mm']}mm",
+                    json.dumps(row)
+                ))
+
+    # PSI-108 BASS solid material burns
+    bass_data_path = RAW_DATA_DIR / "psi_108_bass_burns.csv"
+    if bass_data_path.exists():
+        with open(bass_data_path, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for i, row in enumerate(reader):
+                cur.execute("""
+                INSERT INTO observations (id, investigation_id, source_file_id, experiment_run_id, fuel_or_material, gravity_regime, measurement_name, value_numeric, unit, extinction_diameter_mm, suppressant, suppressant_fraction_pct, ambient_o2_percent, pressure_atm, flow_velocity_cm_s, peak_temperature_c, radiant_heat_flux_kw_m2, outcome_label, record_locator, raw_metadata_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """, (
+                    f"OBS-BASS-{i+1:03d}",
+                    "PSI-108",
+                    "SRC-009",
+                    row["test_id"],
+                    f"{row['sample_material']} ({row['sample_geometry']})",
+                    row["gravity_regime"],
+                    "Flame spread rate",
+                    float(row["flame_spread_rate_mm_s"]) if row.get("flame_spread_rate_mm_s") else None,
+                    "mm/s",
+                    None,
+                    row["suppressant"] if row.get("suppressant") and row["suppressant"] != "None" else None,
+                    float(row["suppressant_fraction_pct"]) if row.get("suppressant_fraction_pct") else None,
+                    float(row["ambient_o2_percent"]) if row.get("ambient_o2_percent") else None,
+                    round(float(row["pressure_kpa"]) / 101.325, 3) if row.get("pressure_kpa") else None,
+                    float(row["flow_velocity_cm_s"]) if row.get("flow_velocity_cm_s") else None,
+                    float(row["peak_temp_c"]) if row.get("peak_temp_c") else None,
+                    None,
+                    row["outcome"],
+                    f"Test {row['test_id']}, {row['sample_geometry']}",
+                    json.dumps(row)
+                ))
+
+    # PSI-70 FLEX-2 binary droplets
+    flex2_data_path = RAW_DATA_DIR / "psi_70_flex2_droplets.csv"
+    if flex2_data_path.exists():
+        with open(flex2_data_path, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for i, row in enumerate(reader):
+                cur.execute("""
+                INSERT INTO observations (id, investigation_id, source_file_id, experiment_run_id, fuel_or_material, gravity_regime, measurement_name, value_numeric, unit, extinction_diameter_mm, suppressant, suppressant_fraction_pct, ambient_o2_percent, pressure_atm, flow_velocity_cm_s, peak_temperature_c, radiant_heat_flux_kw_m2, outcome_label, record_locator, raw_metadata_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """, (
+                    f"OBS-FLEX2-{i+1:03d}",
+                    "PSI-70",
+                    "SRC-011",
+                    row["run_id"],
+                    row["fuel"],
+                    row["gravity_regime"],
+                    "Burning rate constant (K)",
+                    float(row["burning_rate_k_mm2_s"]) if row.get("burning_rate_k_mm2_s") else None,
+                    "mm^2/s",
+                    float(row["extinction_diameter_mm"]) if row.get("extinction_diameter_mm") else None,
+                    row["suppressant"] if row.get("suppressant") and row["suppressant"] != "None" else None,
+                    float(row["suppressant_fraction_pct"]) if row.get("suppressant_fraction_pct") else None,
+                    float(row["ambient_o2_percent"]) if row.get("ambient_o2_percent") else None,
+                    float(row["pressure_atm"]) if row.get("pressure_atm") else None,
+                    0.0,
+                    None,
+                    None,
+                    row["outcome"],
+                    f"Run {row['run_id']} in psi_70_flex2_droplets.csv",
                     json.dumps(row)
                 ))
 

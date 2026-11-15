@@ -59,7 +59,7 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigate, onSelect
         <div className="stat-box">
           <div className="stat-label">Indexed Investigations</div>
           <div className="stat-val">{data.investigation_count}</div>
-          <div className="stat-sub">FLEX, SAFFIRE-I, SPICE</div>
+          <div className="stat-sub">FLEX, FLEX-2, SAFFIRE-I, SPICE, BASS</div>
         </div>
 
         <div className="stat-box">
@@ -226,6 +226,56 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigate, onSelect
               </div>
               <div style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginTop: "4px", fontFamily: "var(--font-mono)" }}>
                 DOI: 10.60555/9kbh-e962 · 16 Smoke Point Tests
+              </div>
+            </div>
+
+            <div
+              style={{
+                padding: "12px",
+                backgroundColor: "var(--bg-elevated)",
+                borderRadius: "6px",
+                border: "1px solid var(--border-color)",
+                cursor: "pointer"
+              }}
+              onClick={() => {
+                onSelectInvestigation("PSI-108");
+                onNavigate("investigations");
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                <span style={{ fontWeight: 600, color: "var(--text-main)" }}>BASS (PSI-108)</span>
+                <span className="badge badge-purple">ISS / MSG Glovebox</span>
+              </div>
+              <div style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
+                Burning and Suppression of Solids — PMMA cylindrical rods, slabs, and fabric flammability under variable flow and N2 suppression.
+              </div>
+              <div style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginTop: "4px", fontFamily: "var(--font-mono)" }}>
+                DOI: 10.60555/k489-p210 · 20 Verified Burns &amp; LOI Runs
+              </div>
+            </div>
+
+            <div
+              style={{
+                padding: "12px",
+                backgroundColor: "var(--bg-elevated)",
+                borderRadius: "6px",
+                border: "1px solid var(--border-color)",
+                cursor: "pointer"
+              }}
+              onClick={() => {
+                onSelectInvestigation("PSI-70");
+                onNavigate("investigations");
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
+                <span style={{ fontWeight: 600, color: "var(--text-main)" }}>FLEX-2 (PSI-70)</span>
+                <span className="badge badge-cyan">ISS / CIR / MDCA</span>
+              </div>
+              <div style={{ fontSize: "0.82rem", color: "var(--text-muted)" }}>
+                Flame Extinguishment Experiment-2 — Binary multicomponent fuels (heptane/hexadecane) and second-stage cool flame kinetics.
+              </div>
+              <div style={{ fontSize: "0.75rem", color: "var(--text-dim)", marginTop: "4px", fontFamily: "var(--font-mono)" }}>
+                DOI: 10.60555/y812-q943 · 20 Droplet &amp; Cool Flame Runs
               </div>
             </div>
           </div>

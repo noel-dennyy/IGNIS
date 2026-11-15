@@ -27,11 +27,11 @@ class TestIgnisBackendDirect(unittest.TestCase):
     def test_01_health_endpoint(self):
         resp = get_health()
         self.assertEqual(resp.status, "healthy")
-        self.assertEqual(resp.ingested_investigations, 3)
+        self.assertEqual(resp.ingested_investigations, 5)
 
     def test_02_overview_endpoint(self):
         resp = get_overview()
-        self.assertEqual(resp.investigation_count, 3)
+        self.assertEqual(resp.investigation_count, 5)
         self.assertGreaterEqual(resp.observation_count, 50)
         self.assertGreaterEqual(resp.source_document_count, 3)
         self.assertEqual(resp.featured_insight["investigation_id"], "PSI-69")
@@ -39,7 +39,7 @@ class TestIgnisBackendDirect(unittest.TestCase):
 
     def test_03_investigations_list_and_detail(self):
         invs = list_investigations()
-        self.assertEqual(len(invs), 3)
+        self.assertEqual(len(invs), 5)
 
         # Check FLEX detail
         flex = get_investigation("PSI-69")
@@ -129,9 +129,9 @@ class TestIgnisBackendDirect(unittest.TestCase):
     # ── New tests: Images & Visualization ────────────────────────────────────
 
     def test_11_images_list_all(self):
-        """All 8 synthetic illustration records should be present."""
+        """All 12 synthetic illustration records should be present."""
         imgs = list_images()
-        self.assertEqual(len(imgs), 8, "Expected 8 image records from ingest")
+        self.assertEqual(len(imgs), 12, "Expected 12 image records from ingest")
         # Every record must carry the synthetic label
         for img in imgs:
             self.assertIn("Synthetic", img.image_type_label)
@@ -145,10 +145,16 @@ class TestIgnisBackendDirect(unittest.TestCase):
             self.assertEqual(img.investigation_id, "PSI-69")
 
         saffire_imgs = list_images(investigation_id="PSI-98")
-        self.assertEqual(len(saffire_imgs), 3, "SAFFIRE-I should have 3 illustrations")
+        self.assertEqual(len(saffire_imgs), 4, "SAFFIRE should have 4 illustrations")
 
         spice_imgs = list_images(investigation_id="PSI-107")
         self.assertEqual(len(spice_imgs), 2, "SPICE should have 2 illustrations")
+
+        bass_imgs = list_images(investigation_id="PSI-108")
+        self.assertEqual(len(bass_imgs), 2, "BASS should have 2 illustrations")
+
+        flex2_imgs = list_images(investigation_id="PSI-70")
+        self.assertEqual(len(flex2_imgs), 1, "FLEX-2 should have 1 illustration")
 
     def test_13_image_detail_and_annotations(self):
         """Single image detail should include annotations."""
@@ -296,6 +302,53 @@ class TestIgnisBackendDirect(unittest.TestCase):
         self.assertGreater(matrix["summary"]["total_combinations"], 0)
         self.assertGreater(matrix["summary"]["gap"], 0)
         self.assertGreater(matrix["summary"]["tested"], 0)
+
+    def test_25_bass_and_flex2_investigations_ingested(self):
+        """Database should now contain 5 investigations and over 100 observations."""
+        from app.database import get_db_connection
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT id FROM investigations;")
+        ids = [r[0] for r in cur.fetchall()]
+        self.assertIn("PSI-69", ids)
+        self.assertIn("PSI-98", ids)
+        self.assertIn("PSI-107", ids)
+        self.assertIn("PSI-108", ids)
+        self.assertIn("PSI-70", ids)
+        self.assertEqual(len(ids), 5)
+
+        cur.execute("SELECT count(*) FROM observations;")
+        obs_count = cur.fetchone()[0]
+        self.assertGreaterEqual(obs_count, 100)
+        conn.close()
+
+    def test_26_bass_saffire_compatible_comparison(self):
+        """Comparing BASS (PSI-108) and SAFFIRE-I (PSI-98) should recognize solid flame spread compatibility."""
+        from app.services.comparison import get_comparison_service
+        service = get_comparison_service()
+        res = service.compare_investigations(["PSI-98", "PSI-108"])
+        self.assertTrue(res["is_valid_comparison"])
+        var_names = [v["variable_name"] for v in res["variables_analysis"]]
+        self.assertIn("Flame Spread Rate (V_f)", var_names)
+
+    def test_27_flex_flex2_compatible_comparison(self):
+        """Comparing FLEX (PSI-69) and FLEX-2 (PSI-70) should recognize droplet burning rate compatibility."""
+        from app.services.comparison import get_comparison_service
+        service = get_comparison_service()
+        res = service.compare_investigations(["PSI-69", "PSI-70"])
+        self.assertTrue(res["is_valid_comparison"])
+        var_names = [v["variable_name"] for v in res["variables_analysis"]]
+        self.assertIn("Droplet Burning Rate Constant (K)", var_names)
+
+    def test_28_image_count_twelve(self):
+        """Image gallery should contain 12 authentic procedural illustrations."""
+        from app.database import get_db_connection
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT count(*) FROM experiment_images;")
+        img_count = cur.fetchone()[0]
+        self.assertEqual(img_count, 12)
+        conn.close()
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <radialGradient id="cygnusBkg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#0b1329" />
+      <stop offset="100%" stop-color="#030712" />
+    </radialGradient>
+    <linearGradient id="flowDuctGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <radialGradient id="spreadFlame" cx="20%" cy="50%" r="80%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9" />
+      <stop offset="35%" stop-color="#f59e0b" stop-opacity="0.8" />
+      <stop offset="70%" stop-color="#ef4444" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#7f1d1d" stop-opacity="0" />
+    </radialGradient>
+    <filter id="flameGlowS2" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="7" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Cygnus Vehicle Cargo Bay -->
+  <rect width="800" height="800" fill="url(#cygnusBkg)" />
+  <rect x="50" y="70" width="700" height="650" rx="8" fill="url(#flowDuctGrad)" stroke="#334155" stroke-width="1.5" />
+  <text x="70" y="105" fill="#94a3b8" font-family="monospace" font-size="12">SAFFIRE-II CYGNUS OA-5 FLOW DUCT — MULTI-MATERIAL FLAMMABILITY CARD</text>
+
+  <!-- Forced Flow Vectors (20 cm/s left to right) -->
+  <g stroke="#38bdf8" stroke-width="1.5" opacity="0.6">
+    <line x1="70" y1="135" x2="140" y2="135" />
+    <polygon points="140,131 150,135 140,139" fill="#38bdf8" />
+    <text x="160" y="140" fill="#38bdf8" font-family="sans-serif" font-size="11">Airflow: 20 cm/s (21% O2, 101.3 kPa)</text>
+  </g>
+
+  <!-- Multi-Sample Card Rail -->
+  <rect x="160" y="170" width="540" height="510" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+
+  <!-- Sample 1: SIBAL Cloth (Upper Strip) -->
+  <rect x="180" y="210" width="480" height="90" rx="4" fill="#334155" stroke="#64748b" stroke-width="1" />
+  <!-- Char layer on SIBAL -->
+  <rect x="180" y="210" width="220" height="90" rx="4" fill="#1e293b" />
+  <!-- Flame Front on SIBAL -->
+  <path d="M 380,200 C 420,200 480,230 520,255 C 480,280 420,310 380,310 C 370,270 370,240 380,200 Z"
+        fill="url(#spreadFlame)" filter="url(#flameGlowS2)" />
+  <text x="190" y="235" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="11">Sample 1: SIBAL Fabric (Cotton/Glass)</text>
+  <text x="190" y="252" fill="#94a3b8" font-family="monospace" font-size="10">V_f = 1.75 mm/s · Continuous Spread</text>
+
+  <!-- Sample 2: PMMA Sheet (1.5mm thick, Middle Strip) -->
+  <rect x="180" y="340" width="480" height="90" rx="4" fill="#475569" stroke="#94a3b8" stroke-width="1" />
+  <rect x="180" y="340" width="140" height="90" rx="4" fill="#090d16" />
+  <!-- Slower Flame Front on PMMA -->
+  <path d="M 310,335 C 340,335 390,360 420,385 C 390,410 340,435 310,435 C 300,400 300,370 310,335 Z"
+        fill="url(#spreadFlame)" filter="url(#flameGlowS2)" />
+  <text x="190" y="365" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="11">Sample 2: Clear PMMA Sheet (1.5 mm)</text>
+  <text x="190" y="382" fill="#94a3b8" font-family="monospace" font-size="10">V_f = 0.58 mm/s · Bubbling Pyrolysis</text>
+
+  <!-- Sample 3: Nomex Fabric (Lower Strip, Self-Extinguished) -->
+  <rect x="180" y="470" width="480" height="90" rx="4" fill="#3b4252" stroke="#64748b" stroke-width="1" />
+  <!-- Ignition singe spot only -->
+  <rect x="180" y="470" width="45" height="90" rx="4" fill="#1e293b" />
+  <text x="190" y="495" fill="#f8fafc" font-family="sans-serif" font-weight="bold" font-size="11">Sample 3: Nomex Aramid Fabric</text>
+  <text x="190" y="512" fill="#ef4444" font-family="monospace" font-size="10">V_f = 0.0 mm/s · SELF-EXTINGUISHED at Igniter</text>
+  <circle cx="210" cy="530" r="14" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2,2" />
+
+  <!-- Radiometer Array View Line -->
+  <line x1="620" y1="120" x2="450" y2="255" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3,3" />
+  <circle cx="620" cy="120" r="4" fill="#f59e0b" />
+  <text x="630" y="125" fill="#f59e0b" font-family="sans-serif" font-size="10">Wideband Radiometer</text>
+
+  <!-- NASA Space Apps Compliance Watermark -->
+  <rect x="70" y="730" width="660" height="30" fill="rgba(15, 23, 42, 0.9)" rx="4" stroke="#334155" stroke-width="1" />
+  <text x="80" y="750" fill="#94a3b8" font-family="sans-serif" font-size="10">
+    SCIENTIFIC ILLUSTRATION (SYNTHETIC) — NOT A NASA PHOTOGRAPH · NASA PSI-99 (SAFFIRE-II) · DOI: 10.60555/saffire2-003
+  </text>
+</svg>
