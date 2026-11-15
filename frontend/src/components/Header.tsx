@@ -1,5 +1,5 @@
 import React from "react";
-import { Database, ShieldCheck, ExternalLink, Sun, Moon, MapPin, Activity } from "lucide-react";
+import { Database, ShieldCheck, ExternalLink, Sun, Moon, HelpCircle } from "lucide-react";
 import type { PageId } from "./Sidebar";
 
 interface HeaderProps {
@@ -21,117 +21,100 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const pageTitles: Record<PageId, { title: string; subtitle: string }> = {
     overview: {
-      title: "Command Center & Research Overview",
-      subtitle: "NASA Physical Sciences Informatics (PSI) Microgravity Combustion Intelligence"
+      title: "Research Overview",
+      subtitle: "NASA Physical Sciences Informatics synthesis"
     },
     investigations: {
-      title: "NASA PSI Investigation Explorer",
-      subtitle: "Flight Experiment Telemetry, Fuel Types & Scientific Metadata"
+      title: "Investigation Explorer",
+      subtitle: "Flight experiment conditions, fuels, and telemetry"
     },
     library: {
-      title: "Microgravity Scientific Research Library",
-      subtitle: "Full-Text Publications, NTRS Citations & Semantic Evidence Records"
+      title: "Scientific Research Library",
+      subtitle: "Ingested NASA technical publications and reference documents"
     },
     compare: {
-      title: "Multi-Investigation Comparability Matrix",
-      subtitle: "Cross-Payload Rigorous Physical & Environmental Parameter Matching"
+      title: "Comparability Matrix",
+      subtitle: "Cross-investigation physical parameter compatibility"
     },
     ranking: {
-      title: "Transparent Evidence-Relevance Ranking",
-      subtitle: "Formula-Grounded Relevance Scoring with Explicit Attribution"
+      title: "Evidence Relevance Ranking",
+      subtitle: "Transparent, formula-grounded retrieval scores"
     },
     assistant: {
-      title: "Citation-Grounded AI Research Assistant",
-      subtitle: "Autonomous Spacecraft Fire Safety & Combustion Query Engine"
+      title: "Research Assistant",
+      subtitle: "Citation-grounded microgravity combustion query tool"
     },
     scenario: {
-      title: "Mission Scenario & Spacecraft Safety Explorer",
-      subtitle: "Deep Space Habitat, Lunar Gateway & ISS Emergency Flame Spread Analysis"
+      title: "Mission Scenario Analyzer",
+      subtitle: "Spacecraft fire safety & environmental regime evaluation"
     },
     viz: {
-      title: "Scientific Visualization Dashboard",
-      subtitle: "Time-Dependent Thermocouple Curves, Droplet Regressions & Spread Rates"
+      title: "Scientific Telemetry & Charts",
+      subtitle: "Experimental measurements from verified flight records"
     },
     gallery: {
-      title: "Experiment Image Gallery",
-      subtitle: "NASA Optical, Color & Infrared Microgravity Flame Imagery"
+      title: "Experiment Imagery",
+      subtitle: "Calibrated flame morphology and optical records"
     },
     "image-compare": {
-      title: "Side-by-Side Image Comparison",
-      subtitle: "Synchronized Microgravity Flame Morphology & Spread Inspection"
+      title: "Image Comparison",
+      subtitle: "Side-by-side flame structure & spread inspection"
     },
     workspace: {
-      title: "Experiment Comparison Workspace",
-      subtitle: "Multi-Investigation Telemetry Synthesis & Environmental Divergence"
+      title: "Synthesis Workspace",
+      subtitle: "Multi-investigation cross-referencing workspace"
     },
     "evidence-gap": {
-      title: "Microgravity Evidence Gap Heatmap",
-      subtitle: "Tested vs. Untested Environmental Regimes across NASA Flight Missions"
+      title: "Evidence Gap Heatmap",
+      subtitle: "Tested vs. untested environmental regimes across flight data"
     }
   };
 
-  const current = pageTitles[activePage] ?? { title: activePage, subtitle: "Scientific Intelligence" };
+  const current = pageTitles[activePage] ?? { title: activePage, subtitle: "" };
 
   return (
     <header className="top-header">
-      <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span style={{ 
-            fontFamily: "var(--font-mono)", 
-            fontSize: "0.72rem", 
-            color: "var(--accent-molten)", 
-            padding: "2px 6px", 
-            background: "rgba(255,118,38,0.12)", 
-            borderRadius: "4px",
-            border: "1px solid rgba(255,118,38,0.25)"
-          }}>
-            SYS://{activePage.toUpperCase()}
+      <div style={{ display: "flex", alignItems: "baseline", gap: "12px" }}>
+        <h1 style={{ fontSize: "1rem", fontWeight: 600, color: "var(--text-primary)" }}>
+          {current.title}
+        </h1>
+        {current.subtitle && (
+          <span style={{ fontSize: "0.78rem", color: "var(--text-dim)" }}>
+            {current.subtitle}
           </span>
-          <h1 style={{ fontSize: "1.05rem", fontWeight: 700, color: "var(--text-primary)", letterSpacing: "0.01em" }}>
-            {current.title}
-          </h1>
-        </div>
-        <p style={{ fontSize: "0.72rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
-          {current.subtitle}
-        </p>
+        )}
       </div>
 
       <div className="header-status">
-        {/* Environment Telemetry */}
-        <div className="telemetry-chip" title="Flight Facility Microgravity Condition">
-          <Activity size={12} color="var(--accent-cyan)" />
-          <span>µg: 10⁻⁶g (CIR/MSG)</span>
-        </div>
-
-        {/* Database Status Indicator */}
-        <div className="status-indicator" title="NASA PSI Telemetry Database Connection">
+        {/* Real Database Status */}
+        <div className="status-indicator" title="SQLite Database Ingestion State">
           <div className="status-dot"></div>
-          <span>PSI DB: {dbStatus} [{investigationCount} FLIGHT INV]</span>
+          <span>PSI Data: {dbStatus} ({investigationCount} Investigations)</span>
         </div>
 
-        {/* Tour button */}
-        <button className="tour-btn" onClick={onStartTour} title="Start guided mission tour">
-          <MapPin size={13} />
-          <span>Tour</span>
+        {/* Guided Tour */}
+        <button className="tour-btn" onClick={onStartTour} title="Walkthrough guided tour">
+          <HelpCircle size={13} />
+          <span>Guide</span>
         </button>
 
-        {/* Theme toggle */}
+        {/* Theme Toggle */}
         <button 
           className="theme-toggle" 
           onClick={onToggleTheme} 
-          title={lightMode ? "Switch to dark mode" : "Switch to light mode"}
+          title={lightMode ? "Switch to dark theme" : "Switch to light theme"}
         >
           {lightMode ? <Moon size={13} /> : <Sun size={13} />}
           <span>{lightMode ? "Dark" : "Light"}</span>
         </button>
 
-        {/* External PSI Link */}
+        {/* External NASA PSI Link */}
         <a
           href="https://psi.nasa.gov/physci/repo"
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-outline"
-          style={{ fontSize: "0.76rem", padding: "5px 11px", gap: "6px" }}
+          style={{ fontSize: "0.75rem", padding: "4px 9px", gap: "5px" }}
           title="Open official NASA Physical Sciences Informatics repository"
         >
           <Database size={13} color="var(--accent-cyan)" />
@@ -139,23 +122,22 @@ export const Header: React.FC<HeaderProps> = ({
           <ExternalLink size={11} />
         </a>
 
-        {/* Verified Data Badge */}
+        {/* CC0-1.0 Provenance Badge */}
         <div 
           style={{ 
-            display: "flex", 
+            display: "inline-flex", 
             alignItems: "center", 
-            gap: "5px", 
+            gap: "4px", 
             color: "var(--color-success)", 
-            fontSize: "0.74rem", 
-            fontFamily: "var(--font-mono)",
-            padding: "4px 8px",
+            fontSize: "0.72rem",
+            padding: "3px 7px",
             background: "rgba(16, 185, 129, 0.08)",
-            borderRadius: "4px",
+            borderRadius: "3px",
             border: "1px solid rgba(16, 185, 129, 0.2)"
           }}
           title="Verified NASA Public Domain Data (CC0-1.0)"
         >
-          <ShieldCheck size={13} />
+          <ShieldCheck size={12} />
           <span>CC0-1.0</span>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { ExternalLink, Info, AlertTriangle, SplitSquareHorizontal } from "lucide-react";
+import { ExternalLink, Info, AlertTriangle } from "lucide-react";
 import { api } from "../api/client";
 import type { ExperimentImage, ImageCompareResponse } from "../types";
 
@@ -63,7 +63,6 @@ function SliderComparison({ imgA, imgB }: { imgA: ExperimentImage; imgB: Experim
           height: "100%",
           width: "2px",
           background: "var(--accent-molten)",
-          boxShadow: "0 0 10px rgba(255,118,38,0.8)",
           transform: "translateX(-50%)"
         }}
       >
@@ -73,8 +72,8 @@ function SliderComparison({ imgA, imgB }: { imgA: ExperimentImage; imgB: Experim
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "36px",
-            height: "36px",
+            width: "30px",
+            height: "30px",
             borderRadius: "50%",
             background: "var(--accent-molten)",
             border: "2px solid #080B10",
@@ -82,9 +81,8 @@ function SliderComparison({ imgA, imgB }: { imgA: ExperimentImage; imgB: Experim
             alignItems: "center",
             justifyContent: "center",
             color: "#080B10",
-            fontSize: "14px",
-            fontWeight: 800,
-            boxShadow: "0 0 14px rgba(255,118,38,0.7)"
+            fontSize: "12px",
+            fontWeight: 700
           }}
         >
           ⇔
@@ -92,11 +90,11 @@ function SliderComparison({ imgA, imgB }: { imgA: ExperimentImage; imgB: Experim
       </div>
 
       {/* Labels */}
-      <div style={{ position: "absolute", top: 12, left: 12, fontSize: "0.72rem", background: "rgba(17,24,32,0.85)", border: "1px solid var(--accent-cyan)", color: "var(--accent-cyan)", padding: "3px 9px", borderRadius: "4px", pointerEvents: "none", fontFamily: "var(--font-mono)" }}>
-        IMAGE A: {imgA.investigation_id}
+      <div style={{ position: "absolute", top: 12, left: 12, fontSize: "0.72rem", background: "rgba(17,24,32,0.85)", border: "1px solid var(--accent-cyan)", color: "var(--accent-cyan)", padding: "3px 9px", borderRadius: "4px", pointerEvents: "none" }}>
+        Image A: {imgA.investigation_id}
       </div>
-      <div style={{ position: "absolute", top: 12, right: 12, fontSize: "0.72rem", background: "rgba(17,24,32,0.85)", border: "1px solid var(--accent-molten)", color: "var(--accent-molten)", padding: "3px 9px", borderRadius: "4px", pointerEvents: "none", fontFamily: "var(--font-mono)" }}>
-        IMAGE B: {imgB.investigation_id}
+      <div style={{ position: "absolute", top: 12, right: 12, fontSize: "0.72rem", background: "rgba(17,24,32,0.85)", border: "1px solid var(--accent-molten)", color: "var(--accent-molten)", padding: "3px 9px", borderRadius: "4px", pointerEvents: "none" }}>
+        Image B: {imgB.investigation_id}
       </div>
     </div>
   );
@@ -119,14 +117,14 @@ function MetadataTable({ imgA, imgB }: { imgA: ExperimentImage; imgB: Experiment
     <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem" }}>
       <thead>
         <tr style={{ borderBottom: "1px solid var(--border-color)", background: "var(--bg-elevated)" }}>
-          <th style={{ padding: "8px 12px", color: "var(--text-secondary)", textAlign: "left", width: "24%", fontWeight: 600, fontFamily: "var(--font-mono)", fontSize: "0.75rem" }}>
-            PHYSICAL PARAMETER
+          <th style={{ padding: "8px 12px", color: "var(--text-secondary)", textAlign: "left", width: "24%", fontWeight: 600, fontSize: "0.75rem" }}>
+            Physical Parameter
           </th>
-          <th style={{ padding: "8px 12px", color: "var(--accent-cyan)", textAlign: "left", width: "38%", fontFamily: "var(--font-mono)" }}>
-            IMAGE A [{imgA.id}]
+          <th style={{ padding: "8px 12px", color: "var(--accent-cyan)", textAlign: "left", width: "38%", fontWeight: 600, fontSize: "0.78rem" }}>
+            Image A ({imgA.id})
           </th>
-          <th style={{ padding: "8px 12px", color: "var(--accent-molten)", textAlign: "left", width: "38%", fontFamily: "var(--font-mono)" }}>
-            IMAGE B [{imgB.id}]
+          <th style={{ padding: "8px 12px", color: "var(--accent-molten)", textAlign: "left", width: "38%", fontWeight: 600, fontSize: "0.78rem" }}>
+            Image B ({imgB.id})
           </th>
         </tr>
       </thead>
@@ -179,51 +177,48 @@ export function ImageComparisonPage() {
   }, [selectedA, selectedB, loadComparison]);
 
   if (listLoading) return (
-    <div className="card hud-panel" style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
-      LOADING CALIBRATED EXPERIMENTAL IMAGERY...
+    <div style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)" }}>
+      Loading experimental imagery catalog...
     </div>
   );
 
   return (
     <div>
-      <div style={{ marginBottom: "1.5rem" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
-          <SplitSquareHorizontal size={20} color="var(--accent-molten)" />
-          <h2 style={{ color: "var(--text-primary)", fontWeight: 800, fontSize: "1.35rem" }}>
-            Synchronized Flame Morphology &amp; Spread Comparison
-          </h2>
-        </div>
-        <p style={{ color: "var(--text-secondary)", fontSize: "0.88rem" }}>
-          Interactive comparative viewer examining flame shapes, soot luminosity, quench boundaries, and spatial spread across NASA microgravity investigations.
+      <div style={{ marginBottom: "1.25rem" }}>
+        <h2 style={{ color: "var(--text-primary)", fontWeight: 700, fontSize: "1.3rem", marginBottom: "4px" }}>
+          Experimental Flame Morphology &amp; Image Comparison
+        </h2>
+        <p style={{ color: "var(--text-secondary)", fontSize: "0.85rem" }}>
+          Compare flame geometry, soot boundaries, and spread characteristics across NASA microgravity flight investigations.
         </p>
 
-        <div style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem", padding: "0.6rem 1rem", background: "rgba(255, 181, 71, 0.08)", borderLeft: "3px solid var(--accent-amber)", borderRadius: "4px", fontSize: "0.78rem", color: "var(--text-secondary)", marginTop: "0.75rem", fontFamily: "var(--font-mono)" }}>
-          <AlertTriangle size={15} style={{ flexShrink: 0, marginTop: "2px", color: "var(--accent-amber)" }} />
-          <span>SCIENTIFIC DISCLOSURE: All flame records are synthetic SVG scientific illustrations derived from flight experiment parameters. Visual pixel colors must NOT be used to infer absolute temperatures or chemical species concentrations without calibrated radiometry.</span>
+        <div style={{ display: "flex", alignItems: "flex-start", gap: "8px", padding: "8px 12px", background: "rgba(245, 158, 11, 0.06)", borderLeft: "3px solid var(--accent-amber)", borderRadius: "3px", fontSize: "0.78rem", color: "var(--text-secondary)", marginTop: "10px" }}>
+          <AlertTriangle size={14} style={{ flexShrink: 0, marginTop: "2px", color: "var(--accent-amber)" }} />
+          <span>Scientific Note: Flame illustrations represent synthesized scientific geometries derived from flight records. Pixel brightness/color cannot be used to infer absolute gas temperatures without radiometric calibration.</span>
         </div>
       </div>
 
       {/* Selector row */}
-      <div className="card hud-panel" style={{ marginBottom: "22px" }}>
+      <div className="card" style={{ marginBottom: "18px" }}>
         <div className="card-header">
-          <h3 className="card-title">Select Comparison Pair</h3>
-          <span className="badge badge-molten">12 CALIBRATED FRAMES</span>
+          <h3 className="card-title">Select Images to Compare</h3>
+          <span className="badge badge-molten">12 Records Available</span>
         </div>
 
-        <div style={{ padding: "0.5rem 0 1rem", display: "flex", gap: "1.2rem", flexWrap: "wrap", alignItems: "flex-end" }}>
-          <div style={{ flex: 1, minWidth: "240px" }}>
-            <label style={{ display: "block", fontSize: "0.76rem", color: "var(--accent-cyan)", marginBottom: "0.4rem", fontFamily: "var(--font-mono)" }}>
-              PRIMARY FRAME (IMAGE A)
+        <div style={{ padding: "0.5rem 0 1rem", display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "flex-end" }}>
+          <div style={{ flex: 1, minWidth: "220px" }}>
+            <label style={{ display: "block", fontSize: "0.74rem", color: "var(--accent-cyan)", marginBottom: "4px" }}>
+              Image A (Left)
             </label>
             <select className="select-box" style={{ width: "100%" }} value={selectedA} onChange={e => setSelectedA(e.target.value)}>
-              <option value="">— Select Frame —</option>
+              <option value="">— Select Image —</option>
               {allImages.map(img => <option key={img.id} value={img.id}>{img.investigation_id}: {img.title}</option>)}
             </select>
           </div>
 
-          <div style={{ flex: 1, minWidth: "240px" }}>
-            <label style={{ display: "block", fontSize: "0.76rem", color: "var(--accent-molten)", marginBottom: "0.4rem", fontFamily: "var(--font-mono)" }}>
-              COMPARATIVE FRAME (IMAGE B)
+          <div style={{ flex: 1, minWidth: "220px" }}>
+            <label style={{ display: "block", fontSize: "0.74rem", color: "var(--accent-molten)", marginBottom: "4px" }}>
+              Image B (Right)
             </label>
             <select className="select-box" style={{ width: "100%" }} value={selectedB} onChange={e => setSelectedB(e.target.value)}>
               <option value="">— Select Frame —</option>
@@ -236,8 +231,8 @@ export function ImageComparisonPage() {
 
         {/* Quick Comparison Presets */}
         <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "12px", display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
-          <span style={{ fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)", marginRight: "4px" }}>
-            CURATED COMPARISON PRESETS:
+          <span style={{ fontSize: "0.74rem", color: "var(--text-dim)", marginRight: "4px" }}>
+            Comparison presets:
           </span>
           {[
             { label: "BASS: PMMA Flame vs N2 Quench", a: "IMG-BASS-01", b: "IMG-BASS-02" },
@@ -265,8 +260,8 @@ export function ImageComparisonPage() {
       )}
 
       {loading && (
-        <div className="card" style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
-          SYNTHESIZING OPTICAL COMPARISON MATRIX...
+        <div className="card" style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)" }}>
+          Loading visual comparison data...
         </div>
       )}
 
@@ -286,11 +281,11 @@ export function ImageComparisonPage() {
           )}
 
           {/* Slider */}
-          <div className="card hud-panel" style={{ marginBottom: "22px" }}>
+          <div className="card" style={{ marginBottom: "18px" }}>
             <div className="card-header">
-              <h3 className="card-title">Synchronized Morphological Comparison Slider</h3>
-              <span style={{ fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
-                DRAG CENTER SPLITTER TO REVEAL TRANSITIONS
+              <h3 className="card-title">Morphological Slider</h3>
+              <span style={{ fontSize: "0.72rem", color: "var(--text-dim)" }}>
+                Drag slider handle to reveal Image B
               </span>
             </div>
             <div style={{ padding: "0.5rem 0" }}>
@@ -299,45 +294,44 @@ export function ImageComparisonPage() {
           </div>
 
           {/* Side-by-side view */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "20px", marginBottom: "22px" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "16px", marginBottom: "18px" }}>
             {[comparison.image_a, comparison.image_b].map((img, idx) => (
-              <div key={idx} className="card hud-panel" style={{ marginBottom: 0 }}>
+              <div key={idx} className="card" style={{ marginBottom: 0 }}>
                 <div style={{
-                  background: idx === 0 ? "rgba(57, 197, 232, 0.08)" : "rgba(255, 118, 38, 0.08)",
+                  background: idx === 0 ? "rgba(56, 189, 248, 0.08)" : "rgba(255, 118, 38, 0.08)",
                   padding: "6px 12px",
                   borderBottom: "1px solid var(--border-color)",
                   fontSize: "0.74rem",
-                  fontWeight: 700,
+                  fontWeight: 600,
                   color: idx === 0 ? "var(--accent-cyan)" : "var(--accent-molten)",
-                  fontFamily: "var(--font-mono)",
                   display: "flex",
                   justifyContent: "space-between"
                 }}>
-                  <span>FRAME {idx === 0 ? "A" : "B"} // {img.investigation_id}</span>
+                  <span>Image {idx === 0 ? "A" : "B"} ({img.investigation_id})</span>
                   <span>{img.camera_modality}</span>
                 </div>
 
-                <div style={{ background: "#080B10", display: "flex", alignItems: "center", justifyContent: "center", height: "200px", padding: "10px" }}>
-                  <img src={img.file_path} alt={img.title} style={{ maxWidth: "100%", maxHeight: "180px", objectFit: "contain" }} />
+                <div style={{ background: "#080B10", display: "flex", alignItems: "center", justifyContent: "center", height: "180px", padding: "10px" }}>
+                  <img src={img.file_path} alt={img.title} style={{ maxWidth: "100%", maxHeight: "160px", objectFit: "contain" }} />
                 </div>
 
-                <div style={{ padding: "12px", fontSize: "0.82rem" }}>
-                  <div style={{ color: "var(--text-primary)", fontWeight: 700 }}>{img.title}</div>
-                  <div style={{ color: "var(--text-secondary)", marginTop: "4px" }}>
+                <div style={{ padding: "12px", fontSize: "0.8rem" }}>
+                  <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>{img.title}</div>
+                  <div style={{ color: "var(--text-secondary)", marginTop: "2px" }}>
                     {img.investigation_id} · {img.gravity_regime} · {img.fuel_or_material}
                   </div>
                   {img.observation_time_s != null && (
-                    <div style={{ color: "var(--text-dim)", fontSize: "0.74rem", fontFamily: "var(--font-mono)", marginTop: "2px" }}>
-                      ELAPSED TIME: t = {img.observation_time_s}s
+                    <div style={{ color: "var(--text-dim)", fontSize: "0.72rem", marginTop: "2px" }}>
+                      Elapsed time: t = {img.observation_time_s}s
                     </div>
                   )}
-                  <div style={{ marginTop: "10px", display: "flex", gap: "8px" }}>
+                  <div style={{ marginTop: "8px", display: "flex", gap: "8px" }}>
                     {img.doi && (
-                      <a href={`https://doi.org/${img.doi}`} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.7rem", padding: "3px 8px" }}>
-                        <ExternalLink size={10} /> DOI Record
+                      <a href={`https://doi.org/${img.doi}`} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.7rem", padding: "2px 7px" }}>
+                        <ExternalLink size={10} /> DOI
                       </a>
                     )}
-                    <a href={img.source_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.7rem", padding: "3px 8px" }}>
+                    <a href={img.source_url} target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ fontSize: "0.7rem", padding: "2px 7px" }}>
                       <ExternalLink size={10} /> NASA PSI
                     </a>
                   </div>
@@ -347,17 +341,17 @@ export function ImageComparisonPage() {
           </div>
 
           {/* Metadata table */}
-          <div className="card hud-panel">
+          <div className="card">
             <div className="card-header">
-              <h3 className="card-title">Side-by-Side Metadata Telemetry</h3>
-              <span className="badge badge-green">PROVENANCE CONFIRMED</span>
+              <h3 className="card-title">Side-by-Side Metadata Comparison</h3>
+              <span className="badge badge-green">Verified</span>
             </div>
             <div className="table-container">
               <MetadataTable imgA={comparison.image_a} imgB={comparison.image_b} />
             </div>
-            <div style={{ padding: "10px 14px", borderTop: "1px solid var(--border-color)", display: "flex", alignItems: "center", gap: "8px", fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
-              <Info size={13} color="var(--accent-cyan)" />
-              <span>CITATION: {comparison.image_a.source_citation}</span>
+            <div style={{ padding: "8px 12px", borderTop: "1px solid var(--border-color)", display: "flex", alignItems: "center", gap: "6px", fontSize: "0.74rem", color: "var(--text-dim)" }}>
+              <Info size={12} color="var(--accent-cyan)" />
+              <span>Citation: {comparison.image_a.source_citation}</span>
             </div>
           </div>
         </>

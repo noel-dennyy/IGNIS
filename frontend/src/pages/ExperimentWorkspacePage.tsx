@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { ExternalLink, AlertTriangle, Layers, Activity, CheckCircle2, XCircle } from "lucide-react";
+import { ExternalLink, AlertTriangle, Layers, CheckCircle2, XCircle } from "lucide-react";
 import { api } from "../api/client";
 import type { CompareResponse } from "../types";
 
@@ -28,18 +28,18 @@ function ConditionGrid({ investigations }: { investigations: any[] }) {
     { key: "facility", label: "Chamber / Facility" },
     { key: "nasa_center", label: "Lead NASA Center" },
     { key: "apparatus", label: "Apparatus & Diagnostics" },
-    { key: "fuels_tested", label: "Fuels / Target Materials" },
+    { key: "fuels_tested", label: "Fuels / Materials" },
   ];
 
   return (
     <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.82rem" }}>
       <thead>
         <tr style={{ borderBottom: "1px solid var(--border-color)", background: "var(--bg-elevated)" }}>
-          <th style={{ padding: "8px 12px", color: "var(--text-secondary)", textAlign: "left", fontWeight: 600, width: "22%", fontFamily: "var(--font-mono)", fontSize: "0.75rem" }}>
-            PARAMETER
+          <th style={{ padding: "8px 12px", color: "var(--text-secondary)", textAlign: "left", fontWeight: 600, width: "22%", fontSize: "0.75rem" }}>
+            Parameter
           </th>
           {investigations.map((inv: any) => (
-            <th key={inv.external_id || inv.id} style={{ padding: "8px 12px", textAlign: "left", color: INV_COLORS[inv.external_id] || "var(--accent-cyan)", fontFamily: "var(--font-mono)" }}>
+            <th key={inv.external_id || inv.id} style={{ padding: "8px 12px", textAlign: "left", color: INV_COLORS[inv.external_id] || "var(--accent-cyan)", fontWeight: 600 }}>
               {inv.name || inv.external_id || inv.id}
             </th>
           ))}
@@ -48,7 +48,7 @@ function ConditionGrid({ investigations }: { investigations: any[] }) {
       <tbody>
         {fields.map(f => (
           <tr key={f.key} style={{ borderBottom: "1px solid var(--border-color)" }}>
-            <td style={{ padding: "8px 12px", color: "var(--text-dim)", fontFamily: "var(--font-mono)", fontSize: "0.76rem" }}>{f.label}</td>
+            <td style={{ padding: "8px 12px", color: "var(--text-dim)", fontSize: "0.76rem" }}>{f.label}</td>
             {investigations.map((inv: any) => {
               const val = inv[f.key];
               const display = Array.isArray(val) ? val.join(", ") : (val || "—");
@@ -80,9 +80,9 @@ function CompatibilityMatrix({ variables }: { variables: any[] }) {
             {v.is_comparable ? <CheckCircle2 size={16} /> : <XCircle size={16} />}
           </span>
           <div>
-            <div style={{ color: "var(--text-primary)", fontWeight: 700, fontFamily: "var(--font-mono)" }}>{v.variable_name}</div>
+            <div style={{ color: "var(--text-primary)", fontWeight: 600 }}>{v.variable_name}</div>
             <div style={{ color: "var(--text-secondary)", marginTop: "2px" }}>{v.reason}</div>
-            {v.notes && <div style={{ color: "var(--text-dim)", fontSize: "0.74rem", marginTop: "3px", fontFamily: "var(--font-mono)" }}>{v.notes}</div>}
+            {v.notes && <div style={{ color: "var(--text-dim)", fontSize: "0.74rem", marginTop: "3px" }}>{v.notes}</div>}
           </div>
         </div>
       ))}
@@ -168,10 +168,10 @@ export function ExperimentWorkspacePage() {
       </div>
 
       {/* Investigation selector */}
-      <div className="card hud-panel" style={{ marginBottom: "22px" }}>
+      <div className="card" style={{ marginBottom: "20px" }}>
         <div className="card-header">
           <h3 className="card-title">Select Active Payloads (2 to 3)</h3>
-          <span className="badge badge-molten">{selectedIds.length} SELECTED</span>
+          <span className="badge badge-molten">{selectedIds.length} Selected</span>
         </div>
 
         <div style={{ padding: "0.5rem 0 1rem", display: "flex", gap: "10px", flexWrap: "wrap" }}>
@@ -183,12 +183,11 @@ export function ExperimentWorkspacePage() {
                 onClick={() => toggleInv(inv.id)}
                 className="btn"
                 style={{
-                  backgroundColor: selected ? "rgba(25, 35, 45, 0.95)" : "var(--bg-surface)",
+                  backgroundColor: selected ? "var(--bg-elevated)" : "var(--bg-surface)",
                   borderColor: selected ? INV_COLORS[inv.id] : "var(--border-color)",
                   color: selected ? "var(--text-primary)" : "var(--text-secondary)",
-                  minWidth: "290px",
-                  justifyContent: "flex-start",
-                  boxShadow: selected ? `0 0 10px ${INV_COLORS[inv.id]}44` : "none"
+                  minWidth: "280px",
+                  justifyContent: "flex-start"
                 }}
               >
                 <span style={{ color: INV_COLORS[inv.id], marginRight: "6px", fontWeight: 700 }}>
@@ -202,15 +201,14 @@ export function ExperimentWorkspacePage() {
 
         <div style={{ borderTop: "1px solid var(--border-color)", paddingTop: "12px", display: "flex", gap: "12px", alignItems: "center" }}>
           <button className="btn btn-primary" onClick={runComparison} disabled={loading || selectedIds.length < 2}>
-            <Activity size={15} />
-            <span>{loading ? "Synthesizing Telemetry..." : "Execute Cross-Payload Analysis →"}</span>
+            <span>{loading ? "Synthesizing data..." : "Run Cross-Payload Analysis"}</span>
           </button>
-          {selectedIds.length < 2 && <span style={{ fontSize: "0.78rem", color: "var(--accent-flame)", fontFamily: "var(--font-mono)" }}>[ALERT] Select at least 2 flight investigations.</span>}
+          {selectedIds.length < 2 && <span style={{ fontSize: "0.78rem", color: "var(--accent-flame)" }}>Select at least 2 flight investigations to run analysis.</span>}
         </div>
       </div>
 
       {error && (
-        <div className="card" style={{ padding: "20px", color: "var(--accent-flame)", fontFamily: "var(--font-mono)" }}>
+        <div className="card" style={{ padding: "20px", color: "var(--accent-flame)" }}>
           Error executing comparison: {error}
         </div>
       )}
@@ -233,17 +231,17 @@ export function ExperimentWorkspacePage() {
             {!result.is_valid_comparison && <AlertTriangle size={18} style={{ color: "var(--accent-flame)", flexShrink: 0, marginTop: "2px" }} />}
             <div>
               <strong style={{ color: result.is_valid_comparison ? "var(--color-success)" : "var(--accent-flame)", display: "block", marginBottom: "3px" }}>
-                {result.is_valid_comparison ? "VALID COMPARISON DOMAIN" : "INCOMMENSURATE PHYSICAL DOMAINS"}:
+                {result.is_valid_comparison ? "Valid Comparison Domain" : "Incommensurate Physical Domains"}:
               </strong>
               {result.comparability_warning}
             </div>
           </div>
 
           {/* Experimental Conditions */}
-          <div className="card hud-panel" style={{ marginBottom: "22px" }}>
+          <div className="card" style={{ marginBottom: "20px" }}>
             <div className="card-header">
               <h3 className="card-title">Cross-Investigation Environmental Conditions</h3>
-              <span className="badge badge-cyan">FLIGHT METADATA</span>
+              <span className="badge badge-cyan">Flight Metadata</span>
             </div>
             <div className="table-container">
               <ConditionGrid investigations={result.investigations} />
@@ -251,11 +249,11 @@ export function ExperimentWorkspacePage() {
           </div>
 
           {/* Variable Compatibility Matrix */}
-          <div className="card hud-panel" style={{ marginBottom: "22px" }}>
+          <div className="card" style={{ marginBottom: "20px" }}>
             <div className="card-header">
               <h3 className="card-title">Physical Variable Compatibility Matrix</h3>
-              <span style={{ fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
-                CAN THESE QUANTITATIVE METRICS BE DIRECTLY OVERLAID?
+              <span style={{ fontSize: "0.74rem", color: "var(--text-dim)" }}>
+                Direct quantitative overlay verification
               </span>
             </div>
             <div style={{ padding: "0.5rem 0" }}>
@@ -265,10 +263,10 @@ export function ExperimentWorkspacePage() {
 
           {/* Shared Observations Chart (only for compatible comparisons) */}
           {result.is_valid_comparison && result.shared_observations.length > 0 && (
-            <div className="card hud-panel" style={{ marginBottom: "22px" }}>
+            <div className="card" style={{ marginBottom: "20px" }}>
               <div className="card-header">
                 <h3 className="card-title">Comparable Observations Telemetry</h3>
-                <span className="badge badge-green">COMPATIBLE UNITS</span>
+                <span className="badge badge-green">Compatible Units</span>
               </div>
               <div style={{ padding: "0.5rem 0" }}>
                 <SharedObservationsChart observations={result.shared_observations} selectedIds={selectedIds} />
@@ -277,19 +275,19 @@ export function ExperimentWorkspacePage() {
           )}
 
           {!result.is_valid_comparison && (
-            <div className="card hud-panel" style={{ marginBottom: "22px", textAlign: "center", padding: "26px" }}>
+            <div className="card" style={{ marginBottom: "20px", textAlign: "center", padding: "26px" }}>
               <strong style={{ color: "var(--accent-flame)", display: "block", marginBottom: "6px" }}>
-                PROHIBITED QUANTITATIVE OVERLAY: NO SHARED PHYSICAL AXIS
+                Direct Quantitative Overlay Not Supported
               </strong>
               <span style={{ color: "var(--text-secondary)", fontSize: "0.85rem", maxWidth: "650px", display: "inline-block", lineHeight: 1.6 }}>
-                These flight payloads measure fundamentally divergent physical quantities (droplet evaporation K in mm²/s vs. solid flame spread in mm/s vs. soot smoke point in mm). 
+                These flight payloads measure fundamentally divergent physical quantities (e.g. droplet evaporation in mm²/s vs. solid flame spread in mm/s vs. soot smoke point in mm). 
                 Plotting them on a shared numerical axis violates dimensional homogeneity and scientific integrity.
               </span>
             </div>
           )}
 
           {/* Recommendation */}
-          <div className="card hud-panel" style={{ marginBottom: "22px" }}>
+          <div className="card" style={{ marginBottom: "20px" }}>
             <div className="card-header">
               <h3 className="card-title">NASA Scientific Synthesis Recommendation</h3>
             </div>
@@ -299,7 +297,7 @@ export function ExperimentWorkspacePage() {
           </div>
 
           {/* Source links */}
-          <div className="card hud-panel">
+          <div className="card">
             <div className="card-header">
               <h3 className="card-title">Source Citations &amp; Provenance</h3>
             </div>
@@ -324,8 +322,8 @@ export function ExperimentWorkspacePage() {
       )}
 
       {!result && !loading && (
-        <div className="card" style={{ padding: "36px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
-          SELECT 2–3 NASA INVESTIGATIONS ABOVE AND TRANSMIT QUERY TO SYNTHESIZE EXPERIMENTAL CONDITIONS.
+        <div className="card" style={{ padding: "36px", textAlign: "center", color: "var(--text-secondary)" }}>
+          Select 2–3 NASA investigations above and run analysis to synthesize experimental conditions.
         </div>
       )}
     </div>

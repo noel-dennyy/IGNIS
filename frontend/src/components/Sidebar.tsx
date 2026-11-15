@@ -12,8 +12,7 @@ import {
   Images,
   SplitSquareHorizontal,
   Layers,
-  Map,
-  Radio
+  Map
 } from "lucide-react";
 
 export type PageId =
@@ -38,26 +37,26 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage }) => {
   const sections = [
     {
-      group: "COMMAND & CORE",
+      group: "Core Research",
       items: [
-        { id: "overview", label: "Command Center", icon: LayoutDashboard },
+        { id: "overview", label: "Research Overview", icon: LayoutDashboard },
         { id: "investigations", label: "Investigation Explorer", icon: Compass },
         { id: "library", label: "Research Library", icon: BookOpen },
-        { id: "assistant", label: "IGNIS AI Assistant", icon: MessageSquare },
+        { id: "assistant", label: "Research Assistant", icon: MessageSquare },
       ]
     },
     {
-      group: "SCIENTIFIC TELEMETRY",
+      group: "Analysis & Telemetry",
       items: [
         { id: "viz", label: "Telemetry & Charts", icon: BarChart2 },
         { id: "workspace", label: "Synthesis Workspace", icon: Layers },
         { id: "evidence-gap", label: "Evidence Gap Map", icon: Map },
-        { id: "compare", label: "Physical Matrix", icon: GitCompare },
+        { id: "compare", label: "Comparability Matrix", icon: GitCompare },
         { id: "ranking", label: "Relevance Ranking", icon: TrendingUp },
       ]
     },
     {
-      group: "IMAGERY & SAFETY",
+      group: "Imagery & Safety",
       items: [
         { id: "image-compare", label: "Image Comparison", icon: SplitSquareHorizontal },
         { id: "gallery", label: "Experiment Imagery", icon: Images },
@@ -71,44 +70,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage }) =
       {/* Brand Header */}
       <div className="sidebar-header">
         <div className="brand-badge">
-          <Flame size={24} className="brand-flame-icon" />
+          <Flame size={20} className="brand-flame-icon" />
           <span>IGNIS</span>
         </div>
         <div className="brand-sub">
-          // NASA FLAME IN FREEFALL
-        </div>
-        <div style={{ marginTop: "6px", display: "flex", alignItems: "center", gap: "6px" }}>
-          <span style={{ 
-            width: "6px", 
-            height: "6px", 
-            borderRadius: "50%", 
-            background: "var(--accent-molten)",
-            boxShadow: "0 0 8px var(--accent-molten)",
-            display: "inline-block"
-          }} />
-          <span style={{ fontSize: "0.68rem", color: "var(--accent-cyan)", fontFamily: "var(--font-mono)", letterSpacing: "0.06em" }}>
-            CIR/MSG ONLINE
-          </span>
+          Microgravity Combustion Intelligence
         </div>
       </div>
 
       {/* Navigation Sections */}
       <nav className="sidebar-nav">
         {sections.map((sec, sIdx) => (
-          <div key={sIdx} style={{ marginBottom: "14px" }}>
+          <div key={sIdx} style={{ marginBottom: "16px" }}>
             <div style={{
-              fontSize: "0.65rem",
-              fontWeight: 700,
+              fontSize: "0.68rem",
+              fontWeight: 600,
               color: "var(--text-dim)",
-              fontFamily: "var(--font-mono)",
-              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              letterSpacing: "0.05em",
               padding: "4px 12px 6px",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between"
             }}>
-              <span>{sec.group}</span>
-              <span style={{ opacity: 0.4 }}>—</span>
+              {sec.group}
             </div>
 
             {sec.items.map((item) => {
@@ -120,7 +102,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage }) =
                   className={`nav-item ${isActive ? "active" : ""}`}
                   onClick={() => setActivePage(item.id as PageId)}
                 >
-                  <Icon size={17} />
+                  <Icon size={16} />
                   <span>{item.label}</span>
                 </div>
               );
@@ -129,28 +111,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ activePage, setActivePage }) =
         ))}
       </nav>
 
-      {/* Chamber Status Telemetry Footer */}
+      {/* Footer */}
       <div className="sidebar-footer">
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: "6px",
-          fontFamily: "var(--font-mono)",
-          fontSize: "0.68rem",
-          color: "var(--accent-amber)"
-        }}>
-          <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-            <Radio size={11} />
-            DIAGNOSTICS
-          </span>
-          <span style={{ color: "var(--color-success)" }}>NOMINAL</span>
+        <div style={{ color: "var(--text-secondary)", fontWeight: 500, marginBottom: "2px" }}>
+          NASA Space Apps 2026
         </div>
-        <div style={{ color: "var(--text-secondary)", fontSize: "0.72rem", marginBottom: "2px" }}>
-          NASA Space Apps Challenge 2026
-        </div>
-        <div style={{ fontSize: "0.68rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
-          Data: NASA PSI (CC0-1.0)
+        <div style={{ fontSize: "0.7rem", color: "var(--text-dim)" }}>
+          Source: NASA PSI Repository (CC0-1.0)
         </div>
       </div>
     </aside>

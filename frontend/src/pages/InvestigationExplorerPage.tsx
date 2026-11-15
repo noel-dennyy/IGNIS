@@ -6,7 +6,6 @@ import {
   FileText,
   Activity,
   Filter,
-  Flame,
   ShieldCheck,
   Compass
 } from "lucide-react";
@@ -76,8 +75,8 @@ export const InvestigationExplorerPage: React.FC<InvestigationExplorerPageProps>
         </p>
       </div>
 
-      {/* Investigation Selector Tabs */}
-      <div style={{ display: "flex", gap: "8px", marginBottom: "22px", flexWrap: "wrap" }}>
+      {/* Investigation Selector Buttons */}
+      <div style={{ display: "flex", gap: "6px", marginBottom: "20px", flexWrap: "wrap" }}>
         {investigations.map((inv) => {
           const isSelected = selectedId === inv.id;
           return (
@@ -85,20 +84,19 @@ export const InvestigationExplorerPage: React.FC<InvestigationExplorerPageProps>
               key={inv.id}
               className="btn"
               style={{
-                backgroundColor: isSelected ? "rgba(255, 118, 38, 0.15)" : "var(--bg-surface)",
+                backgroundColor: isSelected ? "var(--bg-elevated)" : "var(--bg-surface)",
                 borderColor: isSelected ? "var(--accent-molten)" : "var(--border-color)",
                 color: isSelected ? "var(--text-primary)" : "var(--text-secondary)",
-                boxShadow: isSelected ? "0 0 12px rgba(255, 118, 38, 0.25)" : "none",
-                padding: "8px 14px",
-                borderRadius: "6px"
+                padding: "6px 12px",
+                borderRadius: "4px"
               }}
               onClick={() => setSelectedId(inv.id)}
             >
-              <span style={{ fontWeight: 700, color: isSelected ? "var(--accent-molten)" : "var(--text-primary)" }}>
+              <span style={{ fontWeight: isSelected ? 600 : 500, color: isSelected ? "var(--accent-molten)" : "var(--text-primary)" }}>
                 {inv.name}
               </span>
-              <span style={{ fontSize: "0.72rem", opacity: 0.85, fontFamily: "var(--font-mono)" }}>
-                [{inv.external_id}]
+              <span style={{ fontSize: "0.72rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+                ({inv.external_id})
               </span>
             </button>
           );
@@ -106,18 +104,17 @@ export const InvestigationExplorerPage: React.FC<InvestigationExplorerPageProps>
       </div>
 
       {loading || !detail ? (
-        <div className="card hud-panel" style={{ padding: "50px", textAlign: "center", color: "var(--text-secondary)", fontFamily: "var(--font-mono)" }}>
-          <Flame size={24} className="brand-flame-icon" style={{ margin: "0 auto 10px" }} />
-          <div>RETRIEVING FLIGHT APPARATUS TELEMETRY FROM PSI DATABASE...</div>
+        <div style={{ padding: "40px", textAlign: "center", color: "var(--text-secondary)" }}>
+          Loading investigation records from NASA PSI...
         </div>
       ) : (
         <div>
           {/* Main Detail Header Card */}
-          <div className="card hud-panel" style={{ borderLeft: "3px solid var(--accent-molten)", marginBottom: "22px" }}>
+          <div className="card" style={{ borderLeft: "3px solid var(--accent-molten)", marginBottom: "18px" }}>
             <div className="card-header" style={{ flexWrap: "wrap", gap: "10px" }}>
               <div>
-                <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px", flexWrap: "wrap" }}>
-                  <h2 style={{ fontSize: "1.3rem", fontWeight: 800, color: "var(--text-primary)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px", flexWrap: "wrap" }}>
+                  <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--text-primary)" }}>
                     {detail.name}
                   </h2>
                   <span className="badge badge-molten">{detail.external_id}</span>
@@ -126,8 +123,8 @@ export const InvestigationExplorerPage: React.FC<InvestigationExplorerPageProps>
                     <ShieldCheck size={11} /> {detail.license}
                   </span>
                 </div>
-                <div style={{ fontSize: "0.78rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
-                  DOI: {detail.doi || "None"} · Schema Version: {detail.source_version || "1.0"} · Synchronized: {detail.source_updated_at || "N/A"}
+                <div style={{ fontSize: "0.74rem", color: "var(--text-dim)", fontFamily: "var(--font-mono)" }}>
+                  DOI: {detail.doi || "None"} · Schema: {detail.source_version || "1.0"} · Ingested: {detail.source_updated_at || "N/A"}
                 </div>
               </div>
 
@@ -137,66 +134,66 @@ export const InvestigationExplorerPage: React.FC<InvestigationExplorerPageProps>
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline"
-                  style={{ fontSize: "0.78rem", padding: "6px 12px" }}
+                  style={{ fontSize: "0.75rem", padding: "4px 10px" }}
                 >
-                  <ExternalLink size={13} />
-                  <span>NASA PSI Page</span>
+                  <ExternalLink size={12} />
+                  <span>NASA PSI Record</span>
                 </a>
               </div>
             </div>
 
-            <p style={{ fontSize: "0.92rem", color: "var(--text-primary)", lineHeight: 1.65, marginBottom: "18px" }}>
+            <p style={{ fontSize: "0.88rem", color: "var(--text-primary)", lineHeight: 1.6, marginBottom: "16px" }}>
               {detail.description}
             </p>
 
             {/* Metadata Fields Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "12px", fontSize: "0.82rem" }}>
-              <div style={{ backgroundColor: "var(--bg-elevated)", padding: "12px 14px", borderRadius: "6px", border: "1px solid var(--border-color)" }}>
-                <div style={{ color: "var(--text-dim)", marginBottom: "4px", fontSize: "0.72rem", fontFamily: "var(--font-mono)" }}>PLATFORM &amp; FACILITY</div>
-                <div style={{ fontWeight: 700, color: "var(--text-primary)" }}>{detail.platform} {detail.facility ? `(${detail.facility})` : ""}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "10px", fontSize: "0.8rem" }}>
+              <div style={{ backgroundColor: "var(--bg-elevated)", padding: "10px 12px", borderRadius: "4px", border: "1px solid var(--border-color)" }}>
+                <div style={{ color: "var(--text-dim)", marginBottom: "2px", fontSize: "0.7rem" }}>Platform &amp; Facility</div>
+                <div style={{ fontWeight: 600, color: "var(--text-primary)" }}>{detail.platform} {detail.facility ? `(${detail.facility})` : ""}</div>
               </div>
 
-              <div style={{ backgroundColor: "var(--bg-elevated)", padding: "12px 14px", borderRadius: "6px", border: "1px solid var(--border-color)" }}>
-                <div style={{ color: "var(--text-dim)", marginBottom: "4px", fontSize: "0.72rem", fontFamily: "var(--font-mono)" }}>NASA RESEARCH CENTER</div>
-                <div style={{ fontWeight: 700, color: "var(--text-primary)" }}>{detail.nasa_center}</div>
+              <div style={{ backgroundColor: "var(--bg-elevated)", padding: "10px 12px", borderRadius: "4px", border: "1px solid var(--border-color)" }}>
+                <div style={{ color: "var(--text-dim)", marginBottom: "2px", fontSize: "0.7rem" }}>Lead Center</div>
+                <div style={{ fontWeight: 600, color: "var(--text-primary)" }}>{detail.nasa_center}</div>
               </div>
 
-              <div style={{ backgroundColor: "var(--bg-elevated)", padding: "12px 14px", borderRadius: "6px", border: "1px solid var(--border-color)" }}>
-                <div style={{ color: "var(--text-dim)", marginBottom: "4px", fontSize: "0.72rem", fontFamily: "var(--font-mono)" }}>GRAVITATIONAL REGIME</div>
-                <div style={{ fontWeight: 700, color: "var(--accent-cyan)", fontFamily: "var(--font-mono)" }}>{detail.gravity_regime}</div>
+              <div style={{ backgroundColor: "var(--bg-elevated)", padding: "10px 12px", borderRadius: "4px", border: "1px solid var(--border-color)" }}>
+                <div style={{ color: "var(--text-dim)", marginBottom: "2px", fontSize: "0.7rem" }}>Gravity Environment</div>
+                <div style={{ fontWeight: 600, color: "var(--accent-cyan)", fontFamily: "var(--font-mono)" }}>{detail.gravity_regime}</div>
               </div>
 
-              <div style={{ backgroundColor: "var(--bg-elevated)", padding: "12px 14px", borderRadius: "6px", border: "1px solid var(--border-color)" }}>
-                <div style={{ color: "var(--text-dim)", marginBottom: "4px", fontSize: "0.72rem", fontFamily: "var(--font-mono)" }}>FUELS / MATERIALS TESTED</div>
-                <div style={{ fontWeight: 700, color: "var(--accent-amber)" }}>{detail.fuels_tested.join(", ")}</div>
+              <div style={{ backgroundColor: "var(--bg-elevated)", padding: "10px 12px", borderRadius: "4px", border: "1px solid var(--border-color)" }}>
+                <div style={{ color: "var(--text-dim)", marginBottom: "2px", fontSize: "0.7rem" }}>Tested Fuels / Materials</div>
+                <div style={{ fontWeight: 600, color: "var(--accent-amber)" }}>{detail.fuels_tested.join(", ")}</div>
               </div>
             </div>
 
             {detail.apparatus && (
-              <div style={{ marginTop: "14px", padding: "12px 16px", backgroundColor: "var(--bg-elevated)", borderRadius: "6px", border: "1px solid var(--border-color)", fontSize: "0.84rem" }}>
-                <strong style={{ color: "var(--accent-molten)", fontFamily: "var(--font-mono)", fontSize: "0.76rem" }}>DIAGNOSTICS &amp; SENSORS: </strong>
-                <span style={{ color: "var(--text-secondary)" }}>{detail.apparatus}</span>
+              <div style={{ marginTop: "12px", padding: "10px 12px", backgroundColor: "var(--bg-elevated)", borderRadius: "4px", border: "1px solid var(--border-color)", fontSize: "0.8rem" }}>
+                <strong style={{ color: "var(--text-secondary)" }}>Diagnostics &amp; Sensors: </strong>
+                <span style={{ color: "var(--text-primary)" }}>{detail.apparatus}</span>
               </div>
             )}
           </div>
 
           {/* Ingested Source Files from Manifest */}
-          <div className="card hud-panel" style={{ marginBottom: "22px" }}>
+          <div className="card" style={{ marginBottom: "18px" }}>
             <div className="card-header">
               <div className="card-title">
-                <FileText size={18} color="var(--accent-cyan)" />
-                <span>Ingested Source Files &amp; Cryptographic Checksums (Provenance Register)</span>
+                <FileText size={16} color="var(--accent-cyan)" />
+                <span>Source Files &amp; Provenance Checksums</span>
               </div>
-              <span className="badge badge-green">VERIFIED CC0-1.0 HASHES</span>
+              <span className="badge badge-green">CC0-1.0 Verified</span>
             </div>
 
             <div className="table-container">
               <table className="data-table">
                 <thead>
                   <tr>
-                    <th>File Identifier</th>
+                    <th>Identifier</th>
                     <th>File Name</th>
-                    <th>File Type</th>
+                    <th>Type</th>
                     <th>Size</th>
                     <th>License</th>
                     <th>SHA-256 Checksum</th>
@@ -211,7 +208,7 @@ export const InvestigationExplorerPage: React.FC<InvestigationExplorerPageProps>
                       <td><span className="badge badge-cyan">{f.file_type}</span></td>
                       <td style={{ fontFamily: "var(--font-mono)" }}>{f.file_size_bytes ? `${f.file_size_bytes} B` : "-"}</td>
                       <td><span className="badge badge-green">{f.license}</span></td>
-                      <td style={{ fontFamily: "var(--font-mono)", fontSize: "0.74rem", color: "var(--text-dim)" }}>
+                      <td style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", color: "var(--text-dim)" }}>
                         {f.sha256 ? `${f.sha256.substring(0, 16)}...` : "Verified"}
                       </td>
                       <td>
@@ -220,10 +217,10 @@ export const InvestigationExplorerPage: React.FC<InvestigationExplorerPageProps>
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn-outline"
-                          style={{ padding: "3px 8px", fontSize: "0.72rem" }}
+                          style={{ padding: "2px 7px", fontSize: "0.7rem" }}
                         >
-                          <ExternalLink size={12} />
-                          <span>NASA Record</span>
+                          <ExternalLink size={11} />
+                          <span>PSI Link</span>
                         </a>
                       </td>
                     </tr>
@@ -234,19 +231,19 @@ export const InvestigationExplorerPage: React.FC<InvestigationExplorerPageProps>
           </div>
 
           {/* Structured Observations Table */}
-          <div className="card hud-panel">
+          <div className="card">
             <div className="card-header" style={{ flexWrap: "wrap", gap: "10px" }}>
               <div className="card-title">
-                <Activity size={18} color="var(--accent-molten)" />
-                <span>Verified Flight Observations ({filteredObs.length} Records)</span>
+                <Activity size={16} color="var(--accent-molten)" />
+                <span>Experimental Observations ({filteredObs.length} Records)</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                <Filter size={14} color="var(--accent-amber)" />
+                <Filter size={13} color="var(--text-dim)" />
                 <input
                   type="text"
-                  placeholder="Filter by fuel, suppressant, outcome, run..."
+                  placeholder="Filter observations..."
                   className="input-text"
-                  style={{ width: "260px", padding: "6px 12px", fontSize: "0.8rem" }}
+                  style={{ width: "220px", padding: "5px 10px", fontSize: "0.78rem" }}
                   value={obsFilter}
                   onChange={(e) => setObsFilter(e.target.value)}
                 />
