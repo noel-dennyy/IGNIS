@@ -91,6 +91,30 @@ const INVESTIGATION_DATASETS: Record<string, DatasetPreset[]> = {
       variable: "flex2_burning_rate",
       subruns: ["Binary Run 01: 50/50 Volume Mix", "Binary Run 02: Cool Flame Resurgence", "Binary Run 03: Micro-Explosion Limit"]
     }
+  ],
+  "PSI-99": [
+    {
+      id: "saffire2_flammability",
+      name: "SAFFIRE-II Low-O₂ Fabric & Composite Flammability",
+      variable: "flame_spread_rate",
+      subruns: ["Duct Run 01: Low Oxygen (18% O₂)", "Duct Run 02: Baseline SIBAL Fabric", "Duct Run 03: PMMA Extinction Limit"]
+    }
+  ],
+  "PSI-71": [
+    {
+      id: "slice_methane",
+      name: "SLICE Methane & Ethylene Gas Jet Liftoff Runs",
+      variable: "liftoff_height_mm",
+      subruns: ["Run 01: Methane Diluted with N₂", "Run 02: Ethylene Soot Transition", "Run 03: Critical Liftoff Blowout"]
+    }
+  ],
+  "PSI-101": [
+    {
+      id: "acme_bre_flux",
+      name: "ACME-BRE Gaseous Burning Rate Emulator",
+      variable: "burning_mass_flux",
+      subruns: ["Burner Run 01: 25 mm Flat Burner Mass Flux", "Burner Run 02: 50 mm Porous Matrix Heat Loss", "Burner Run 03: Radiative Extinction Boundary"]
+    }
   ]
 };
 
@@ -100,7 +124,9 @@ const VARIABLE_LABELS: Record<string, { name: string; unit: string; desc: string
   flame_spread_rate: { name: "Fabric Flame Spread Rate", unit: "mm/s", desc: "Downstream progression rate along SIBAL matrix" },
   smoke_point_length: { name: "Smoke Point Flame Length", unit: "mm", desc: "Laminar jet length at inception of soot release" },
   bass_flame_spread: { name: "Solid Polymer Spread Rate", unit: "mm/s", desc: "Surface pyrolytic flame spread on PMMA" },
-  flex2_burning_rate: { name: "Binary Droplet Burning Rate", unit: "mm²/s", desc: "Two-stage vaporization and combustion rate" }
+  flex2_burning_rate: { name: "Binary Droplet Burning Rate", unit: "mm²/s", desc: "Two-stage vaporization and combustion rate" },
+  liftoff_height_mm: { name: "Gas Jet Liftoff Height", unit: "mm", desc: "Distance between burner nozzle tip and flame base" },
+  burning_mass_flux: { name: "Burning Mass Flux (m'')", unit: "g/(m²·s)", desc: "Fuel surface mass regression per unit area" }
 };
 
 interface NewsItem {
@@ -115,6 +141,16 @@ interface NewsItem {
 }
 
 const NEWS_UPDATES: NewsItem[] = [
+  {
+    id: "news-00",
+    title: "PSI-99 (SAFFIRE-II), PSI-71 (SLICE) & PSI-101 (BRE) Ingested",
+    summary: "Expanded platform to 8 NASA PSI flight investigations and 176+ observations with new solid flammability, microgravity gas jet liftoff, and condensed burning rate emulation.",
+    investigationId: "PSI-99",
+    date: "Nov 15, 2026",
+    author: "NASA Ingestion Engine",
+    linkText: "Explore SAFFIRE-II",
+    actionPage: "investigations"
+  },
   {
     id: "news-01",
     title: "PSI-108 (BASS) & PSI-70 (FLEX-2) Ingested",
@@ -503,12 +539,20 @@ export const ShowdownLobby: React.FC<ShowdownLobbyProps> = ({
         {/* Sub-panel 2: Research Updates Panel (Showdown "News" Box equivalent) */}
         {!newsClosed && (
           <div className={`showdown-news-panel ${newsMinimized ? "minimized" : ""}`}>
-            <div className="news-header">
+            <div
+              className="news-header"
+              onClick={() => setNewsMinimized(!newsMinimized)}
+              style={{ cursor: "pointer", userSelect: "none" }}
+              title={newsMinimized ? "Click to expand NASA PSI Updates" : "Click to collapse NASA PSI Updates"}
+            >
               <div className="news-title-group">
                 <span className="news-dot"></span>
                 <span className="news-title">NASA PSI Updates</span>
+                <span style={{ marginLeft: "6px", fontSize: "0.68rem", color: "var(--text-dim)" }}>
+                  {newsMinimized ? "▶ expand" : "▼ collapse"}
+                </span>
               </div>
-              <div className="news-controls">
+              <div className="news-controls" onClick={e => e.stopPropagation()}>
                 <button
                   className="news-ctrl-btn"
                   onClick={() => setNewsMinimized(!newsMinimized)}
@@ -562,14 +606,14 @@ export const ShowdownLobby: React.FC<ShowdownLobbyProps> = ({
           <div className="showdown-stats-bar">
             <div className="stat-pill-box">
               <div className="stat-number" style={{ color: "var(--accent-molten)" }}>
-                {overview.investigation_count || 5}
+                {overview.investigation_count || 8}
               </div>
               <div className="stat-label">NASA PSI Investigations</div>
             </div>
 
             <div className="stat-pill-box">
               <div className="stat-number" style={{ color: "var(--accent-cyan)" }}>
-                {overview.observation_count || "110+"}
+                {overview.observation_count || "176"}
               </div>
               <div className="stat-label">Verified Observations</div>
             </div>
@@ -601,7 +645,7 @@ export const ShowdownLobby: React.FC<ShowdownLobbyProps> = ({
         {hideStats && (
           <div className="stats-hidden-bar">
             <span style={{ fontSize: "0.74rem", color: "var(--text-dim)" }}>
-              Platform Statistics Hidden (5 Investigations · 110+ Observations)
+              Platform Statistics Hidden ({overview?.investigation_count || 8} Investigations · {overview?.observation_count || 176} Observations)
             </span>
             <button
               className="stats-show-btn"
@@ -680,7 +724,15 @@ export const ShowdownLobby: React.FC<ShowdownLobbyProps> = ({
                         <strong className="room-inv-id">{inv.external_id}</strong>
                         <span className="room-name">{inv.name}</span>
                         <span className="room-records-pill">
-                          ({inv.external_id === "PSI-69" ? 24 : inv.external_id === "PSI-98" ? 18 : inv.external_id === "PSI-107" ? 16 : inv.external_id === "PSI-108" ? 28 : 24} observations)
+                          ({inv.external_id === "PSI-69" ? 24 :
+                            inv.external_id === "PSI-98" ? 18 :
+                            inv.external_id === "PSI-107" ? 16 :
+                            inv.external_id === "PSI-108" ? 28 :
+                            inv.external_id === "PSI-70" ? 24 :
+                            inv.external_id === "PSI-99" ? 20 :
+                            inv.external_id === "PSI-71" ? 22 :
+                            inv.external_id === "PSI-101" ? 24 : 20} observations)
+
                         </span>
                       </div>
 

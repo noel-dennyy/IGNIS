@@ -1,0 +1,23 @@
+test_id,fuel_type,burner_diameter_mm,fuel_jet_velocity_cm_s,coflow_velocity_cm_s,ambient_o2_percent,pressure_kpa,liftoff_height_mm,flame_length_mm,flame_status
+SLICE-01,Methane (CH4),0.8,45.0,10.0,21.0,101.3,0.0,38.5,Attached Laminar
+SLICE-02,Methane (CH4),0.8,65.0,10.0,21.0,101.3,0.0,46.2,Attached Laminar
+SLICE-03,Methane (CH4),0.8,85.0,10.0,21.0,101.3,4.5,52.0,Lifted Flame Inception
+SLICE-04,Methane (CH4),0.8,110.0,10.0,21.0,101.3,8.2,58.4,Stable Lifted
+SLICE-05,Methane (CH4),0.8,140.0,10.0,21.0,101.3,14.6,64.0,High Lifted
+SLICE-06,Methane (CH4),0.8,185.0,10.0,21.0,101.3,0.0,0.0,Blowout Extinction
+SLICE-07,Ethylene (C2H4),0.5,35.0,10.0,21.0,101.3,0.0,32.0,Attached Blue Flame
+SLICE-08,Ethylene (C2H4),0.5,55.0,10.0,21.0,101.3,0.0,42.5,Attached Sooting Tip
+SLICE-09,Ethylene (C2H4),0.5,80.0,10.0,21.0,101.3,0.0,54.0,Luminous Yellow Jet
+SLICE-10,Ethylene (C2H4),0.5,120.0,10.0,21.0,101.3,6.8,62.5,Lifted Sooting Flame
+SLICE-11,Ethylene (C2H4),0.5,160.0,10.0,21.0,101.3,12.4,70.0,Lifted Flame with Agglomerates
+SLICE-12,Ethylene (C2H4),0.5,220.0,10.0,21.0,101.3,0.0,0.0,Blowout Extinction
+SLICE-13,Methane/N2 (60/40),1.6,25.0,10.0,21.0,101.3,0.0,28.0,Diluted Attached
+SLICE-14,Methane/N2 (60/40),1.6,40.0,10.0,21.0,101.3,3.2,34.5,Early Liftoff
+SLICE-15,Methane/N2 (60/40),1.6,60.0,10.0,21.0,101.3,7.5,41.0,Stable Lifted
+SLICE-16,Methane/N2 (60/40),1.6,85.0,10.0,21.0,101.3,13.0,46.5,Near Blowout
+SLICE-17,Methane/N2 (60/40),1.6,115.0,10.0,21.0,101.3,0.0,0.0,Blowout Extinction
+SLICE-18,Methane (CH4),0.8,90.0,5.0,21.0,101.3,2.8,55.0,Low Co-flow Lifted
+SLICE-19,Methane (CH4),0.8,90.0,20.0,21.0,101.3,6.4,50.0,Forced Co-flow Lifted
+SLICE-20,Methane (CH4),0.8,90.0,30.0,21.0,101.3,11.2,44.0,Shear Induced Liftoff
+SLICE-21,Ethylene (C2H4),0.5,90.0,15.0,18.0,101.3,2.5,48.0,Depleted O2 Liftoff
+SLICE-22,Ethylene (C2H4),0.5,90.0,15.0,28.0,101.3,0.0,60.0,Enriched O2 Attached

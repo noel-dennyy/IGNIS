@@ -1,0 +1,23 @@
+{
+  "id": "PSI-99",
+  "name": "Spacecraft Fire Safety Experiment-II (SAFFIRE-II)",
+  "description": "Investigated flammability limits and low-speed concurrent/opposed spread across varied oxygen concentrations (up to 28% O2) in an uncrewed orbiting Cygnus OA-5 spacecraft. Assessed NASA STD-6001 Test 1 material flammability correlations in microgravity.",
+  "research_area": "Combustion Science",
+  "subresearch_area": "Solid Material Flammability & Oxygen Concentration Limits",
+  "platform": "Cygnus OA-5 Cargo Spacecraft (S.S. Alan Poindexter)",
+  "facility": "Cygnus Microgravity Flow Duct (100 cm x 50 cm)",
+  "nasa_center": "NASA Glenn Research Center",
+  "doi": "10.60555/0t15-2z44",
+  "license": "CC0-1.0",
+  "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-99",
+  "version": "4",
+  "updated_at": "2026-11-15T05:00:00Z",
+  "gravity_regime": "Microgravity",
+  "apparatus": "Low-speed flow duct, 9 material sample cards, infrared radiometers, HD video cameras, thermocouple rake",
+  "fuels_tested": [
+    "SIBAL Fabric (75% cotton / 25% fiberglass)",
+    "Nomex HT90-40",
+    "PMMA Clear Cast Flat Plates",
+    "Silicone Composite"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "PSI-101",
+  "name": "Advanced Combustion via Microgravity Experiments — Burning Rate Emulator (ACME-BRE)",
+  "description": "Simulated condensed-phase solid and liquid fuel burning using a flat porous burner with controlled heat loss in the Combustion Integrated Rack (CIR). Mapped radiative extinction and flammability boundaries in quiescent microgravity.",
+  "research_area": "Combustion Science",
+  "subresearch_area": "Condensed-Phase Burning Simulation & Radiative Extinction",
+  "platform": "International Space Station (ISS)",
+  "facility": "Combustion Integrated Rack (CIR)",
+  "nasa_center": "NASA Glenn Research Center",
+  "doi": "10.60555/acme-0101",
+  "license": "CC0-1.0",
+  "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-101",
+  "version": "3",
+  "updated_at": "2026-11-15T05:00:00Z",
+  "gravity_regime": "Microgravity",
+  "apparatus": "Porous sintered brass burner (25mm and 50mm flat discs), heat-flux sensor, radiometers, CIR chamber optics",
+  "fuels_tested": [
+    "Ethylene (C2H4)",
+    "Methane (CH4)",
+    "Propane (C3H8)"
+  ]
+}

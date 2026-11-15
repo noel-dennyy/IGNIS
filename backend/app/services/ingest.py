@@ -162,6 +162,93 @@ def run_ingestion():
                 json.dumps(meta)
             ))
 
+    # Ingest PSI-99 (SAFFIRE-II)
+    saffire2_meta_path = RAW_DATA_DIR / "psi_99_saffire_ii_metadata.json"
+    if saffire2_meta_path.exists():
+        with open(saffire2_meta_path, "r", encoding="utf-8") as f:
+            meta = json.load(f)
+            cur.execute("""
+            INSERT INTO investigations (id, external_id, name, description, research_area, subresearch_area, platform, facility, nasa_center, doi, license, source_url, source_version, source_updated_at, gravity_regime, apparatus, fuels_tested_json, metadata_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            """, (
+                "PSI-99",
+                "PSI-99",
+                meta["name"],
+                meta["description"],
+                meta["research_area"],
+                meta["subresearch_area"],
+                meta["platform"],
+                meta["facility"],
+                meta["nasa_center"],
+                meta["doi"],
+                meta["license"],
+                meta["source_url"],
+                meta["version"],
+                meta["updated_at"],
+                meta["gravity_regime"],
+                meta["apparatus"],
+                json.dumps(meta["fuels_tested"]),
+                json.dumps(meta)
+            ))
+
+    # Ingest PSI-71 (SLICE)
+    slice_meta_path = RAW_DATA_DIR / "psi_71_slice_metadata.json"
+    if slice_meta_path.exists():
+        with open(slice_meta_path, "r", encoding="utf-8") as f:
+            meta = json.load(f)
+            cur.execute("""
+            INSERT INTO investigations (id, external_id, name, description, research_area, subresearch_area, platform, facility, nasa_center, doi, license, source_url, source_version, source_updated_at, gravity_regime, apparatus, fuels_tested_json, metadata_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            """, (
+                "PSI-71",
+                "PSI-71",
+                meta["name"],
+                meta["description"],
+                meta["research_area"],
+                meta["subresearch_area"],
+                meta["platform"],
+                meta["facility"],
+                meta["nasa_center"],
+                meta["doi"],
+                meta["license"],
+                meta["source_url"],
+                meta["version"],
+                meta["updated_at"],
+                meta["gravity_regime"],
+                meta["apparatus"],
+                json.dumps(meta["fuels_tested"]),
+                json.dumps(meta)
+            ))
+
+    # Ingest PSI-101 (ACME-BRE)
+    bre_meta_path = RAW_DATA_DIR / "psi_101_acme_bre_metadata.json"
+    if bre_meta_path.exists():
+        with open(bre_meta_path, "r", encoding="utf-8") as f:
+            meta = json.load(f)
+            cur.execute("""
+            INSERT INTO investigations (id, external_id, name, description, research_area, subresearch_area, platform, facility, nasa_center, doi, license, source_url, source_version, source_updated_at, gravity_regime, apparatus, fuels_tested_json, metadata_json)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            """, (
+                "PSI-101",
+                "PSI-101",
+                meta["name"],
+                meta["description"],
+                meta["research_area"],
+                meta["subresearch_area"],
+                meta["platform"],
+                meta["facility"],
+                meta["nasa_center"],
+                meta["doi"],
+                meta["license"],
+                meta["source_url"],
+                meta["version"],
+                meta["updated_at"],
+                meta["gravity_regime"],
+                meta["apparatus"],
+                json.dumps(meta["fuels_tested"]),
+                json.dumps(meta)
+            ))
+
     # 2. Ingest Source Files from manifest
     manifest_path = DATA_DIR / "source_manifest.csv"
     if manifest_path.exists():
@@ -169,7 +256,7 @@ def run_ingestion():
             reader = csv.DictReader(f)
             for row in reader:
                 inv_id = row.get("investigation_id")
-                if inv_id and inv_id not in ["PSI-69", "PSI-98", "PSI-107", "PSI-108", "PSI-70"]:
+                if inv_id and inv_id not in ["PSI-69", "PSI-98", "PSI-107", "PSI-108", "PSI-70", "PSI-99", "PSI-71", "PSI-101"]:
                     inv_id = None
                 cur.execute("""
                 INSERT INTO source_files (id, investigation_id, title, file_name, file_type, file_size_bytes, source_url, local_path, license, sha256, retrieved_at, parse_status)
@@ -347,6 +434,102 @@ def run_ingestion():
                     None,
                     row["outcome"],
                     f"Run {row['run_id']} in psi_70_flex2_droplets.csv",
+                    json.dumps(row)
+                ))
+
+    # PSI-99 SAFFIRE-II flame spread runs
+    saffire2_data_path = RAW_DATA_DIR / "psi_99_flame_spread.csv"
+    if saffire2_data_path.exists():
+        with open(saffire2_data_path, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for i, row in enumerate(reader):
+                cur.execute("""
+                INSERT INTO observations (id, investigation_id, source_file_id, experiment_run_id, fuel_or_material, gravity_regime, measurement_name, value_numeric, unit, extinction_diameter_mm, suppressant, suppressant_fraction_pct, ambient_o2_percent, pressure_atm, flow_velocity_cm_s, peak_temperature_c, radiant_heat_flux_kw_m2, outcome_label, record_locator, raw_metadata_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """, (
+                    f"OBS-SAFFIRE2-{i+1:03d}",
+                    "PSI-99",
+                    "SRC-013",
+                    row["test_id"],
+                    row["sample_material"],
+                    "Microgravity",
+                    "Flame spread rate",
+                    float(row["flame_spread_rate_mm_s"]) if row.get("flame_spread_rate_mm_s") else None,
+                    "mm/s",
+                    None,
+                    None,
+                    None,
+                    float(row["o2_concentration_pct"]) if row.get("o2_concentration_pct") else None,
+                    round(float(row["pressure_kpa"]) / 101.325, 3) if row.get("pressure_kpa") else None,
+                    float(row["airflow_velocity_cm_s"]) if row.get("airflow_velocity_cm_s") else None,
+                    float(row["tc_peak_temp_c"]) if row.get("tc_peak_temp_c") else None,
+                    float(row["radiometer_heat_flux_kw_m2"]) if row.get("radiometer_heat_flux_kw_m2") else None,
+                    row["flame_status"],
+                    f"Card test {row['test_id']} in Cygnus OA-5 telemetry",
+                    json.dumps(row)
+                ))
+
+    # PSI-71 SLICE gas jet liftoff runs
+    slice_data_path = RAW_DATA_DIR / "psi_71_liftoff_runs.csv"
+    if slice_data_path.exists():
+        with open(slice_data_path, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for i, row in enumerate(reader):
+                cur.execute("""
+                INSERT INTO observations (id, investigation_id, source_file_id, experiment_run_id, fuel_or_material, gravity_regime, measurement_name, value_numeric, unit, extinction_diameter_mm, suppressant, suppressant_fraction_pct, ambient_o2_percent, pressure_atm, flow_velocity_cm_s, peak_temperature_c, radiant_heat_flux_kw_m2, outcome_label, record_locator, raw_metadata_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """, (
+                    f"OBS-SLICE-{i+1:03d}",
+                    "PSI-71",
+                    "SRC-015",
+                    row["test_id"],
+                    f"{row['fuel_type']} (d={row['burner_diameter_mm']}mm)",
+                    "Microgravity",
+                    "Flame liftoff height",
+                    float(row["liftoff_height_mm"]) if row.get("liftoff_height_mm") else None,
+                    "mm",
+                    None,
+                    None,
+                    None,
+                    float(row["ambient_o2_percent"]) if row.get("ambient_o2_percent") else None,
+                    round(float(row["pressure_kpa"]) / 101.325, 3) if row.get("pressure_kpa") else None,
+                    float(row["coflow_velocity_cm_s"]) if row.get("coflow_velocity_cm_s") else None,
+                    None,
+                    None,
+                    row["flame_status"],
+                    f"Test {row['test_id']}, fuel velocity {row['fuel_jet_velocity_cm_s']} cm/s",
+                    json.dumps(row)
+                ))
+
+    # PSI-101 ACME-BRE burning rate emulator runs
+    bre_data_path = RAW_DATA_DIR / "psi_101_bre_runs.csv"
+    if bre_data_path.exists():
+        with open(bre_data_path, "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for i, row in enumerate(reader):
+                cur.execute("""
+                INSERT INTO observations (id, investigation_id, source_file_id, experiment_run_id, fuel_or_material, gravity_regime, measurement_name, value_numeric, unit, extinction_diameter_mm, suppressant, suppressant_fraction_pct, ambient_o2_percent, pressure_atm, flow_velocity_cm_s, peak_temperature_c, radiant_heat_flux_kw_m2, outcome_label, record_locator, raw_metadata_json)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                """, (
+                    f"OBS-BRE-{i+1:03d}",
+                    "PSI-101",
+                    "SRC-017",
+                    row["run_id"],
+                    f"{row['fuel_type']} (Disc d={row['burner_diameter_mm']}mm)",
+                    "Microgravity",
+                    "Burning mass flux",
+                    float(row["burning_mass_flux_mg_cm2_s"]) if row.get("burning_mass_flux_mg_cm2_s") else None,
+                    "mg/cm^2-s",
+                    None,
+                    None,
+                    None,
+                    float(row["ambient_o2_percent"]) if row.get("ambient_o2_percent") else None,
+                    round(float(row["pressure_kpa"]) / 101.325, 3) if row.get("pressure_kpa") else None,
+                    0.0,
+                    float(row["peak_temp_c"]) if row.get("peak_temp_c") else None,
+                    None,
+                    row["outcome"],
+                    f"Run {row['run_id']} on porous flat disc burner",
                     json.dumps(row)
                 ))
 

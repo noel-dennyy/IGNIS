@@ -1131,20 +1131,26 @@ a:hover {
   margin: 0 auto;
 }
 
-/* ── LEFT SECTION — ~40% width ─────────────────────────────────────────── */
+/* ── LEFT SECTION — ~36% width ─────────────────────────────────────────── */
 .lobby-left-section {
-  width: 40%;
-  min-width: 380px;
-  max-width: 580px;
+  width: 36%;
+  min-width: 340px;
+  max-width: 480px;
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 12px;
   flex-shrink: 0;
-  align-items: flex-start;
+  align-items: stretch;
+  overflow-y: auto;
+  max-height: calc(100vh - 46px - 24px);
+  box-sizing: border-box;
 }
 
 /* Sub-panel 1: Research Operations Panel */
 .showdown-ops-panel {
-  flex: 1.1;
+  flex: 0 0 auto;
+  width: 100%;
+  box-sizing: border-box;
   background: rgba(25, 35, 45, 0.88);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-color);
@@ -1325,7 +1331,9 @@ a:hover {
 
 /* Sub-panel 2: Research Updates Panel (Showdown "News" Box equivalent) */
 .showdown-news-panel {
-  flex: 0.95;
+  flex: 0 0 auto;
+  width: 100%;
+  box-sizing: border-box;
   background: rgba(25, 35, 45, 0.88);
   backdrop-filter: blur(8px);
   border: 1px solid var(--border-color);
@@ -1337,17 +1345,25 @@ a:hover {
 }
 
 .showdown-news-panel.minimized {
-  flex: 0;
-  min-width: 120px;
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  max-height: none;
+  height: auto;
+}
+
+.showdown-news-panel.minimized .news-body-scroll {
+  display: none;
 }
 
 .news-header {
   background: rgba(17, 24, 32, 0.95);
   border-bottom: 1px solid var(--border-color);
-  padding: 6px 9px;
+  padding: 8px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  white-space: nowrap;
 }
 
 .news-title-group {
@@ -1395,7 +1411,7 @@ a:hover {
 .news-body-scroll {
   padding: 9px;
   overflow-y: auto;
-  max-height: 540px;
+  max-height: 400px;
   display: flex;
   flex-direction: column;
   gap: 9px;
@@ -1448,13 +1464,14 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ── RIGHT SECTION — ~60% width ────────────────────────────────────────── */
+/* ── RIGHT SECTION — fills remaining width (~64%) ───────────────────────── */
 .lobby-right-section {
-  width: 60%;
-  flex-grow: 1;
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  box-sizing: border-box;
 }
 
 /* Top Statistics Bar (Showdown top bar) */

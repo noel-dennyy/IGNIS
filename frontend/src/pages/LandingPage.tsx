@@ -74,6 +74,39 @@ const RESEARCH_HIGHLIGHTS = [
     doi: "10.60555/mbq8-0452",
     description: "Uncovered multi-stage droplet vaporization and low-temperature secondary combustion ('cool flames') persisting long after visible hot flame radiation ceases.",
     color: "#38BDF8"
+  },
+  {
+    id: "PSI-99",
+    name: "Spacecraft Fire Safety Experiment-II (SAFFIRE-II)",
+    discipline: "Low-O₂ Solid Flammability & Oxygen Limit",
+    platform: "Cygnus OA-5 Cargo Spacecraft (S.S. Alan Poindexter)",
+    records: 20,
+    fuels: "SIBAL Fabric, PMMA, Nomex, Silicone",
+    doi: "10.60555/saffire-0099",
+    description: "Evaluated low-oxygen flammability limits and burning behavior across varying atmospheric pressures and airflow velocities inside an uncrewed spacecraft flow duct.",
+    color: "#F97316"
+  },
+  {
+    id: "PSI-71",
+    name: "Structure & Liftoff In Combustion Experiment (SLICE)",
+    discipline: "Gas Jet Liftoff & Blowout Dynamics",
+    platform: "International Space Station (ISS) · Microgravity Science Glovebox",
+    records: 22,
+    fuels: "Methane, Ethylene Diluted with Nitrogen",
+    doi: "10.60555/slice-0071",
+    description: "Investigated laminar co-flow gas jet liftoff heights, stabilization, and blowout boundaries in microgravity to benchmark turbulent combustion models.",
+    color: "#06B6D4"
+  },
+  {
+    id: "PSI-101",
+    name: "Burning Rate Emulator (ACME-BRE)",
+    discipline: "Porous Flat Burner Solid Emulation & Flux",
+    platform: "International Space Station (ISS) · CIR / ACME Insert",
+    records: 24,
+    fuels: "Gaseous Methane / Ethylene / N₂ Mix over Porous Burner",
+    doi: "10.60555/acme-0101",
+    description: "Simulated condensed-phase solid fuel burning physics using a flat porous burner with controlled surface mass injection flux and radiative extinction measurement.",
+    color: "#EAB308"
   }
 ];
 
@@ -220,12 +253,12 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onEnterPlatform }) => 
           {/* Quick Metrics Ticker */}
           <div className="hero-stats-ticker">
             <div className="ticker-item">
-              <strong style={{ color: "var(--accent-molten)" }}>5</strong>
+              <strong style={{ color: "var(--accent-molten)" }}>8</strong>
               <span>Verified NASA Investigations</span>
             </div>
             <div className="ticker-sep">/</div>
             <div className="ticker-item">
-              <strong style={{ color: "var(--accent-cyan)" }}>110+</strong>
+              <strong style={{ color: "var(--accent-cyan)" }}>176+</strong>
               <span>Quantitative Observations</span>
             </div>
             <div className="ticker-sep">/</div>

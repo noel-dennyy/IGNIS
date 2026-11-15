@@ -1,0 +1,22 @@
+{
+  "id": "PSI-71",
+  "name": "Structure & Liftoff In Combustion Experiment (SLICE)",
+  "description": "Evaluated laminar gas jet diffusion flames, flame liftoff dynamics, soot inception limits, and blowout boundaries in microgravity using round nozzles inside the Microgravity Science Glovebox on the International Space Station.",
+  "research_area": "Combustion Science",
+  "subresearch_area": "Gaseous Jet Diffusion Flame Liftoff & Soot Structure",
+  "platform": "International Space Station (ISS)",
+  "facility": "Microgravity Science Glovebox (MSG)",
+  "nasa_center": "NASA Glenn Research Center",
+  "doi": "10.60555/slice-0071",
+  "license": "CC0-1.0",
+  "source_url": "https://psi.nasa.gov/physci/repo/data/investigations/PSI-71",
+  "version": "3",
+  "updated_at": "2026-11-15T05:00:00Z",
+  "gravity_regime": "Microgravity",
+  "apparatus": "0.4 mm to 1.6 mm round gas nozzles, intensified video camera, laser diagnostic optics, co-flow air duct",
+  "fuels_tested": [
+    "Methane (CH4)",
+    "Ethylene (C2H4)",
+    "Nitrogen-diluted Methane (60% CH4 / 40% N2)"
+  ]
+}

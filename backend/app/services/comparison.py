@@ -36,8 +36,11 @@ class ScientificComparisonService:
         has_flex = "PSI-69" in inv_ids_set
         has_flex2 = "PSI-70" in inv_ids_set
         has_saffire = "PSI-98" in inv_ids_set
+        has_saffire2 = "PSI-99" in inv_ids_set
         has_bass = "PSI-108" in inv_ids_set
         has_spice = "PSI-107" in inv_ids_set
+        has_slice = "PSI-71" in inv_ids_set
+        has_bre = "PSI-101" in inv_ids_set
 
         # Compatible Pair 1: FLEX & FLEX-2 (Both are microgravity droplet combustion)
         if (has_flex or has_flex2) and len(inv_ids_set - {"PSI-69", "PSI-70"}) == 0:
@@ -63,34 +66,51 @@ class ScientificComparisonService:
                 "notes": "FLEX discovered the phenomenon; FLEX-2 quantified burning rate K_cool for binary mixtures."
             })
 
-        # Compatible Pair 2: SAFFIRE-I & BASS (Both are solid material flame spread under forced airflow)
-        if (has_saffire or has_bass) and len(inv_ids_set - {"PSI-98", "PSI-108"}) == 0:
+        # Compatible Pair 2: SAFFIRE-I, SAFFIRE-II & BASS (All are solid material flame spread under forced airflow)
+        if (has_saffire or has_saffire2 or has_bass) and len(inv_ids_set - {"PSI-98", "PSI-99", "PSI-108"}) == 0:
             variables_analysis.append({
                 "variable_name": "Flame Spread Rate (V_f)",
                 "is_comparable": True,
-                "reason": "Both SAFFIRE-I and BASS measured surface flame propagation velocities [mm/s] across solid materials in microgravity duct flow.",
+                "reason": "SAFFIRE-I, SAFFIRE-II, and BASS measured surface flame propagation velocities [mm/s] across solid materials in microgravity duct flow.",
                 "units_match": True,
-                "notes": "Both tested SIBAL composite fabric; allows direct comparison of small-scale (MSG, 75mm duct) vs large-scale (Cygnus, 500mm duct) confinement scaling."
+                "notes": "All tested composite fabric/PMMA; enables direct comparison across oxygen concentrations (21% to 28% O2) and duct geometries."
             })
             variables_analysis.append({
                 "variable_name": "Forced Convective Flow Velocity",
                 "is_comparable": True,
-                "reason": "Both investigations evaluate concurrent forced airflow velocity [cm/s] as the primary oxidizer transport mechanism.",
+                "reason": "These investigations evaluate concurrent/opposed forced airflow velocity [cm/s] as the primary oxidizer transport mechanism.",
                 "units_match": True,
-                "notes": "BASS varied flow between 0.5 and 10 cm/s; SAFFIRE-I evaluated steady 20 cm/s flow."
+                "notes": "BASS varied flow between 0.5 and 10 cm/s; SAFFIRE evaluated steady 20 cm/s Cygnus duct flow."
             })
             variables_analysis.append({
-                "variable_name": "Peak Flame Temperature",
+                "variable_name": "Peak Flame Temperature & Heat Flux",
                 "is_comparable": True,
-                "reason": "Both investigations recorded thermocouple rake telemetry in the gas-phase boundary layer above solid fuels.",
+                "reason": "Recorded thermocouple rake telemetry and calibrated radiometers in the boundary layer above solid fuels.",
                 "units_match": True,
-                "notes": "Peak temperatures between 780 °C and 920 °C reflect consistent aerothermal reaction kinetics."
+                "notes": "Peak temperatures between 780 °C and 955 °C reflect consistent aerothermal reaction kinetics."
+            })
+
+        # Compatible Pair 3: SPICE & SLICE (Both are gaseous jet diffusion flames in microgravity)
+        if (has_spice or has_slice) and len(inv_ids_set - {"PSI-107", "PSI-71"}) == 0:
+            variables_analysis.append({
+                "variable_name": "Gas Jet Flame Structure & Soot Inception",
+                "is_comparable": True,
+                "reason": "Both SPICE and SLICE tested ethylene and methane round gas jet diffusion flames in the ISS Microgravity Science Glovebox (MSG).",
+                "units_match": True,
+                "notes": "Directly comparable across co-flow velocities, burner diameters, and soot inception thresholds."
+            })
+            variables_analysis.append({
+                "variable_name": "Co-flow Air Velocity",
+                "is_comparable": True,
+                "reason": "Both investigated forced laminar co-flow air streams to examine flame stabilization without buoyant natural convection.",
+                "units_match": True,
+                "notes": "Co-flow velocities between 5 cm/s and 30 cm/s."
             })
 
         # Incompatible combinations across different physical phases:
-        has_droplets = has_flex or has_flex2
-        has_solids = has_saffire or has_bass
-        has_gases = has_spice
+        has_droplets = has_flex or has_flex2 or has_bre
+        has_solids = has_saffire or has_saffire2 or has_bass
+        has_gases = has_spice or has_slice
 
         if has_droplets and has_solids:
             is_valid_comparison = False

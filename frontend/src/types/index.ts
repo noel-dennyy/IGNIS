@@ -36,6 +36,7 @@ export interface InvestigationSummary {
   gravity_regime: string;
   source_url: string;
   source_version?: string;
+  observation_count?: number;
 }
 
 export interface InvestigationDetail extends InvestigationSummary {

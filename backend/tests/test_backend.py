@@ -27,19 +27,19 @@ class TestIgnisBackendDirect(unittest.TestCase):
     def test_01_health_endpoint(self):
         resp = get_health()
         self.assertEqual(resp.status, "healthy")
-        self.assertEqual(resp.ingested_investigations, 5)
+        self.assertEqual(resp.ingested_investigations, 8)
 
     def test_02_overview_endpoint(self):
         resp = get_overview()
-        self.assertEqual(resp.investigation_count, 5)
-        self.assertGreaterEqual(resp.observation_count, 50)
+        self.assertEqual(resp.investigation_count, 8)
+        self.assertGreaterEqual(resp.observation_count, 170)
         self.assertGreaterEqual(resp.source_document_count, 3)
         self.assertEqual(resp.featured_insight["investigation_id"], "PSI-69")
         self.assertIn("IGNIS RESEARCH NOTICE", resp.disclaimer)
 
     def test_03_investigations_list_and_detail(self):
         invs = list_investigations()
-        self.assertEqual(len(invs), 5)
+        self.assertEqual(len(invs), 8)
 
         # Check FLEX detail
         flex = get_investigation("PSI-69")
@@ -304,7 +304,7 @@ class TestIgnisBackendDirect(unittest.TestCase):
         self.assertGreater(matrix["summary"]["tested"], 0)
 
     def test_25_bass_and_flex2_investigations_ingested(self):
-        """Database should now contain 5 investigations and over 100 observations."""
+        """Database should now contain 8 investigations and over 170 observations."""
         from app.database import get_db_connection
         conn = get_db_connection()
         cur = conn.cursor()
@@ -315,11 +315,14 @@ class TestIgnisBackendDirect(unittest.TestCase):
         self.assertIn("PSI-107", ids)
         self.assertIn("PSI-108", ids)
         self.assertIn("PSI-70", ids)
-        self.assertEqual(len(ids), 5)
+        self.assertIn("PSI-99", ids)
+        self.assertIn("PSI-71", ids)
+        self.assertIn("PSI-101", ids)
+        self.assertEqual(len(ids), 8)
 
         cur.execute("SELECT count(*) FROM observations;")
         obs_count = cur.fetchone()[0]
-        self.assertGreaterEqual(obs_count, 100)
+        self.assertGreaterEqual(obs_count, 170)
         conn.close()
 
     def test_26_bass_saffire_compatible_comparison(self):
@@ -348,6 +351,35 @@ class TestIgnisBackendDirect(unittest.TestCase):
         cur.execute("SELECT count(*) FROM experiment_images;")
         img_count = cur.fetchone()[0]
         self.assertEqual(img_count, 12)
+        conn.close()
+
+    def test_29_new_investigations_saffire2_slice_bre(self):
+        """Verify SAFFIRE-II (PSI-99), SLICE (PSI-71), and ACME-BRE (PSI-101) observations and comparison compatibility."""
+        from app.services.comparison import get_comparison_service
+        from app.database import get_db_connection
+        service = get_comparison_service()
+
+        # 1. SAFFIRE-I (PSI-98) & SAFFIRE-II (PSI-99) comparison
+        saffire_comp = service.compare_investigations(["PSI-98", "PSI-99"])
+        self.assertTrue(saffire_comp["is_valid_comparison"])
+        saffire_vars = [v["variable_name"] for v in saffire_comp["variables_analysis"]]
+        self.assertIn("Flame Spread Rate (V_f)", saffire_vars)
+
+        # 2. ACME-CLD (PSI-107) & SLICE (PSI-71) comparison
+        gas_comp = service.compare_investigations(["PSI-107", "PSI-71"])
+        self.assertTrue(gas_comp["is_valid_comparison"])
+        gas_vars = [v["variable_name"] for v in gas_comp["variables_analysis"]]
+        self.assertIn("Gas Jet Flame Structure & Soot Inception", gas_vars)
+
+        # 3. Verify observation counts in DB
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute("SELECT count(*) FROM observations WHERE investigation_id = 'PSI-99';")
+        self.assertEqual(cur.fetchone()[0], 20)
+        cur.execute("SELECT count(*) FROM observations WHERE investigation_id = 'PSI-71';")
+        self.assertEqual(cur.fetchone()[0], 22)
+        cur.execute("SELECT count(*) FROM observations WHERE investigation_id = 'PSI-101';")
+        self.assertEqual(cur.fetchone()[0], 24)
         conn.close()
 
 if __name__ == "__main__":

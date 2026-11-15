@@ -1,0 +1,25 @@
+run_id,fuel_type,burner_diameter_mm,burning_mass_flux_mg_cm2_s,ambient_o2_percent,pressure_kpa,surface_heat_loss_pct,peak_temp_c,outcome
+BRE-01,Ethylene (C2H4),25.0,1.85,21.0,101.3,32.5,920.0,Steady Burning
+BRE-02,Ethylene (C2H4),25.0,1.40,21.0,101.3,38.0,865.0,Low Flux Burning
+BRE-03,Ethylene (C2H4),25.0,0.95,21.0,101.3,46.5,780.0,Near Extinction
+BRE-04,Ethylene (C2H4),25.0,0.65,21.0,101.3,58.0,610.0,Radiative Extinction
+BRE-05,Ethylene (C2H4),50.0,2.10,21.0,101.3,28.0,960.0,Large Disc Steady
+BRE-06,Ethylene (C2H4),50.0,1.25,21.0,101.3,42.0,815.0,Large Disc Low Flux
+BRE-07,Ethylene (C2H4),50.0,0.70,21.0,101.3,54.5,670.0,Radiative Extinction
+BRE-08,Methane (CH4),25.0,1.55,21.0,101.3,34.0,875.0,Steady Methane
+BRE-09,Methane (CH4),25.0,1.10,21.0,101.3,41.5,790.0,Low Flux Methane
+BRE-10,Methane (CH4),25.0,0.75,21.0,101.3,52.0,685.0,Near Extinction
+BRE-11,Methane (CH4),25.0,0.50,21.0,101.3,64.0,540.0,Quenching Extinction
+BRE-12,Methane (CH4),50.0,1.80,21.0,101.3,30.5,910.0,Large Methane Steady
+BRE-13,Methane (CH4),50.0,0.90,21.0,101.3,48.0,730.0,Large Methane Low Flux
+BRE-14,Methane (CH4),50.0,0.55,21.0,101.3,61.0,590.0,Radiative Extinction
+BRE-15,Propane (C3H8),25.0,1.95,21.0,101.3,31.0,935.0,Steady Propane
+BRE-16,Propane (C3H8),25.0,1.30,21.0,101.3,39.5,850.0,Low Flux Propane
+BRE-17,Propane (C3H8),25.0,0.80,21.0,101.3,49.0,740.0,Near Extinction
+BRE-18,Propane (C3H8),25.0,0.55,21.0,101.3,60.5,580.0,Radiative Extinction
+BRE-19,Ethylene (C2H4),25.0,1.50,18.0,101.3,44.0,810.0,Reduced O2 Burning
+BRE-20,Ethylene (C2H4),25.0,1.00,18.0,101.3,53.5,705.0,Early Extinction
+BRE-21,Ethylene (C2H4),25.0,1.50,28.0,101.3,24.0,1040.0,Elevated O2 Robust
+BRE-22,Ethylene (C2H4),25.0,0.55,28.0,101.3,45.0,780.0,Extended Flammability
+BRE-23,Methane (CH4),25.0,1.20,24.0,70.0,38.0,840.0,Exploration Atmosphere
+BRE-24,Methane (CH4),25.0,0.60,24.0,70.0,56.0,620.0,Extinction at 70 kPa

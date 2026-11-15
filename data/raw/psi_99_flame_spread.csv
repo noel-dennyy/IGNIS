@@ -1,0 +1,21 @@
+test_id,sample_material,o2_concentration_pct,pressure_kpa,airflow_velocity_cm_s,flame_spread_rate_mm_s,radiometer_heat_flux_kw_m2,tc_peak_temp_c,flame_status
+SAFFIRE-2-01,SIBAL Fabric (Card 1),21.0,101.3,20.0,3.45,5.12,820.5,Steady Spread
+SAFFIRE-2-02,SIBAL Fabric (Card 1),23.5,101.3,20.0,4.12,6.05,865.2,Accelerating Spread
+SAFFIRE-2-03,SIBAL Fabric (Card 1),26.0,101.3,20.0,4.89,7.18,912.4,Intense Spread
+SAFFIRE-2-04,SIBAL Fabric (Card 1),28.0,101.3,20.0,5.62,8.45,955.0,Peak Spread
+SAFFIRE-2-05,Nomex HT90-40 (Card 2),21.0,101.3,20.0,0.00,0.45,210.0,Extinction (Self-Extinguished)
+SAFFIRE-2-06,Nomex HT90-40 (Card 2),24.0,101.3,20.0,0.00,0.85,285.0,Extinction (Below LOI)
+SAFFIRE-2-07,Nomex HT90-40 (Card 2),26.5,101.3,20.0,0.85,2.15,580.0,Marginal Spread
+SAFFIRE-2-08,Nomex HT90-40 (Card 2),28.0,101.3,20.0,1.45,3.60,710.0,Sustained Spread
+SAFFIRE-2-09,PMMA Plate 50mm (Card 3),21.0,101.3,15.0,0.92,3.10,640.0,Steady Pyrolysis
+SAFFIRE-2-10,PMMA Plate 50mm (Card 3),21.0,101.3,25.0,1.38,4.25,720.0,Forced Spread
+SAFFIRE-2-11,PMMA Plate 50mm (Card 3),25.0,101.3,20.0,1.85,5.80,810.0,Enhanced Spread
+SAFFIRE-2-12,PMMA Plate 50mm (Card 3),28.0,101.3,20.0,2.35,7.10,890.0,Vigorous Spread
+SAFFIRE-2-13,Silicone Composite (Card 4),21.0,101.3,20.0,0.00,0.30,195.0,Non-Flammable Pass
+SAFFIRE-2-14,Silicone Composite (Card 4),25.0,101.3,20.0,0.40,1.20,440.0,Localized Charring
+SAFFIRE-2-15,Silicone Composite (Card 4),28.0,101.3,20.0,0.95,2.40,610.0,Surface Smoldering
+SAFFIRE-2-16,SIBAL Fabric (Card 5 - Opposed),21.0,101.3,10.0,1.65,3.20,740.0,Opposed Flow Spread
+SAFFIRE-2-17,SIBAL Fabric (Card 5 - Opposed),21.0,101.3,20.0,1.20,2.80,695.0,Convective Cooling
+SAFFIRE-2-18,SIBAL Fabric (Card 5 - Opposed),21.0,101.3,30.0,0.45,1.50,540.0,Near-Extinction Limit
+SAFFIRE-2-19,SIBAL Fabric (Card 5 - Opposed),21.0,101.3,35.0,0.00,0.60,320.0,Blowoff Extinction
+SAFFIRE-2-20,SIBAL Fabric (Card 6 - Low Pres),24.0,70.0,20.0,3.15,4.80,795.0,Reduced Pressure Spread
