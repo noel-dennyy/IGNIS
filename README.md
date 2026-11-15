@@ -23,10 +23,7 @@ IGNIS solves this by ingesting **8 verified NASA PSI investigations** (176+ expe
 
 ---
 
-## Live Deployment
 
-> **[YOU MUST ADD]** — Replace with your deployed URL if available.
-> `https://your-deployment-url.com`
 
 ---
 
@@ -215,7 +212,7 @@ All AI tools used in this project are fully disclosed in [`AI_USAGE.md`](AI_USAG
 
 ## Contributors
 
-> **[YOU MUST ADD]** — Replace with your actual team information.
+
 
 | Noel | Leader |
 |---|---|
